@@ -45,6 +45,12 @@ img.user-picture {
     cursor: pointer;
 }
 
+.list-inline {
+    a {
+        text-decoration: none;
+    }
+}
+
 .well-bg {
     background-position: bottom right;
     background-repeat: no-repeat;

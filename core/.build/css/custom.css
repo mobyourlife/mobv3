@@ -31,6 +31,9 @@ img.user-picture {
 .btn-language {
   cursor: pointer; }
 
+.list-inline a {
+  text-decoration: none; }
+
 .well-bg {
   background-position: bottom right;
   background-repeat: no-repeat; }

@@ -5,6 +5,11 @@
         "view engine": "js",
         "views": "path:./.build/templates"
     },
+    
+    "database": {
+        "host": "localhost",
+        "database": "MobYourLife"
+    },
 
     "view engines": {
         "js": {

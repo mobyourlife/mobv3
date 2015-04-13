@@ -2,6 +2,10 @@
 
 {<body}
     <div class="row">
+        <ul class="breadcrumb">
+            <li><a href="/">Mob Your Life</a></li>
+            <li class="active">Relatórios</li>
+        </ul>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="well well-bg well-chart">
                 <h1>2.400</h1>
