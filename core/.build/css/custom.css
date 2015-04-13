@@ -1,0 +1,48 @@
+.fa-fw {
+  width: 2em; }
+
+a.navbar-brand > img {
+  margin-top: -4px; }
+
+.admin-top-menu {
+  line-height: 48px; }
+
+img.user-picture {
+  width: 48px;
+  height: 48px;
+  margin-right: 5px;
+  border: 2px solid #f5f5f5; }
+
+.row-brand {
+  margin-bottom: 20px; }
+
+#top-navbar {
+  display: none; }
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 40px; }
+  #top-navbar {
+    display: inline; } }
+
+.no-deco {
+  text-decoration: none !important; }
+
+.btn-language {
+  cursor: pointer; }
+
+.well-bg {
+  background-position: bottom right;
+  background-repeat: no-repeat; }
+
+.well-users {
+  background-image: url('/img/well-users.png'); }
+
+.well-globe {
+  background-image: url('/img/well-globe.png'); }
+
+.well-chart {
+  background-image: url('/img/well-chart.png'); }
+
+.well-cash {
+  background-image: url('/img/well-cash.png'); }
