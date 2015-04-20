@@ -62,6 +62,29 @@ img.user-picture {
   .alert.url a:hover {
     text-decoration: underline; }
 
+ul.palette {
+  list-style-type: none;
+  margin-top: 8px;
+  margin-left: -16px; }
+  ul.palette > li {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    margin: 4px;
+    border: 1px solid #000; }
+    ul.palette > li.white {
+      background-color: #ffffff; }
+    ul.palette > li.silver {
+      background-color: #f0f0f0; }
+    ul.palette > li.black {
+      background-color: #000000; }
+    ul.palette > li.red {
+      background-color: #ff0000; }
+    ul.palette > li.green {
+      background-color: #00ff00; }
+    ul.palette > li.blue {
+      background-color: #0000ff; }
+
 /* process steps list */
 .stepwizard-step p {
   margin-top: 10px; }

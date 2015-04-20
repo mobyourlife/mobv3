@@ -91,6 +91,27 @@ img.user-picture {
     }
 }
 
+ul.palette {
+    list-style-type: none;
+    margin-top: 8px;
+    margin-left: -16px;
+    
+    & > li {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        margin: 4px;
+        border: 1px solid #000;
+        
+        &.white { background-color: #ffffff; }
+        &.silver { background-color: #f0f0f0; }
+        &.black { background-color: #000000; }
+        &.red { background-color: #ff0000; }
+        &.green { background-color: #00ff00; }
+        &.blue { background-color: #0000ff; }
+    }
+}
+
 /* process steps list */
 
 .stepwizard-step p {
