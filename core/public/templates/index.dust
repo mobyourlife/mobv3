@@ -64,7 +64,7 @@
                     </li>
                     <li>
                         <a class="no-deco btn-language" data-toggle="dropdown" aria-expanded="false">
-                            <i class="flag-icon flag-icon-br"></i>
+                            <i class="flag-icon flag-icon-{country}"></i>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/language/en-UK"><i class="flag-icon flag-icon-gb"></i> <span>English</span></a></li>
