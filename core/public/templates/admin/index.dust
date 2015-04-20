@@ -6,6 +6,18 @@
             <li><a href="/">Mob Your Life</a></li>
             <li class="active">Meus sites</li>
         </ul>
+        <div class="row">
+            <div class=" col-xs-12">
+                <ul class="list-inline">
+                    <li>
+                        <a href="/new-site" class="btn btn-primary btn-lg">
+                            <i class="fa fa-plus fa-fw"></i>
+                            <span>&nbsp;Criar novo site</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         {#sites}
             <div class="well">
                 <div class="media">
@@ -16,6 +28,15 @@
                         <p>
                             <strong>{facebook.name}</strong><br/>
                             <ul class="list-inline">
+                                <li>
+                                    <a href="http://{_id}.meusitemob.com.br" target="_blank">
+                                        <i class="fa fa-external-link fa-fw"></i>
+                                        <span>&nbsp;Visualizar site</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    &middot;
+                                </li>
                                 <li>
                                     <a href="/admin/{_id}">
                                         <i class="fa fa-cog fa-fw"></i>
