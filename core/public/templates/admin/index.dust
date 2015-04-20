@@ -21,8 +21,8 @@
                     <li ng-class="{'active': $root.activeController == 'BillingController'}"><a href="/admin/#/billing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-class="{'active': $root.activeController == 'FaqController'}"><a href="/support/#/faq"><i class="fa fa-question fa-fw"></i> {@pre type="content" key="index.faq"/}</a></li>
-                    <li ng-class="{'active': $root.activeController == 'SupportController'}"><a href="/support/#/support"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="index.support"/}</a></li>
+                    <li ng-class="{'active': $root.activeController == 'FaqController'}"><a href="/admin/#/faq"><i class="fa fa-question fa-fw"></i> {@pre type="content" key="index.faq"/}</a></li>
+                    <li ng-class="{'active': $root.activeController == 'SupportController'}"><a href="/#/admin/support"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="index.support"/}</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Pesquisar...">
@@ -40,13 +40,13 @@
                     </a>
                 </div>
                 <ul class="nav nav-sidebar">
-                    <li ng-class="{'active': $root.activeController == 'MySitesController'}"><a href="/admin/#/"><i class="fa fa-dashboard fa-fw"></i> {@pre type="content" key="index.my-sites"/} <span class="sr-only">{@pre type="content" key="index.sr-current-page"/}</span></a></li>
-                    <li ng-class="{'active': $root.activeController == 'DomainsController'}"><a href="/admin/#/domains"><i class="fa fa-globe fa-fw"></i> {@pre type="content" key="index.domains"/}</a></li>
-                    <li ng-class="{'active': $root.activeController == 'BillingController'}"><a href="/admin/#/billing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
+                    <li ng-class="{'active': $root.activeController == 'MySitesController'}"><a ng-href="/admin/#/"><i class="fa fa-dashboard fa-fw"></i> {@pre type="content" key="index.my-sites"/} <span class="sr-only">{@pre type="content" key="index.sr-current-page"/}</span></a></li>
+                    <li ng-class="{'active': $root.activeController == 'DomainsController'}"><a ng-href="/admin/#/domains"><i class="fa fa-globe fa-fw"></i> {@pre type="content" key="index.domains"/}</a></li>
+                    <li ng-class="{'active': $root.activeController == 'BillingController'}"><a ng-href="/admin/#/billing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
                 </ul>
                 <ul class="nav nav-sidebar">
-                    <li ng-class="{'active': $root.activeController == 'FaqController'}"><a href="/admin/#/faq"><i class="fa fa-question fa-fw"></i> {@pre type="content" key="index.faq"/}</a></li>
-                    <li ng-class="{'active': $root.activeController == 'SupportController'}"><a href="/admin/#/support"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="index.support"/}</a></li>
+                    <li ng-class="{'active': $root.activeController == 'FaqController'}"><a ng-href="/admin/#/faq"><i class="fa fa-question fa-fw"></i> {@pre type="content" key="index.faq"/}</a></li>
+                    <li ng-class="{'active': $root.activeController == 'SupportController'}"><a ng-href="/admin/#/support"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="index.support"/}</a></li>
                 </ul>
             </ul>
         </div>
@@ -67,9 +67,9 @@
                                             <span>&nbsp;</span>
                                             <i class="flag-icon flag-icon-{country}"></i>
                                         </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="/language/en-UK"><i class="flag-icon flag-icon-gb"></i> <span>English</span></a></li>
-                                            <li><a href="/language/pt-BR"><i class="flag-icon flag-icon-br"></i> <span>Português</span></a></li>
+                                        <ul class="dropdown-menu language" role="menu">
+                                            <li><a ng-click="language('en-UK');"><i class="flag-icon flag-icon-gb"></i> <span>English</span></a></li>
+                                            <li><a ng-click="language('pt-BR');"><i class="flag-icon flag-icon-br"></i> <span>Português</span></a></li>
                                         </ul>
                                     </div>
                                 </li>

@@ -36,7 +36,7 @@
                             &middot;
                         </li>
                         <li>
-                            <a ng-href="/admin\/##s._id##">
+                            <a ng-href="/admin/#/management/##s._id##">
                                 <i class="fa fa-cog fa-fw"></i>
                                 <span>&nbsp;</span>
                                 <span>{@pre type="content" key="my-sites.manage"/}</span>

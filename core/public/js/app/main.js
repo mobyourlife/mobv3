@@ -1,10 +1,13 @@
 var app = angular.module('MobYourLife', ['MobYourLife.Controllers', 'ngRoute']);
 
-app.config(function($routeProvider, $interpolateProvider) {
+app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
     $routeProvider.
         when('/', {
-            templateUrl: '/admin/partials/my-sites',
+            templateUrl: '/admin/partials/my-sites/index',
             controller: 'MySitesController'
+        }).when('/management/:pageid', {
+            templateUrl: '/admin/partials/my-sites/management',
+            controller: 'ManagementController'
         }).when('/domains', {
             templateUrl: '/admin/partials/domains',
             controller: 'DomainsController'
@@ -19,8 +22,14 @@ app.config(function($routeProvider, $interpolateProvider) {
     $interpolateProvider.endSymbol('##');
 });
 
-app.run(function ($rootScope) {
+app.run(function ($rootScope, $http) {
     $rootScope.$on('$routeChangeSuccess', function (ev, data) {
         $rootScope.activeController = data.controller;
     })
+    
+    $rootScope.language = function(locale) {
+        $http.get('/language/' + locale + '/noredir').success(function(data) {
+            location.reload();
+        });
+    }
 });
