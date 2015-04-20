@@ -36,7 +36,6 @@
     },
     
     
-
     "middleware": {
 
         "static": {
@@ -80,7 +79,15 @@
                 "arguments": [ "errors/500" ]
             }
         }
-
+    
+    
+        ,"locale": {
+            "priority": 95,
+            "enabled": true,
+            "module": {
+                "name": "path:./lib/locale"
+            }
+        }
         
     }
 }

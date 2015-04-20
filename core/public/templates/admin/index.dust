@@ -65,11 +65,11 @@
                                         <a class="no-deco btn-language" data-toggle="dropdown" aria-expanded="false">
                                             <span>{@pre type="content" key="language"/}</span>
                                             <span>&nbsp;</span>
-                                            <i class="flag-icon flag-icon-br"></i>
+                                            <i class="flag-icon flag-icon-{country}"></i>
                                         </a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="/locale/en"><i class="flag-icon flag-icon-gb"></i> <span>English</span></a></li>
-                                            <li><a href="/locale/pt"><i class="flag-icon flag-icon-br"></i> <span>Português</span></a></li>
+                                            <li><a href="/language/en-UK"><i class="flag-icon flag-icon-gb"></i> <span>English</span></a></li>
+                                            <li><a href="/language/pt-BR"><i class="flag-icon flag-icon-br"></i> <span>Português</span></a></li>
                                         </ul>
                                     </div>
                                 </li>

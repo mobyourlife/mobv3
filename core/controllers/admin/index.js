@@ -2,6 +2,17 @@
 
 var Fanpage = require('../../models/fanpage');
 
+var getCountryFlag = function(language) {
+    switch(language) {
+        case 'pt-BR':
+            return 'br';
+
+        case 'en-UK':
+        default:
+            return 'gb';
+    }
+}
+
 module.exports = function (router) {
 
     router.get('/', function (req, res) {
@@ -14,6 +25,8 @@ module.exports = function (router) {
             
             var model = {
                 active: 'dashboard',
+                language: req.cookies.locale,
+                country: getCountryFlag(req.cookies.locale),
                 sites: rows
             };
             
