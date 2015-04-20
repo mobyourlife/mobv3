@@ -3,7 +3,7 @@
 
 module.exports = function (router) {
 
-    router.get('/:locale/:noredir', function (req, res) {
+    router.get('/:locale/:noredir?', function (req, res) {
         
         res.cookie('locale', req.params.locale);
         
