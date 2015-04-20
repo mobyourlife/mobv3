@@ -51,10 +51,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li {@eq key=active value="dashboard"}class="active"{/eq}><a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Meus sites <span class="sr-only">(página atual)</span></a></li>
-                    <li {@eq key=active value="reports"}class="active"{/eq}><a href="/admin/reports"><i class="fa fa-bar-chart-o fa-fw"></i> Relatórios</a></li>
                     <li {@eq key=active value="domains"}class="active"{/eq}><a href="/admin/domains"><i class="fa fa-globe fa-fw"></i> Domínios</a></li>
-                    <li {@eq key=active value="email-accounts"}class="active"{/eq}><a href="/admin/email-accounts"><i class="fa fa-envelope-o fa-fw"></i> Contas de e-mail</a></li>
-                    <li {@eq key=active value="email-marketing"}class="active"{/eq}><a href="/admin/email-marketing"><i class="fa fa-bullhorn fa-fw"></i> Email marketing</a></li>
                     <li {@eq key=active value="financing"}class="active"{/eq}><a href="/admin/financing"><i class="fa fa-dollar fa-fw"></i> Financeiro</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -78,10 +75,7 @@
                 </div>
                 <ul class="nav nav-sidebar">
                     <li {@eq key=active value="dashboard"}class="active"{/eq}><a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Meus sites <span class="sr-only">(página atual)</span></a></li>
-                    <li {@eq key=active value="reports"}class="active"{/eq}><a href="/admin/reports"><i class="fa fa-bar-chart-o fa-fw"></i> Relatórios</a></li>
                     <li {@eq key=active value="domains"}class="active"{/eq}><a href="/admin/domains"><i class="fa fa-globe fa-fw"></i> Domínios</a></li>
-                    <li {@eq key=active value="email-accounts"}class="active"{/eq}><a href="/admin/email-accounts"><i class="fa fa-envelope-o fa-fw"></i> Contas de e-mail</a></li>
-                    <li {@eq key=active value="email-marketing"}class="active"{/eq}><a href="/admin/email-marketing"><i class="fa fa-bullhorn fa-fw"></i> Email marketing</a></li>
                     <li {@eq key=active value="financing"}class="active"{/eq}><a href="/admin/financing"><i class="fa fa-dollar fa-fw"></i> Financeiro</a></li>
                 </ul>
                 <ul class="nav nav-sidebar">
@@ -108,13 +102,8 @@
                                             <i class="flag-icon flag-icon-br"></i>
                                         </a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="/locale/de"><i class="flag-icon flag-icon-de"></i> <span>Deutsch</span></a></li>
                                             <li><a href="/locale/en"><i class="flag-icon flag-icon-gb"></i> <span>English</span></a></li>
-                                            <li><a href="/locale/es"><i class="flag-icon flag-icon-es"></i> <span>Español</span></a></li>
-                                            <li><a href="/locale/fr"><i class="flag-icon flag-icon-fr"></i> <span>Français</span></a></li>
                                             <li><a href="/locale/pt"><i class="flag-icon flag-icon-br"></i> <span>Português</span></a></li>
-                                            <li><a href="/locale/se"><i class="flag-icon flag-icon-se"></i> <span>Svenska</span></a></li>
-                                            <li><a href="/locale/zn"><i class="flag-icon flag-icon-cn"></i> <span>中文</span></a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -124,6 +113,7 @@
                                 <li>
                                     <a class="no-deco" href="/logout">
                                         <span>Sair</span>
+                                        <span>&nbsp;</span>
                                         <i class="fa fa-sign-out fa-fw"></i>
                                     </a>
                                 </li>
