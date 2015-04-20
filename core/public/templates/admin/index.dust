@@ -65,7 +65,7 @@
                                         <a class="no-deco btn-language" data-toggle="dropdown" aria-expanded="false">
                                             <span>{@pre type="content" key="index.language"/}</span>
                                             <span>&nbsp;</span>
-                                            <i class="flag-icon flag-icon-{country}"></i>
+                                            <i class="flag-icon flag-icon-{flag}"></i>
                                         </a>
                                         <ul class="dropdown-menu language" role="menu">
                                             <li><a ng-click="language('en-UK');"><i class="flag-icon flag-icon-gb"></i> <span>English</span></a></li>

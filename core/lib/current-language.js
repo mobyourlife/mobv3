@@ -1,5 +1,16 @@
 'use strict';
 
+var getCountryCode = function(language) {
+    switch(language) {
+            case 'pt-BR':
+                return 'pt';
+            
+            case 'en-UK':
+            default:
+                return 'en';
+    }
+}
+
 var getCountryFlag = function(language) {
     switch(language) {
         case 'pt-BR':
@@ -14,6 +25,7 @@ var getCountryFlag = function(language) {
 module.exports = function(req) {
     return {
         language: req.cookies.locale,
-        country: getCountryFlag(req.cookies.locale)
+        country: getCountryCode(req.cookies.locale),
+        flag: getCountryFlag(req.cookies.locale)
     };
 };
