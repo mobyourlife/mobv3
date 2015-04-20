@@ -17,21 +17,12 @@ module.exports = function (router) {
 
     router.get('/', function (req, res) {
         
-        Fanpage.find({}).sort({ 'facebook.name': 1 }).exec(function(err, rows) {
-            
-            if (err) {
-                console.log(err);
-            }
-            
-            var model = {
-                active: 'dashboard',
-                language: req.cookies.locale,
-                country: getCountryFlag(req.cookies.locale),
-                sites: rows
-            };
-            
-            res.render('admin', model);
-        });
+        var model = {
+            language: req.cookies.locale,
+            country: getCountryFlag(req.cookies.locale)
+        };
+
+        res.render('admin', model);
         
     });
     

@@ -15,8 +15,8 @@ app.config(function($routeProvider, $interpolateProvider) {
             redirectTo: '/'
         });
     
-    $interpolateProvider.startSymbol('//');
-    $interpolateProvider.endSymbol('//');
+    $interpolateProvider.startSymbol('##');
+    $interpolateProvider.endSymbol('##');
 });
 
 app.run(function ($rootScope) {

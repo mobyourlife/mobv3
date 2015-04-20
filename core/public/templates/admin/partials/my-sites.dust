@@ -1,7 +1,7 @@
 <div class="row">
     <ul class="breadcrumb">
         <li><a href="/">Mob Your Life</a></li>
-        <li class="active">{@pre type="content" key="my-sites"/}</li>
+        <li class="active">{@pre type="content" key="my-sites.my-sites"/}</li>
     </ul>
     <div class="row">
         <div class=" col-xs-12">
@@ -16,37 +16,35 @@
             </ul>
         </div>
     </div>
-    {#sites}
-        <div class="well">
-            <div class="media">
-                <div class="media-left">
-                    <img class="media-object" src="{facebook.picture}" alt="{facebook.name}" />
-                </div>
-                <div class="media-body">
-                    <p>
-                        <strong>{facebook.name}</strong><br/>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="http://{_id}.meusitemob.com.br" target="_blank">
-                                    <i class="fa fa-external-link fa-fw"></i>
-                                    <span>&nbsp;</span>
-                                    <span>{@pre type="content" key="my-sites.view-site"/}</span>
-                                </a>
-                            </li>
-                            <li>
-                                &middot;
-                            </li>
-                            <li>
-                                <a href="/admin/{_id}">
-                                    <i class="fa fa-cog fa-fw"></i>
-                                    <span>&nbsp;</span>
-                                    <span>{@pre type="content" key="my-sites.manage"/}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </p>
-                </div>
+    <div class="well" ng-repeat="s in data.sites">
+        <div class="media">
+            <div class="media-left">
+                <img class="media-object" ng-src="##s.facebook.picture##" alt="##s.facebook.name##" />
+            </div>
+            <div class="media-body">
+                <p>
+                    <strong>##s.facebook.name##</strong><br/>
+                    <ul class="list-inline">
+                        <li>
+                            <a ng-href="http://##s._id##.meusitemob.com.br" target="_blank">
+                                <i class="fa fa-external-link fa-fw"></i>
+                                <span>&nbsp;</span>
+                                <span>{@pre type="content" key="my-sites.view-site"/}</span>
+                            </a>
+                        </li>
+                        <li>
+                            &middot;
+                        </li>
+                        <li>
+                            <a ng-href="/admin\/##s._id##">
+                                <i class="fa fa-cog fa-fw"></i>
+                                <span>&nbsp;</span>
+                                <span>{@pre type="content" key="my-sites.manage"/}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </p>
             </div>
         </div>
-    {/sites}
+    </div>
 </div>
