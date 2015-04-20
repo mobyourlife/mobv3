@@ -1,0 +1,6 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/">Mob Your Life</a></li>
+        <li class="active">{@pre type="content" key="domains.domains"/}</li>
+    </ul>
+</div>

@@ -8,7 +8,7 @@ app.config(function($routeProvider, $interpolateProvider) {
         }).when('/domains', {
             templateUrl: '/admin/partials/domains',
             controller: 'DomainsController'
-        }).when('/planos', {
+        }).when('/billing', {
             templateUrl: '/admin/partials/billing',
             controller: 'BillingController'
         }).otherwise( {

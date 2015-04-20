@@ -1,3 +1,6 @@
+body {
+  overflow-y: scroll; }
+
 .fa-fw {
   width: 2em; }
 
