@@ -1,0 +1,52 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/">Mob Your Life</a></li>
+        <li class="active">{@pre type="content" key="my-sites"/}</li>
+    </ul>
+    <div class="row">
+        <div class=" col-xs-12">
+            <ul class="list-inline">
+                <li>
+                    <a href="/new-site" class="btn btn-primary btn-lg">
+                        <i class="fa fa-plus fa-fw"></i>
+                        <span>&nbsp;</span>
+                        <span>{@pre type="content" key="my-sites.create-new-site"/}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {#sites}
+        <div class="well">
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" src="{facebook.picture}" alt="{facebook.name}" />
+                </div>
+                <div class="media-body">
+                    <p>
+                        <strong>{facebook.name}</strong><br/>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="http://{_id}.meusitemob.com.br" target="_blank">
+                                    <i class="fa fa-external-link fa-fw"></i>
+                                    <span>&nbsp;</span>
+                                    <span>{@pre type="content" key="my-sites.view-site"/}</span>
+                                </a>
+                            </li>
+                            <li>
+                                &middot;
+                            </li>
+                            <li>
+                                <a href="/admin/{_id}">
+                                    <i class="fa fa-cog fa-fw"></i>
+                                    <span>&nbsp;</span>
+                                    <span>{@pre type="content" key="my-sites.manage"/}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {/sites}
+</div>

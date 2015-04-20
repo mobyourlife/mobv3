@@ -16,13 +16,13 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li {@eq key=active value="dashboard"}class="active"{/eq}><a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Meus sites <span class="sr-only">(página atual)</span></a></li>
-                    <li {@eq key=active value="domains"}class="active"{/eq}><a href="/admin/domains"><i class="fa fa-globe fa-fw"></i> Domínios</a></li>
-                    <li {@eq key=active value="financing"}class="active"{/eq}><a href="/admin/financing"><i class="fa fa-dollar fa-fw"></i> Financeiro</a></li>
+                    <li {@eq key=active value="dashboard"}class="active"{/eq}><a href="/admin"><i class="fa fa-dashboard fa-fw"></i> {@pre type="content" key="index.my-sites"/} <span class="sr-only">{@pre type="content" key="index.sr-current-page"/}</span></a></li>
+                    <li {@eq key=active value="domains"}class="active"{/eq}><a href="/admin/domains"><i class="fa fa-globe fa-fw"></i> {@pre type="content" key="index.domains"/}</a></li>
+                    <li {@eq key=active value="financing"}class="active"{/eq}><a href="/admin/financing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li {@eq key=active value="faq"}class="active"{/eq}><a href="/support/faq"><i class="fa fa-question fa-fw"></i> Dúvidas frequentes</a></li>
-                    <li {@eq key=active value="tickets"}class="active"{/eq}><a href="/support/tickets"><i class="fa fa-life-buoy fa-fw"></i> Suporte técnico</a></li>
+                    <li {@eq key=active value="faq"}class="active"{/eq}><a href="/support/faq"><i class="fa fa-question fa-fw"></i> {@pre type="content" key="index.faq"/}</a></li>
+                    <li {@eq key=active value="tickets"}class="active"{/eq}><a href="/support/tickets"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="index.support"/}</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Pesquisar...">
@@ -40,13 +40,13 @@
                     </a>
                 </div>
                 <ul class="nav nav-sidebar">
-                    <li {@eq key=active value="dashboard"}class="active"{/eq}><a href="/admin"><i class="fa fa-dashboard fa-fw"></i> {@pre type="content" key="my-sites"/} <span class="sr-only">(página atual)</span></a></li>
-                    <li {@eq key=active value="domains"}class="active"{/eq}><a href="/admin/domains"><i class="fa fa-globe fa-fw"></i> {@pre type="content" key="domains"/}</a></li>
-                    <li {@eq key=active value="financing"}class="active"{/eq}><a href="/admin/financing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="billing"/}</a></li>
+                    <li {@eq key=active value="dashboard"}class="active"{/eq}><a href="/admin"><i class="fa fa-dashboard fa-fw"></i> {@pre type="content" key="index.my-sites"/} <span class="sr-only">{@pre type="content" key="index.sr-current-page"/}</span></a></li>
+                    <li {@eq key=active value="domains"}class="active"{/eq}><a href="/admin/domains"><i class="fa fa-globe fa-fw"></i> {@pre type="content" key="index.domains"/}</a></li>
+                    <li {@eq key=active value="financing"}class="active"{/eq}><a href="/admin/financing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
                 </ul>
                 <ul class="nav nav-sidebar">
-                    <li {@eq key=active value="faq"}class="active"{/eq}><a href="/support/faq"><i class="fa fa-question fa-fw"></i> {@pre type="content" key="faq"/}</a></li>
-                    <li {@eq key=active value="tickets"}class="active"{/eq}><a href="/support/tickets"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="support"/}</a></li>
+                    <li {@eq key=active value="faq"}class="active"{/eq}><a href="/support/faq"><i class="fa fa-question fa-fw"></i> {@pre type="content" key="index.faq"/}</a></li>
+                    <li {@eq key=active value="tickets"}class="active"{/eq}><a href="/support/tickets"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="index.support"/}</a></li>
                 </ul>
             </ul>
         </div>
@@ -63,7 +63,7 @@
                                 <li>
                                     <div class="btn-group">
                                         <a class="no-deco btn-language" data-toggle="dropdown" aria-expanded="false">
-                                            <span>{@pre type="content" key="language"/}</span>
+                                            <span>{@pre type="content" key="index.language"/}</span>
                                             <span>&nbsp;</span>
                                             <i class="flag-icon flag-icon-{country}"></i>
                                         </a>
@@ -78,7 +78,7 @@
                                 </li>
                                 <li>
                                     <a class="no-deco" href="/logout">
-                                        <span>{@pre type="content" key="logout"/}</span>
+                                        <span>{@pre type="content" key="index.logout"/}</span>
                                         <span>&nbsp;</span>
                                         <i class="fa fa-sign-out fa-fw"></i>
                                     </a>
@@ -90,58 +90,7 @@
 
                 <hr/>
 
-                <div class="row">
-                    <ul class="breadcrumb">
-                        <li><a href="/">Mob Your Life</a></li>
-                        <li class="active">{@pre type="content" key="my-sites"/}</li>
-                    </ul>
-                    <div class="row">
-                        <div class=" col-xs-12">
-                            <ul class="list-inline">
-                                <li>
-                                    <a href="/new-site" class="btn btn-primary btn-lg">
-                                        <i class="fa fa-plus fa-fw"></i>
-                                        <span>&nbsp;</span>
-                                        <span>{@pre type="content" key="create-new-site"/}</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    {#sites}
-                        <div class="well">
-                            <div class="media">
-                                <div class="media-left">
-                                    <img class="media-object" src="{facebook.picture}" alt="{facebook.name}" />
-                                </div>
-                                <div class="media-body">
-                                    <p>
-                                        <strong>{facebook.name}</strong><br/>
-                                        <ul class="list-inline">
-                                            <li>
-                                                <a href="http://{_id}.meusitemob.com.br" target="_blank">
-                                                    <i class="fa fa-external-link fa-fw"></i>
-                                                    <span>&nbsp;</span>
-                                                    <span>{@pre type="content" key="view-site"/}</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                &middot;
-                                            </li>
-                                            <li>
-                                                <a href="/admin/{_id}">
-                                                    <i class="fa fa-cog fa-fw"></i>
-                                                    <span>&nbsp;</span>
-                                                    <span>{@pre type="content" key="manage"/}</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    {/sites}
-                </div>
+                <div ng-view></div>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" ng-app="MobYourLife">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,6 +42,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <!-- AngularJS app -->
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-route.min.js"></script>
+    <script src="/js/app/controllers.js"></script>
+    <script src="/js/app/main.js"></script>
     <!--<script data-main="/js/app" src="/components/requirejs/require.js"></script>-->
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
