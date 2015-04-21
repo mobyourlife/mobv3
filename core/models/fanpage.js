@@ -122,7 +122,14 @@ var fanpageSchema = mongoose.Schema({
     },
     video_count: Number,
     url: String,
-    wizard: Boolean
+    wizard: {
+        current_step: Number,
+        site_created: Boolean,
+        personal_touch: Boolean,
+        share_it: Boolean,
+        payment: Boolean,
+        finished: Boolean
+    }
 });
 
 // export user model

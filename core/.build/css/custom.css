@@ -53,7 +53,7 @@ img.user-picture {
 .well-cash {
   background-image: url('/img/well-cash.png'); }
 
-.language a {
+.language a, .btn-ng {
   cursor: pointer; }
 
 .alert.url a {

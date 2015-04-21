@@ -7,9 +7,10 @@
     <form class="form-horizontal">
         <legend>{@pre type="content" key="domains.register-a-new-domain"/}</legend>
         <div class="input-group">
-                <input type="text" placeholder='{@pre type="content" key="domains.yourdomain-example"/}' ng-model="domainName" ng-change="loaded = false" class="form-control">
+            <label for="domainName" class="input-group-addon">{@pre type="content" key="domains.input-label"/}</label>
+            <input type="text" placeholder='{@pre type="content" key="domains.yourdomain-example"/}' id="domainName" ng-model="domainName" ng-change="loaded = false" class="form-control">
             <div class="input-group-btn">
-                <button ng-click="checkDomain()" class="btn btn-primary">{@pre type="content" key="domains.check-domain"/}</button>
+                <button ng-click="checkDomain()" class="btn btn-primary">{@pre type="content" key="domains.search-domain"/}</button>
             </div>
         </div>
     </form>

@@ -30,6 +30,12 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
         $rootScope.fanpageId = $scope.data._id;
         $rootScope.fanpageName = $scope.data.facebook.name;
     });
+    
+    $scope.nextStep = function() {
+        $scope.data.wizard = {
+            current_step: 2
+        };
+    }
 });
 
 app.controller('DomainsController', function($scope, $http) {
