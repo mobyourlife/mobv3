@@ -28,9 +28,9 @@
 
     <hr/>
     
-    <div class="container">
-        <div class="col-md-4 col-xs-12">
-            <img src="https://cdn3.iconfinder.com/data/icons/10con/512/space_rocket_startup_boost-256.png" alt="" class="img-responsive">
+    <div>
+        <div class="col-md-4 col-xs-12 text-center">
+            <img src="https://cdn3.iconfinder.com/data/icons/10con/512/space_rocket_startup_boost-256.png" alt='{@pre type="content" key="management.step-1-title"/}'>
         </div>
         <div class="col-md-8 col-xs-12">
             <h2>{@pre type="content" key="management.step-1-title"/}</h2>
@@ -45,11 +45,9 @@
         </div>
     </div>
     
-    <hr/>
-    
-    <div class="container">
-        <div class="col-md-4 col-xs-12">
-            <img src="https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/apps/icons.png" alt="" class="img-responsive">
+    <div ng-show="false">
+        <div class="col-md-4 col-xs-12 text-center">
+            <img src="https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/apps/icons.png" alt='{@pre type="content" key="management.step-2-title"/}'>
         </div>
         <div class="col-md-8 col-xs-12">
             <h2>{@pre type="content" key="management.step-2-title"/}</h2>
@@ -65,11 +63,9 @@
         </div>
     </div>
     
-    <hr/>
-    
-    <div class="container">
-        <div class="col-md-4 col-xs-12">
-            <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/bubbles-alt-256.png" alt="" class="img-responsive">
+    <div ng-show="false">
+        <div class="col-md-4 col-xs-12 text-center">
+            <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/bubbles-alt-256.png" alt='{@pre type="content" key="management.step-3-title"/}'>
         </div>
         <div class="col-md-8 col-xs-12">
             <h2>{@pre type="content" key="management.step-3-title"/}</h2>
@@ -77,11 +73,9 @@
         </div>
     </div>
     
-    <hr/>
-    
-    <div class="container">
-        <div class="col-md-4 col-xs-12">
-            <img src="https://cdn0.iconfinder.com/data/icons/ie_Financial_set/256/16.png" alt="" class="img-responsive">
+    <div ng-show="false">
+        <div class="col-md-4 col-xs-12 text-center">
+            <img src="https://cdn0.iconfinder.com/data/icons/ie_Financial_set/256/16.png" alt='{@pre type="content" key="management.step-4-title"/}'>
         </div>
         <div class="col-md-8 col-xs-12">
             <h2>{@pre type="content" key="management.step-4-title"/}</h2>
