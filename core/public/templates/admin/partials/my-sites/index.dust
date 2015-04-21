@@ -25,8 +25,9 @@
                 <p>
                     <strong>##s.facebook.name##</strong><br/>
                     <ul class="list-inline">
+                        {#s.wizard}
                         <li>
-                            <a ng-href="http://##s._id##.meusitemob.com.br" target="_blank">
+                            <a ng-href="http://##s.url##" target="_blank">
                                 <i class="fa fa-external-link fa-fw"></i>
                                 <span>&nbsp;</span>
                                 <span>{@pre type="content" key="my-sites.view-site"/}</span>
@@ -35,7 +36,6 @@
                         <li>
                             &middot;
                         </li>
-                        {#s.wizard}
                         <li>
                             <a ng-href="/admin/#/##s._id##/management">
                                 <i class="fa fa-cog fa-fw"></i>
