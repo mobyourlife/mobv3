@@ -7,18 +7,18 @@
     <div class="container">
         <div class="col-xs-12">
             <form class="form-horizontal">
-                <legend>Registre um novo domínio:</legend>
+                <legend>{@pre type="content" key="domains.register-a-new-domain"/}</legend>
                 <div class="input-group">
-                        <input type="text" placeholder="www.dominio.com.br" ng-model="domainName" ng-change="loaded = false" class="form-control">
+                        <input type="text" placeholder='{@pre type="content" key="domains.yourdomain-example"/}' ng-model="domainName" ng-change="loaded = false" class="form-control">
                     <div class="input-group-btn">
-                        <button ng-click="checkDomain()" class="btn btn-primary">Verificar domínio</button>
+                        <button ng-click="checkDomain()" class="btn btn-primary">{@pre type="content" key="domains.check-domain"/}</button>
                     </div>
                 </div>
             </form>
             
             <div class="alert" ng-show="loaded" ng-class="{ 'alert-success': available == true, 'alert-danger': available == false }">
-                <span ng-show="available">O domínio <strong>##domainName##</strong> está disponível! <a href="/admin/#/domains/register/##domainName##">Clique aqui para registrá-lo.</a></span>
-                <span ng-show="!available">O domínio <strong>##domainName##</strong> não está disponível! Por favor faça uma nova busca.</span>
+                <span ng-show="available">{@pre type="content" key="domains.name-is-available"/} <a href="/admin/#/domains/register/##domainName##">{@pre type="content" key="domains.click-here-to-register"/}</a></span>
+                <span ng-show="!available">{@pre type="content" key="domains.name-is-not-available"/}</span>
             </div>
         </div>
     </div>
