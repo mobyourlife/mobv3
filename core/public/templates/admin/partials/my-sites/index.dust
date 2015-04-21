@@ -35,13 +35,23 @@
                         <li>
                             &middot;
                         </li>
+                        {#s.wizard}
                         <li>
-                            <a ng-href="/admin/#/management/##s._id##">
+                            <a ng-href="/admin/#/##s._id##/management">
                                 <i class="fa fa-cog fa-fw"></i>
                                 <span>&nbsp;</span>
                                 <span>{@pre type="content" key="my-sites.manage"/}</span>
                             </a>
                         </li>
+                        {:else}
+                        <li>
+                            <a ng-href="/admin/#/##s._id##/wizard">
+                                <i class="fa fa-rocket fa-fw"></i>
+                                <span>&nbsp;</span>
+                                <span>{@pre type="content" key="my-sites.wizard"/}</span>
+                            </a>
+                        </li>
+                        {/s.wizard}
                     </ul>
                 </p>
             </div>

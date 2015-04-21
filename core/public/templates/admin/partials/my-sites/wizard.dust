@@ -1,0 +1,86 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/">Mob Your Life</a></li>
+        <li><a href="/admin/#/">{@pre type="content" key="wizard.my-sites"/}</a></li>
+        <li class="active">{@pre type="content" key="wizard.page-title"/}</li>
+    </ul>
+    
+    <div class="process">
+        <div class="process-row">
+            <div class="process-step">
+                <button type="button" class="btn btn-primary btn-circle" disabled="disabled"><i class="fa fa-check fa-3x"></i></button>
+                <p>{@pre type="content" key="wizard.step-1-site-created"/}</p>
+            </div>
+            <div class="process-step">
+                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-paint-brush fa-3x"></i></button>
+                <p>{@pre type="content" key="wizard.step-2-personal-touch"/}</p>
+            </div>
+            <div class="process-step">
+                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-thumbs-up fa-3x"></i></button>
+                <p>{@pre type="content" key="wizard.step-3-share-your-new-website"/}</p>
+            </div> 
+            <div class="process-step">
+                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-dollar fa-3x"></i></button>
+                <p>{@pre type="content" key="wizard.step-4-payment"/}</p>
+            </div> 
+        </div>
+    </div>
+
+    <hr/>
+    
+    <div>
+        <div class="col-md-4 col-xs-12 text-center">
+            <img src="https://cdn3.iconfinder.com/data/icons/10con/512/space_rocket_startup_boost-256.png" alt='{@pre type="content" key="wizard.step-1-title"/}'>
+        </div>
+        <div class="col-md-8 col-xs-12">
+            <h2>{@pre type="content" key="wizard.step-1-title"/}</h2>
+            <p>{@pre type="content" key="wizard.step-1-message-1"/}</p>
+            <div class="alert alert-success url">
+                <h3><a href="#" target="_blank">##data.url##</a></h3>
+            </div>
+            <p>{@pre type="content" key="wizard.step-1-message-2"/}</p>
+            <p>
+                <a href="#" class="btn btn-primary btn-lg">{@pre type="content" key="wizard.step-1-button-next"/} &raquo;</a>
+            </p>
+        </div>
+    </div>
+    
+    <div ng-show="false">
+        <div class="col-md-4 col-xs-12 text-center">
+            <img src="https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/apps/icons.png" alt='{@pre type="content" key="wizard.step-2-title"/}'>
+        </div>
+        <div class="col-md-8 col-xs-12">
+            <h2>{@pre type="content" key="wizard.step-2-title"/}</h2>
+            <label>{@pre type="content" key="wizard.step-2-pick-a-colour"/}</label>
+            <ul class="palette">
+                <li class="white"></li>
+                <li class="silver"></li>
+                <li class="black"></li>
+                <li class="red"></li>
+                <li class="green"></li>
+                <li class="blue"></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div ng-show="false">
+        <div class="col-md-4 col-xs-12 text-center">
+            <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/bubbles-alt-256.png" alt='{@pre type="content" key="wizard.step-3-title"/}'>
+        </div>
+        <div class="col-md-8 col-xs-12">
+            <h2>{@pre type="content" key="wizard.step-3-title"/}</h2>
+            <label></label>
+        </div>
+    </div>
+    
+    <div ng-show="false">
+        <div class="col-md-4 col-xs-12 text-center">
+            <img src="https://cdn0.iconfinder.com/data/icons/ie_Financial_set/256/16.png" alt='{@pre type="content" key="wizard.step-4-title"/}'>
+        </div>
+        <div class="col-md-8 col-xs-12">
+            <h2>{@pre type="content" key="wizard.step-4-title"/}</h2>
+            <label></label>
+        </div>
+    </div>
+    
+</div>

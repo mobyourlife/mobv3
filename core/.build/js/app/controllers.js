@@ -6,7 +6,22 @@ app.controller('MySitesController', function($scope, $http) {
     });
 });
 
-app.controller('ManagementController', function($scope, $http, $routeParams, $rootScope) {
+app.controller('ManagementController', function($scope, $http, $routeParams, $rootScope, $location) {
+    $rootScope.fanpageId = null;
+    $rootScope.fanpageName = null;
+    
+    $http.get('/api/manage-site/' + $routeParams.pageid).success(function(data) {
+        if (data.wizard && data.wizard === true) {
+            $scope.data = data;
+            $rootScope.fanpageId = $scope.data._id;
+            $rootScope.fanpageName = $scope.data.facebook.name;
+        } else {
+            $location.path('/' + $routeParams.pageid + '/wizard');
+        }
+    });
+});
+
+app.controller('WizardController', function($scope, $http, $routeParams, $rootScope) {
     $rootScope.fanpageId = null;
     $rootScope.fanpageName = null;
     
@@ -14,7 +29,6 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
         $scope.data = data;
         $rootScope.fanpageId = $scope.data._id;
         $rootScope.fanpageName = $scope.data.facebook.name;
-        console.log(data);
     });
 });
 

@@ -5,7 +5,10 @@ app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
         when('/', {
             templateUrl: '/admin/partials/my-sites/index',
             controller: 'MySitesController'
-        }).when('/management/:pageid', {
+        }).when('/:pageid/wizard', {
+            templateUrl: '/admin/partials/my-sites/wizard',
+            controller: 'WizardController'
+        }).when('/:pageid/management', {
             templateUrl: '/admin/partials/my-sites/management',
             controller: 'ManagementController'
         }).when('/domains', {
