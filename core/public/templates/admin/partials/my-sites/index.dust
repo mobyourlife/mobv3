@@ -25,33 +25,30 @@
                 <p>
                     <strong>##s.facebook.name##</strong><br/>
                     <ul class="list-inline">
-                        {#s.wizard}
-                        <li>
+                        <li ng-show="s.wizard">
                             <a ng-href="http://##s.url##" target="_blank">
                                 <i class="fa fa-external-link fa-fw"></i>
                                 <span>&nbsp;</span>
                                 <span>{@pre type="content" key="my-sites.view-site"/}</span>
                             </a>
                         </li>
-                        <li>
+                        <li ng-show="s.wizard">
                             &middot;
                         </li>
-                        <li>
+                        <li ng-show="s.wizard">
                             <a ng-href="/admin/#/##s._id##/management">
                                 <i class="fa fa-cog fa-fw"></i>
                                 <span>&nbsp;</span>
                                 <span>{@pre type="content" key="my-sites.manage"/}</span>
                             </a>
                         </li>
-                        {:else}
-                        <li>
+                        <li ng-hide="s.wizard">
                             <a ng-href="/admin/#/##s._id##/wizard">
                                 <i class="fa fa-rocket fa-fw"></i>
                                 <span>&nbsp;</span>
                                 <span>{@pre type="content" key="my-sites.wizard"/}</span>
                             </a>
                         </li>
-                        {/s.wizard}
                     </ul>
                 </p>
             </div>
