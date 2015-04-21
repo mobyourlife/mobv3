@@ -25,7 +25,7 @@
                     <li ng-class="{'active': $root.activeController == 'SupportController'}"><a href="/#/admin/support"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="index.support"/}</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Pesquisar...">
+                    <input type="text" class="form-control" placeholder='{@pre type="content" key="index.search"/}'>
                 </form>
             </div>
         </div>
