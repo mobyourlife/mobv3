@@ -4,6 +4,9 @@ var express = require('express');
 var kraken = require('kraken-js');
 var passport = require('passport');
 var Facebook = require('facebook-node-sdk');
+var session = require('express-session');
+var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo')(session);
 
 var auth = require('./config/auth');
 var config = require('./config/config');
@@ -32,6 +35,7 @@ app = module.exports = express();
 app.use(kraken(options));
 
 /* setup passport */
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch', store: new MongoStore({ mongooseConnection: mongoose.connection })})); // session secret and store
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(Facebook.middleware({ appID: auth.facebook.clientID, secret: auth.facebook.clientSecret }));
@@ -40,6 +44,12 @@ require('./lib/auth')(app, passport);
 
 /* start express */
 app.on('start', function () {
+    /* start SSL proxy in development environment */
+    if (app.kraken.get('env:env') === 'development') {
+        console.log('Starting HTTPS proxy...');
+        require('./lib/ssl-proxy');
+    }
+    
     console.log('Application ready to serve requests.');
     console.log('Environment: %s', app.kraken.get('env:env'));
 });

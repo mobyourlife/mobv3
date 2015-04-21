@@ -56,8 +56,8 @@
                 <div class="row admin-top-menu">
                     <ul class="list-inline">
                         <li>
-                            <img class="img-circle user-picture" src="http://www.fmobstudio.com.br/img/team/fmoliveira.jpg" alt="Filipe Oliveira">
-                            <span>Filipe Oliveira</span>
+                            <img class="img-circle user-picture" src="{user.facebook.picture}" alt="{user.facebook.name}">
+                            <span>{user.facebook.name}</span>
                         </li>
                         <li class="pull-right">
                             <ul class="list-inline">
@@ -78,7 +78,7 @@
                                     <span class="separator">|</span>
                                 </li>
                                 <li>
-                                    <a class="no-deco" href="/logout">
+                                    <a class="no-deco" href="/account/logout">
                                         <span>{@pre type="content" key="index.logout"/}</span>
                                         <span>&nbsp;</span>
                                         <i class="fa fa-sign-out fa-fw"></i>

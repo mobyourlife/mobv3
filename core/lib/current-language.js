@@ -2,23 +2,23 @@
 
 var getCountryCode = function(language) {
     switch(language) {
-            case 'pt-BR':
-                return 'pt';
-            
             case 'en-UK':
-            default:
                 return 'en';
+            
+            case 'pt-BR':
+            default:
+                return 'pt';
     }
 }
 
 var getCountryFlag = function(language) {
     switch(language) {
-        case 'pt-BR':
-            return 'br';
-
         case 'en-UK':
-        default:
             return 'gb';
+
+        case 'pt-BR':
+        default:
+            return 'br';
     }
 }
 

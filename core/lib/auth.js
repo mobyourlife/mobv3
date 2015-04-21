@@ -3,19 +3,19 @@
 module.exports = function (router, passport) {
 
     router.get('/account/login', function (req, res) {
-        res.redirect('/auth/facebook');
+        res.redirect('/account/auth/facebook');
     });
     
     router.get('/account/login/callback', function (req, res) {
         res.redirect('/admin/');
     });
     
-    router.get('/account/facebook', passport.authenticate('facebook', {
+    router.get('/account/auth/facebook', passport.authenticate('facebook', {
         scope: 'email,manage_pages'
     }));
     
-    router.get('/account/facebook/callback', passport.authenticate('facebook', {
-       successRedirect: '/login/callback',
+    router.get('/account/auth/facebook/callback', passport.authenticate('facebook', {
+       successRedirect: '/account/login/callback',
        failureRedirect: '/'
     }));
     
