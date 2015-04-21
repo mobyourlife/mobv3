@@ -3,4 +3,23 @@
         <li><a href="/">Mob Your Life</a></li>
         <li class="active">{@pre type="content" key="domains.domains"/}</li>
     </ul>
+    
+    <div class="container">
+        <div class="col-xs-12">
+            <form class="form-horizontal">
+                <legend>Registre um novo domínio:</legend>
+                <div class="input-group">
+                        <input type="text" placeholder="www.dominio.com.br" ng-model="domainName" ng-change="loaded = false" class="form-control">
+                    <div class="input-group-btn">
+                        <button ng-click="checkDomain()" class="btn btn-primary">Verificar domínio</button>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="alert" ng-show="loaded" ng-class="{ 'alert-success': available == true, 'alert-danger': available == false }">
+                <span ng-show="available">O domínio <strong>##domainName##</strong> está disponível! <a href="/admin/#/domains/register/##domainName##">Clique aqui para registrá-lo.</a></span>
+                <span ng-show="!available">O domínio <strong>##domainName##</strong> não está disponível! Por favor faça uma nova busca.</span>
+            </div>
+        </div>
+    </div>
 </div>

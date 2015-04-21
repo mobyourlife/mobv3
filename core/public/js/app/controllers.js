@@ -19,7 +19,13 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
 });
 
 app.controller('DomainsController', function($scope, $http) {
-    //
+    $scope.checkDomain = function() {
+        $scope.loaded = false;
+        $http.get('https://whois.apitruck.com/' + $scope.domainName).success(function(data) {
+            $scope.loaded = true;
+            $scope.available = (data.error == 200 && data.response.status == null);
+        });
+    }
 });
 
 app.controller('BillingController', function($scope, $http) {
