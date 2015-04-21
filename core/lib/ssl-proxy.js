@@ -22,7 +22,7 @@ var proxy = httpProxy.createProxyServer({
 
 if (isHttps)
   https.createServer(options.https, function(req, res) {
-    console.log('Proxying HTTPS request at %s', new Date());
+    //console.log('Proxying HTTPS request at %s', new Date());
     proxy.proxyRequest(req, res);
   }).listen(443, function(err) {
     if (err)
@@ -32,8 +32,8 @@ if (isHttps)
   });
 else
   http.createServer(options.https, function(req, res) {
-    console.log('Proxying HTTP request at %s', new Date());
-    console.log(req);
+    //console.log('Proxying HTTP request at %s', new Date());
+    //console.log(req);
     proxy.proxyRequest(req, res);
   }).listen(80, function(err) {
     if (err)
