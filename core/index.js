@@ -2,9 +2,13 @@
 
 var express = require('express');
 var kraken = require('kraken-js');
+var passport = require('passport');
+var Facebook = require('facebook-node-sdk');
+
+var auth = require('./config/auth');
+var config = require('./config/config');
 var db = require('./lib/database');
 
-var config = require('./config/config');
 db.config(config.database);
 
 var options, app;
@@ -23,8 +27,18 @@ options = {
     }
 };
 
+/* setup kraken */
 app = module.exports = express();
 app.use(kraken(options));
+
+/* setup passport */
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(Facebook.middleware({ appID: auth.facebook.clientID, secret: auth.facebook.clientSecret }));
+require('./lib/passport')(passport);
+require('./lib/auth')(app, passport);
+
+/* start express */
 app.on('start', function () {
     console.log('Application ready to serve requests.');
     console.log('Environment: %s', app.kraken.get('env:env'));
