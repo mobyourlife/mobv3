@@ -41,6 +41,7 @@
                 </div>
                 <ul class="nav nav-sidebar">
                     <li ng-class="{'active': $root.activeController == 'MySitesController'}"><a ng-href="/admin/#/"><i class="fa fa-dashboard fa-fw"></i> {@pre type="content" key="index.my-sites"/} <span class="sr-only">{@pre type="content" key="index.sr-current-page"/}</span></a></li>
+                    <li class="active" ng-show="$root.activeController == 'ManagementController'"><a ng-href="/admin/#/management/##fanpageId##"><i class="fa fa-cog fa-fw"></i> ##fanpageName##</a></li>
                     <li ng-class="{'active': $root.activeController == 'DomainsController'}"><a ng-href="/admin/#/domains"><i class="fa fa-globe fa-fw"></i> {@pre type="content" key="index.domains"/}</a></li>
                     <li ng-class="{'active': $root.activeController == 'BillingController'}"><a ng-href="/admin/#/billing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
                 </ul>
