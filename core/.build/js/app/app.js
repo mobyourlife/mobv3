@@ -1,4 +1,4 @@
-var app = angular.module('MobYourLife', ['MobYourLife.Controllers', 'ngRoute']);
+var app = angular.module('MobYourLife', ['MobYourLife.Controllers', 'ngRoute', 'ngAnimate']);
 
 app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
     $routeProvider.

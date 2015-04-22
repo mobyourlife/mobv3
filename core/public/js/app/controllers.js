@@ -1,12 +1,16 @@
 var app = angular.module('MobYourLife.Controllers', []);
 
 app.controller('MySitesController', function($scope, $http) {
+    $scope.pageClass = 'page-mysites';
+    
     $http.get('/api/my-sites').success(function(data) {
         $scope.data = data;
     });
 });
 
 app.controller('ManagementController', function($scope, $http, $routeParams, $rootScope, $location) {
+    $scope.pageClass = 'page-management';
+    
     $rootScope.fanpageId = null;
     $rootScope.fanpageName = null;
     
@@ -22,6 +26,8 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
 });
 
 app.controller('WizardController', function($scope, $http, $routeParams, $rootScope) {
+    $scope.pageClass = 'page-wizard';
+    
     $rootScope.fanpageId = null;
     $rootScope.fanpageName = null;
     
@@ -39,6 +45,8 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
 });
 
 app.controller('DomainsController', function($scope, $http) {
+    $scope.pageClass = 'page-domains';
+    
     $scope.checkDomain = function() {
         $scope.loaded = false;
         $http.get('https://whois.apitruck.com/' + $scope.domainName).success(function(data) {
@@ -49,5 +57,5 @@ app.controller('DomainsController', function($scope, $http) {
 });
 
 app.controller('BillingController', function($scope, $http) {
-    //
+    $scope.pageClass = 'page-billing';
 });

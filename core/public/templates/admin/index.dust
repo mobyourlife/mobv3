@@ -92,7 +92,7 @@
 
                 <hr/>
 
-                <div ng-view></div>
+                <div class="at-view-slide-in-right at-view-slide-out-right" ng-view></div>
             </div>
         </div>
     </div>
