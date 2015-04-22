@@ -18,6 +18,7 @@
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
+    <link href="/css/loading-bar.css" rel="stylesheet">
     <link href="/css/flag-icon.min.css" rel="stylesheet">
     <link href="/favicon.ico" rel="icon">
 
@@ -46,6 +47,7 @@
     <!-- AngularJS app -->
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-route.min.js"></script>
+    <script src="/js/loading-bar.js"></script>
     <script src="/js/angular-animate.min.js"></script>
     <script src="/js/app/controllers.js"></script>
     <script src="/js/app/app.js"></script>
