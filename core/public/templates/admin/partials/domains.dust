@@ -6,7 +6,7 @@
     
     <form class="form-horizontal">
         <legend>{@pre type="content" key="domains.register-a-new-domain"/}</legend>
-        <div class="input-group">
+        <div class="input-group input-group-lg">
             <label for="domainName" class="input-group-addon">{@pre type="content" key="domains.input-label"/}</label>
             <input type="text" placeholder='{@pre type="content" key="domains.yourdomain-example"/}' id="domainName" ng-model="domainName" ng-change="loaded = false" class="form-control">
             <div class="input-group-btn">
@@ -14,6 +14,8 @@
             </div>
         </div>
     </form>
+    
+    &nbsp;<br/>
 
     <div class="alert" ng-show="loaded" ng-class="{ 'alert-success': available == true, 'alert-danger': available == false }">
         <span ng-show="available">{@pre type="content" key="domains.name-is-available"/} <a href="/admin/#/domains/register/##domainName##">{@pre type="content" key="domains.click-here-to-register"/}</a></span>
