@@ -44,5 +44,18 @@ module.exports = function (router) {
             res.status(401).send();
         }
     });
+    
+    /* website creation wizard */
+    router.get('/wizard/website-created/:pageid', function (req, res) {
+        if (req.isAuthenticated()) {
+            Fanpage.update({ _id: req.params.pageid }, { 'wizard.current_step': 2, 'wizard.site_created': true }, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                
+                res.send();
+            });
+        }
+    });
 
 };

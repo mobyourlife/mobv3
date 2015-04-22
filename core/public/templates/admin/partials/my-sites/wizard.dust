@@ -8,19 +8,19 @@
     <div class="process">
         <div class="process-row">
             <div class="process-step">
-                <button type="button" class="btn btn-primary btn-circle" disabled="disabled"><i class="fa fa-check fa-3x"></i></button>
+                <button type="button" class="btn btn-circle" ng-class="{ 'btn-primary': !data.wizard || !data.wizard.current_step || data.wizard.current_step <= 1, 'btn-success': data.wizard && data.wizard.current_step > 1 }" disabled="disabled"><i class="fa fa-check fa-3x"></i></button>
                 <p>{@pre type="content" key="wizard.step-1-site-created"/}</p>
             </div>
             <div class="process-step">
-                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-paint-brush fa-3x"></i></button>
+                <button type="button" class="btn btn-circle" ng-class="{ 'btn-primary': data.wizard && data.wizard.current_step == 2, 'btn-success': data.wizard && data.wizard.personal_touch, 'btn-default': !data.wizard || !data.wizard.current_step || data.wizard.current_step < 2 }" disabled="disabled"><i class="fa fa-paint-brush fa-3x"></i></button>
                 <p>{@pre type="content" key="wizard.step-2-personal-touch"/}</p>
             </div>
             <div class="process-step">
-                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-thumbs-up fa-3x"></i></button>
+                <button type="button" class="btn btn-circle" ng-class="{ 'btn-primary': data.wizard && data.wizard.current_step == 3, 'btn-success': data.wizard && data.wizard.share_it, 'btn-default': !data.wizard || !data.wizard.current_step || data.wizard.current_step < 3 }" disabled="disabled"><i class="fa fa-thumbs-up fa-3x"></i></button>
                 <p>{@pre type="content" key="wizard.step-3-share-your-new-website"/}</p>
             </div> 
             <div class="process-step">
-                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-dollar fa-3x"></i></button>
+                <button type="button" class="btn btn-circle" ng-class="{ 'btn-primary': data.wizard && data.wizard.current_step == 4, 'btn-success': data.wizard && data.wizard.payment, 'btn-default': !data.wizard || !data.wizard.current_step || data.wizard.current_step < 4 }" disabled="disabled"><i class="fa fa-dollar fa-3x"></i></button>
                 <p>{@pre type="content" key="wizard.step-4-payment"/}</p>
             </div> 
         </div>
@@ -40,7 +40,7 @@
             </div>
             <p>{@pre type="content" key="wizard.step-1-message-2"/}</p>
             <p>
-                <a class="btn btn-primary btn-lg btn-ng" ng-click="nextStep()">{@pre type="content" key="wizard.step-1-button-next"/} &raquo;</a>
+                <a class="btn btn-primary btn-lg btn-ng" ng-click="websiteCreated()">{@pre type="content" key="wizard.step-1-button-next"/} &raquo;</a>
             </p>
         </div>
     </div>

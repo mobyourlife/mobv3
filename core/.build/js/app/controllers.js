@@ -37,8 +37,10 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
         $rootScope.fanpageName = $scope.data.facebook.name;
     });
     
-    $scope.nextStep = function() {
-        $location.path('/' + $routeParams.pageid + '/wizard/next');
+    $scope.websiteCreated = function() {
+        $http.get('/api/wizard/website-created/' + $routeParams.pageid).success(function(data) {
+            $location.path('/' + $routeParams.pageid + '/wizard/next');
+        });
     }
 });
 
