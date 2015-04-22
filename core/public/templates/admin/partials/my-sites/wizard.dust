@@ -53,12 +53,7 @@
             <h2>{@pre type="content" key="wizard.step-2-title"/}</h2>
             <label>{@pre type="content" key="wizard.step-2-pick-a-colour"/}</label>
             <ul class="palette">
-                <li class="white"></li>
-                <li class="silver"></li>
-                <li class="black"></li>
-                <li class="red"></li>
-                <li class="green"></li>
-                <li class="blue"></li>
+                <li ng-repeat="c in colours" class="##c##" ng-class="{ 'active': activeColour == c }" ng-click="pickColour(c)"><span class="fa fa-check fa-2x fa-fw"></span></li>
             </ul>
         </div>
     </div>

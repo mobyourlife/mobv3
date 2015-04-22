@@ -68,22 +68,58 @@ ul.palette {
   margin-left: -16px; }
   ul.palette > li {
     display: inline-block;
-    width: 32px;
-    height: 32px;
-    margin: 4px;
-    border: 1px solid #000; }
+    width: 40px;
+    height: 80px;
+    margin: 0px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    -webkit-transition: width 0.5s ease-in-out;
+    -moz-transition: width 0.5s ease-in-out;
+    -o-transition: width 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out; }
+    ul.palette > li:last-of-type {
+      border-right: 1px solid #000; }
     ul.palette > li.white {
-      background-color: #ffffff; }
+      background-color: #FFFFFF; }
     ul.palette > li.silver {
-      background-color: #f0f0f0; }
+      background-color: #F0F0F0; }
     ul.palette > li.black {
-      background-color: #000000; }
+      background-color: #000000;
+      color: #FFFFFF; }
     ul.palette > li.red {
-      background-color: #ff0000; }
+      background-color: #DB3030;
+      color: #FFFFFF; }
+    ul.palette > li.orange {
+      background-color: #FF7F50;
+      color: #FFFFFF; }
+    ul.palette > li.yellow {
+      background-color: #F0E68C; }
     ul.palette > li.green {
-      background-color: #00ff00; }
+      background-color: #90EE90; }
     ul.palette > li.blue {
-      background-color: #0000ff; }
+      background-color: #00BFFF;
+      color: #FFFFFF; }
+    ul.palette > li.violet {
+      background-color: #EE82EE;
+      color: #FFFFFF; }
+    ul.palette > li.purple {
+      background-color: #663399;
+      color: #FFFFFF; }
+    ul.palette > li:hover, ul.palette > li.active {
+      -webkit-transition: width 0.5s ease-in-out;
+      -moz-transition: width 0.5s ease-in-out;
+      -o-transition: width 0.5s ease-in-out;
+      transition: width 0.5s ease-in-out;
+      width: 96px;
+      cursor: pointer; }
+    ul.palette > li > span {
+      display: none; }
+    ul.palette > li.active > span {
+      display: table-cell;
+      width: 96px;
+      height: 80px;
+      line-height: 80px; }
 
 /* intro header backgrounds */
 .intro-header.bg-1 {

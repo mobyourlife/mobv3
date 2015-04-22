@@ -28,6 +28,9 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
 app.controller('WizardController', function($scope, $http, $routeParams, $rootScope, $location) {
     $scope.pageClass = 'page-wizard';
     
+    $scope.colours = ['white', 'silver', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'violet', 'purple'];
+    $scope.activeColour = 'white';
+    
     $rootScope.fanpageId = null;
     $rootScope.fanpageName = null;
     
@@ -41,6 +44,10 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
         $http.get('/api/wizard/website-created/' + $routeParams.pageid).success(function(data) {
             $location.path('/' + $routeParams.pageid + '/wizard/next');
         });
+    }
+    
+    $scope.pickColour = function(value) {
+        $scope.activeColour = value;
     }
 });
 

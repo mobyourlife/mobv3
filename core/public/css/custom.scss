@@ -98,17 +98,87 @@ ul.palette {
     
     & > li {
         display: inline-block;
-        width: 32px;
-        height: 32px;
-        margin: 4px;
-        border: 1px solid #000;
+        width: 40px;
+        height: 80px;
+        margin: 0px;
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+        border-left: 1px solid #000;
         
-        &.white { background-color: #ffffff; }
-        &.silver { background-color: #f0f0f0; }
-        &.black { background-color: #000000; }
-        &.red { background-color: #ff0000; }
-        &.green { background-color: #00ff00; }
-        &.blue { background-color: #0000ff; }
+        -webkit-transition: width 0.5s ease-in-out;
+        -moz-transition: width 0.5s ease-in-out;
+        -o-transition: width 0.5s ease-in-out;
+        transition: width 0.5s ease-in-out;
+        
+        &:last-of-type {
+            border-right: 1px solid #000;
+        }
+        
+        &.white {
+            background-color: #FFFFFF;
+        }
+        
+        &.silver {
+            background-color: #F0F0F0;
+        }
+        
+        &.black {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+        
+        &.red {
+            background-color: #DB3030;
+            color: #FFFFFF;
+        }
+        
+        &.orange {
+            background-color: #FF7F50;
+            color: #FFFFFF;
+        }
+        
+        &.yellow {
+            background-color: #F0E68C;
+        }
+        
+        &.green {
+            background-color: #90EE90;
+        }
+        
+        &.blue {
+            background-color: #00BFFF;
+            color: #FFFFFF;
+        }
+        
+        &.violet {
+            background-color: #EE82EE;
+            color: #FFFFFF;
+        }
+        
+        &.purple {
+            background-color: #663399;
+            color: #FFFFFF;
+        }
+        
+        &:hover, &.active {
+            -webkit-transition: width 0.5s ease-in-out;
+            -moz-transition: width 0.5s ease-in-out;
+            -o-transition: width 0.5s ease-in-out;
+            transition: width 0.5s ease-in-out;
+            width: 96px;
+            cursor: pointer;
+        }
+        
+        & > span {
+            display: none;
+        }
+        
+        &.active > span {
+            display: table-cell;
+            width: 96px;
+            height: 80px;
+            line-height: 80px;
+        }
     }
 }
 
