@@ -23,7 +23,7 @@
             </div>
             <div class="media-body">
                 <p>
-                    <strong>##s.facebook.name##</strong><br/>
+                    <strong><span ng-bind="s.facebook.name"></span></strong><br/>
                     <ul class="list-inline">
                         <li ng-show="s.wizard && s.wizard.finished">
                             <a ng-href="http://##s.url##" target="_blank">

@@ -36,7 +36,7 @@
             <h2>{@pre type="content" key="wizard.step-1-title"/}</h2>
             <p>{@pre type="content" key="wizard.step-1-message-1"/}</p>
             <div class="alert alert-success url">
-                <h3><a href="#" target="_blank">##data.url##</a></h3>
+                <h3><a href="#" target="_blank"><span ng-bind="data-url"></span></a></h3>
             </div>
             <p>{@pre type="content" key="wizard.step-1-message-2"/}</p>
             <p>
