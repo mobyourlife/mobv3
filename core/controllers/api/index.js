@@ -57,5 +57,17 @@ module.exports = function (router) {
             });
         }
     });
+    
+    router.get('/wizard/personal-touch/:pageid/:colour', function (req, res) {
+        if (req.isAuthenticated()) {
+            Fanpage.update({ _id: req.params.pageid }, { 'wizard.current_step': 3, 'wizard.personal_touch': true, 'theme.name': 'default', 'theme.colour': req.params.colour }, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                
+                res.send();
+            });
+        }
+    });
 
 };

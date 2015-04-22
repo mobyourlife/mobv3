@@ -9,8 +9,13 @@ var mongoose = require('mongoose')
 var fanpageSchema = mongoose.Schema({
     _id: String,
     theme: {
+        /* deprecated theme fields */
         css: String,
-        navbar: String
+        navbar: String,
+        
+        /* new theme fields */
+        name: String,
+        colour: String
     },
     cover: {
         path: String,

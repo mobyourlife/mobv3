@@ -39,6 +39,7 @@
                 <h3><a href="#" target="_blank"><span ng-bind="data-url"></span></a></h3>
             </div>
             <p>{@pre type="content" key="wizard.step-1-message-2"/}</p>
+            <hr class="white">
             <p>
                 <a class="btn btn-primary btn-lg btn-ng" ng-click="websiteCreated()">{@pre type="content" key="wizard.step-1-button-next"/} &raquo;</a>
             </p>
@@ -51,10 +52,15 @@
         </div>
         <div class="col-md-8 col-xs-12">
             <h2>{@pre type="content" key="wizard.step-2-title"/}</h2>
-            <label>{@pre type="content" key="wizard.step-2-pick-a-colour"/}</label>
+            <p><label>{@pre type="content" key="wizard.step-2-pick-a-colour"/}</label></p>
             <ul class="palette">
                 <li ng-repeat="c in colours" class="##c##" ng-class="{ 'active': activeColour == c }" ng-click="pickColour(c)"><span class="fa fa-check fa-2x fa-fw"></span></li>
             </ul>
+            <p>{@pre type="content" key="wizard.step-2-message-bottom"/}</p>
+            <hr class="white">
+            <p>
+                <a class="btn btn-primary btn-lg btn-ng" ng-click="colourPicked()">{@pre type="content" key="wizard.step-2-button-next"/} &raquo;</a>
+            </p>
         </div>
     </div>
     

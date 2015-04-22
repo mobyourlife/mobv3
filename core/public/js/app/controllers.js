@@ -49,6 +49,12 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
     $scope.pickColour = function(value) {
         $scope.activeColour = value;
     }
+    
+    $scope.colourPicked = function() {
+        $http.get('/api/wizard/personal-touch/' + $routeParams.pageid + '/' + $scope.activeColour).success(function(data) {
+            $location.path('/' + $routeParams.pageid + '/wizard/next');
+        });
+    }
 });
 
 app.controller('WizardNextController', function($routeParams, $location) {
