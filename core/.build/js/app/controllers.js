@@ -25,7 +25,7 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
     });
 });
 
-app.controller('WizardController', function($scope, $http, $routeParams, $rootScope) {
+app.controller('WizardController', function($scope, $http, $routeParams, $rootScope, $location) {
     $scope.pageClass = 'page-wizard';
     
     $rootScope.fanpageId = null;
@@ -38,10 +38,12 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
     });
     
     $scope.nextStep = function() {
-        $scope.data.wizard = {
-            current_step: 2
-        };
+        $location.path('/' + $routeParams.pageid + '/wizard/next');
     }
+});
+
+app.controller('WizardNextController', function($routeParams, $location) {
+    $location.path('/' + $routeParams.pageid + '/wizard');
 });
 
 app.controller('DomainsController', function($scope, $http) {
