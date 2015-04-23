@@ -36,7 +36,7 @@
             <h2>{@pre type="content" key="wizard.step-1-title"/}</h2>
             <p>{@pre type="content" key="wizard.step-1-message-1"/}</p>
             <div class="alert alert-success url">
-                <h3><a href="#" target="_blank"><span ng-bind="data-url"></span></a></h3>
+                <h3><a href="#" target="_blank"><span ng-bind="data.url"></span></a></h3>
             </div>
             <p>{@pre type="content" key="wizard.step-1-message-2"/}</p>
             <hr class="white">
@@ -70,7 +70,24 @@
         </div>
         <div class="col-md-8 col-xs-12">
             <h2>{@pre type="content" key="wizard.step-3-title"/}</h2>
-            <label></label>
+            <p>{@pre type="content" key="wizard.step-3-message"/}</p>
+            <div class="alert alert-success url">
+                <h3><a href="#" target="_blank"><span ng-bind="data.url"></span></a></h3>
+            </div>
+            <div class="social-buttons">
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://##data.url##" title="Share on Facebook" target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+                <!-- Twitter -->
+                <a href="http://twitter.com/home?status=http://##data.url##" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+                <!-- Google+ -->
+                <a href="https://plus.google.com/share?url=http://##data.url##" title="Share on Google+" target="_blank" class="btn btn-google"><i class="fa fa-google-plus"></i> Google+</a>
+                <!-- LinkedIn -->
+                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=&amp;title=&amp;summary=http://##data.url##" title="Share on LinkedIn" target="_blank" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+            </div>
+            <hr class="white">
+            <p>
+                <a class="btn btn-primary btn-lg btn-ng" ng-click="websiteShared()">{@pre type="content" key="wizard.step-3-button-next"/} &raquo;</a>
+            </p>
         </div>
     </div>
     

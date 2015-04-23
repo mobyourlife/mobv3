@@ -20,6 +20,7 @@
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/loading-bar.css" rel="stylesheet">
     <link href="/css/flag-icon.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-social.css" rel="stylesheet">
     <link href="/favicon.ico" rel="icon">
 
     <!-- Custom Fonts -->
@@ -38,6 +39,8 @@
 <body ng-app="MobYourLife">
 
     {+body /}
+    
+    <div id="fb-root"></div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -51,6 +54,8 @@
     <script src="/js/angular-animate.min.js"></script>
     <script src="/js/app/controllers.js"></script>
     <script src="/js/app/app.js"></script>
+    <script src="/js/helpers.js"></script>
+    <script src="/js/facebook.js"></script>
     <!--<script data-main="/js/app" src="/components/requirejs/require.js"></script>-->
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

@@ -65,6 +65,9 @@ img.user-picture {
 hr.white {
   border: 1px solid #FFFFFF; }
 
+.social-buttons > a {
+  margin-right: 1em; }
+
 ul.palette {
   list-style-type: none;
   margin-top: 8px;
