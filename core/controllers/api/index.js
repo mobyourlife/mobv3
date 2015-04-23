@@ -1,5 +1,6 @@
 'use strict';
 
+var FB = require('FB');
 var Fanpage = require('../../models/fanpage');
 
 
@@ -27,6 +28,21 @@ module.exports = function (router) {
             });
         } else {
             res.status(401).send();
+        }
+    });
+    
+    /* new website creation */
+    router.get('/create-new-website/:pageid', function (req, res) {
+        if (req.isAuthenticated()) {
+            FB.api('/' + req.params.pageid, { locale: req.cookies.locale }, function(data) {
+                if (data.error) {
+                    console.log(data.error);
+                }
+                
+                console.log(data);
+                
+                res.status(400).send();
+            });
         }
     });
     

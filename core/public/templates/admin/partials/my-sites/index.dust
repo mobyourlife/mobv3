@@ -7,7 +7,7 @@
         <div class="col-xs-12">
             <ul class="list-inline">
                 <li>
-                    <a href="/new-site" class="btn btn-primary btn-lg">
+                    <a ng-href="/admin/#/new-website" class="btn btn-primary btn-lg">
                         <i class="fa fa-plus fa-fw"></i>
                         <span>&nbsp;</span>
                         <span>{@pre type="content" key="my-sites.create-new-site"/}</span>

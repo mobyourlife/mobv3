@@ -5,6 +5,9 @@ app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
         when('/', {
             templateUrl: '/admin/partials/my-sites/index',
             controller: 'MySitesController'
+        }).when('/new-website', {
+            templateUrl: '/admin/partials/my-sites/new-website',
+            controller: 'NewWebsiteController'
         }).when('/:pageid/wizard', {
             templateUrl: '/admin/partials/my-sites/wizard',
             controller: 'WizardController'

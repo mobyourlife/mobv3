@@ -1,0 +1,35 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/">Mob Your Life</a></li>
+        <li><a href="/admin/#/">{@pre type="content" key="new-website.my-sites"/}</a></li>
+        <li class="active">{@pre type="content" key="new-website.new-website"/}</li>
+    </ul>
+    
+    <h3>{@pre type="content" key="new-website.select-desired-page"/}</h3>
+    
+    <div class="alert alert-danger" ng-show="error">
+        <p ng-bind="error"></p>
+    </div>
+    
+    <div class="well" ng-repeat="s in data.sites">
+        <div class="media">
+            <div class="media-left">
+                <img class="media-object" ng-src="##s.facebook.picture##" alt="##s.facebook.name##" />
+            </div>
+            <div class="media-body">
+                <p>
+                    <strong><span ng-bind="s.facebook.name"></span></strong><br/>
+                    <ul class="list-inline">
+                        <li>
+                            <a class="btn-ng" ng-click="createNewWebsite(s._id)" target="_blank">
+                                <i class="fa fa-plus fa-fw"></i>
+                                <span>&nbsp;</span>
+                                <span>{@pre type="content" key="new-website.create-new-website-action"/}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
