@@ -69,5 +69,29 @@ module.exports = function (router) {
             });
         }
     });
+    
+    router.get('/wizard/website-shared/:pageid', function (req, res) {
+        if (req.isAuthenticated()) {
+            Fanpage.update({ _id: req.params.pageid }, { 'wizard.current_step': 4, 'wizard.share_it': true }, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                
+                res.send();
+            });
+        }
+    });
+    
+    router.get('/wizard/website-finished/:pageid', function (req, res) {
+        if (req.isAuthenticated()) {
+            Fanpage.update({ _id: req.params.pageid }, { 'wizard.current_step': 5, 'wizard.finished': true }, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                
+                res.send();
+            });
+        }
+    });
 
 };

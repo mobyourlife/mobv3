@@ -132,7 +132,6 @@ var fanpageSchema = mongoose.Schema({
         site_created: Boolean,
         personal_touch: Boolean,
         share_it: Boolean,
-        payment: Boolean,
         finished: Boolean
     }
 });

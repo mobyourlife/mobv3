@@ -15,7 +15,7 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
     $rootScope.fanpageName = null;
     
     $http.get('/api/manage-site/' + $routeParams.pageid).success(function(data) {
-        if (data.wizard && data.wizard === true) {
+        if (data.wizard && data.wizard.finished && data.wizard.finished === true) {
             $scope.data = data;
             $rootScope.fanpageId = $scope.data._id;
             $rootScope.fanpageName = $scope.data.facebook.name;
@@ -35,9 +35,13 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
     $rootScope.fanpageName = null;
     
     $http.get('/api/manage-site/' + $routeParams.pageid).success(function(data) {
-        $scope.data = data;
-        $rootScope.fanpageId = $scope.data._id;
-        $rootScope.fanpageName = $scope.data.facebook.name;
+        if (data.wizard && data.wizard.finished && data.wizard.finished === true) {
+            $location.path('/' + $routeParams.pageid + '/management');
+        } else {
+            $scope.data = data;
+            $rootScope.fanpageId = $scope.data._id;
+            $rootScope.fanpageName = $scope.data.facebook.name;
+        }
     });
     
     $scope.websiteCreated = function() {
@@ -53,6 +57,18 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
     $scope.colourPicked = function() {
         $http.get('/api/wizard/personal-touch/' + $routeParams.pageid + '/' + $scope.activeColour).success(function(data) {
             $location.path('/' + $routeParams.pageid + '/wizard/next');
+        });
+    }
+    
+    $scope.websiteShared = function() {
+        $http.get('/api/wizard/website-shared/' + $routeParams.pageid).success(function(data) {
+            $location.path('/' + $routeParams.pageid + '/wizard/next');
+        });
+    }
+    
+    $scope.websiteFinished = function() {
+        $http.get('/api/wizard/website-finished/' + $routeParams.pageid).success(function(data) {
+            $location.path('/' + $routeParams.pageid + '/management');
         });
     }
 });
