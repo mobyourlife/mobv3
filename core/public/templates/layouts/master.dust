@@ -56,6 +56,7 @@
     <script src="/js/app/app.js"></script>
     <script src="/js/helpers.js"></script>
     <script src="/js/facebook.js"></script>
+    <script src="/js/zendesk.js"></script>
     <!--<script data-main="/js/app" src="/components/requirejs/require.js"></script>-->
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

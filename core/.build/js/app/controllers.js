@@ -130,3 +130,15 @@ app.controller('DomainsController', function($scope, $http) {
 app.controller('BillingController', function($scope, $http) {
     //
 });
+
+
+/* frequently asked questions */
+app.controller('FaqController', function($scope, $http) {
+    //
+});
+
+
+/* technical support */
+app.controller('SupportController', function($scope, $http) {
+    //
+});

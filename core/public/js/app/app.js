@@ -23,6 +23,12 @@ app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
         }).when('/billing', {
             templateUrl: '/admin/partials/billing',
             controller: 'BillingController'
+        }).when('/faq', {
+            templateUrl: '/admin/partials/faq',
+            controller: 'FaqController'
+        }).when('/support', {
+            templateUrl: '/admin/partials/support',
+            controller: 'SupportController'
         }).otherwise( {
             redirectTo: '/'
         });

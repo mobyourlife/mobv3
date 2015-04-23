@@ -188,6 +188,18 @@ ul.palette {
     }
 }
 
+ol.faq {
+    & > li {
+        & > header {
+            font-weight: bold;
+        }
+        
+        & > p {
+            margin-bottom: 1em;
+        }
+    }
+}
+
 /* intro header backgrounds */
 
 .intro-header.bg-1 { background-image: url(../img/covers/bg-1.jpg); }

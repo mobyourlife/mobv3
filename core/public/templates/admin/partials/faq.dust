@@ -1,0 +1,57 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/">Mob Your Life</a></li>
+        <li class="active">{@pre type="content" key="faq.faq"/}</li>
+    </ul>
+    
+    <ol class="faq">
+        <li>
+            <header>O que é o Mob Your Life?</header>
+            <p>O Mob Your Life é um serviço por assinatura com o objetivo de facilitar a criação de sites para os seus clientes. Ele integra com a plataforma do Facebook, permitindo que você crie um site a partir de uma fanpage que você administra no Facebook. A partir daí, todas as postagens da linha do tempo, fotos e vídeos da sua fanpage serão automaticamente copiados para o seu novo site.</p>
+        </li>
+        <li>
+            <header>Por que ele foi feito?</header>
+            <p>O principal motivo que motivou a criação do Mob Your Life é a dificuldade que ainda temos, em pleno século 21, de rapidamente criar um site atraente e funcional, e além disto, atualizá-lo com frequência. O tempo é um recurso muito precioso. Com o Mob Your Life, você pode configurar o seu site em menos de 5 minutos, e continuar atualizando a sua fanpage no Facebook normalmente. O Mob Your Life se encarregará de manter o seu site atualizado, em sincronia com as suas postagens do Facebook.</p>
+        </li>
+        <li>
+            <header>Para quem ele foi feito?</header>
+            <p>Para pessoas modernas e atualizadas, como você. Para pessoas que não tem tempo a perder, como você.</p>
+        </li>
+        <li>
+            <header>Como ele funciona?</header>
+            <p>O Facebook disponibiliza uma plataforma pela qual é possível criar serviços e aplicativos que consultam suas informações para os mais devidos fins. O Mob Your Life utiliza esta plataforma para consultar as informações das suas fanpages, nada mais.</p>
+        </li>
+        <li>
+            <header>Isto é seguro?</header>
+            <p>Com certeza! Nós passamos por um processo de homologação bem complexo com o Facebook, justamente para garantir que os seus dados estejam seguros e que nós estamos consultando apenas as informações que realmente precisamos. Iremos consultar apenas as informações das suas fanpages, nada mais, nada do seu perfil pessoal.</p>
+        </li>
+        <li>
+            <header>Posso testar antes de pagar?</header>
+            <p>Boa, você realmente é muito esperto! E é claro que nós pensamos em você. Não queremos que você compre gato por lebre. Por isto, você tem 7 dias para testar o seu site no Mob Your Life sem pagar nenhum centavo por isto, sem se comprometer com a compra, e sem limitação alguma de recursos. Tudo o que você poderá usar como pagante está disponível no período de avaliação!</p>
+        </li>
+        <li>
+            <header>Vocês emitem nota fiscal?</header>
+            <p>Absolutamente! Somos uma empresa séria registrada em Campinas - SP, e logo após a confirmação de seu pagamento, iremos emitir uma nota fiscal de serviços eletrônica e enviar para o seu endereço de email. Você também poderá consultar a nota fiscal a qualquer momento a partir de seu histórico de pagamentos.</p>
+        </li>
+        <li>
+            <header>Quais as formas de pagamento aceitas?</header>
+            <p>Aceitamos pagamentos via PagSeguro, que por sua vez, permite o pagamento à vista via boleto bancário ou depósito bancário, parcelamento em até 12 vezes sem juros ou 18 vezes iguais, ou com saldo de sua conta do PagSeguro.</p>
+        </li>
+        <li>
+            <header>Qual a minha garantia?</header>
+            <p>Vitalícia! Para sempre. Forever. Atendimento via email disponível em horário comercial, de segunda a sexta-feira das 08:00hs às 18:00hs. Respostas em até 24 horas úteis.</p>
+        </li>
+        <li>
+            <header>E se após o pagamento eu decidir cancelar?</header>
+            <p>Respeitando o Código de Defesa do Consumidor, você tem até 7 dias após o pagamento para solicitar o cancelamento de seu site e ser ressarcido em 100% do valor pago com depósito direto em sua conta corrente.</p>
+        </li>
+        <li>
+            <header>E se por acaso em algum belo dia nublado, o Facebook sair do ar? Ou pior, se ele decidir encerrar as suas atividades?</header>
+            <p>Fique tranquilo! Todas as informações que copiamos de sua fanpage do Facebook ficam armazenadas em nossos servidores, portanto, mesmo que o Facebook saia do ar ou encerre as suas atividades, o seu site permanecerá no ar sem nenhuma perda de conteúdo. Caso ocorra de os seus serviços serem encerrados, o Mob Your Life se compromete em oferecer suporte a uma nova rede social em até 30 dias após o ocorrido. A nova rede social será de nossa escolha, podendo haver votação pública antes de nossa decisão ser tomada.</p>
+        </li>
+        <li>
+            <header>A minha dúvida não está na lista!</header>
+            <p>Lembra da parte do suporte pré-compra e garantia vitalícia? Agora ficou fácil demais! <a href="/admin/#/support">Clique aqui</a> e nos escreva com a sua dúvida. Iremos respondê-lo em até 24 horas úteis.</p>
+        </li>
+    </ol>
+</div>
