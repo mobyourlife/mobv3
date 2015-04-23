@@ -104,7 +104,8 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
     /* mark the website as finished */
     $scope.websiteFinished = function() {
         $http.get('/api/wizard/website-finished/' + $routeParams.pageid).success(function(data) {
-            $location.path('/' + $routeParams.pageid + '/management');
+            //$location.path('/' + $routeParams.pageid + '/management');
+            $location.path('/');
         });
     }
 });
