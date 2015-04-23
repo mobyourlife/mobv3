@@ -142,7 +142,9 @@ app.controller('DomainsController', function($scope, $http) {
 
 /* user websites billing */
 app.controller('BillingController', function($scope, $http) {
-    //
+    $http.get('/api/billing').success(function(data) {
+        $scope.data = data;
+    });
 });
 
 

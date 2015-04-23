@@ -3,4 +3,49 @@
         <li><a href="/">Mob Your Life</a></li>
         <li class="active">{@pre type="content" key="billing.billing"/}</li>
     </ul>
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-inline">
+                <li>
+                    <a ng-href="/admin/#/new-website" class="btn btn-success btn-lg">
+                        <i class="fa fa-dollar fa-fw"></i>
+                        <span>&nbsp;</span>
+                        <span>Efetuar pagamento</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <table class="table">
+        <colgroup>
+            <col class="col-md-3"></col>
+            <col class="col-md-3"></col>
+            <col class="col-md-2"></col>
+            <col class="col-md-2"></col>
+            <col class="col-md-2"></col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Transação</th>
+                <th>Site</th>
+                <th>Data</th>
+                <th>Validade</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="t in data.tickets">
+                <td ng-bind="t.ticket._id"></td>
+                <td ng-bind="t.fanpage.name"></td>
+                <td ng-bind="t.ticket.time"></td>
+                <td ng-bind="t.ticket.validity.days"></td>
+                <td>
+                    <span ng-show="t.ticket.coupon">Bônus gratuito</span>
+                    <span ng-hide="t.ticket.coupon">Pagamento confirmado</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

@@ -35,6 +35,35 @@ module.exports = function (router) {
         }
     });
     
+    /* api method to list all user billing tickets */
+    router.get('/billing', function (req, res) {
+        if (req.isAuthenticated() && req.user && req.user.fanpages) {
+            var list = Array();
+            var names = Array();
+            
+            for(var i = 0; i < req.user.fanpages.length; i++) {
+                list.push(req.user.fanpages[i].id);
+                names[req.user.fanpages[i].id] = req.user.fanpages[i].name;
+            }
+            
+            Ticket.find({ ref: { $in: list } }).sort({ 'time': -1 }).exec(function(err, rows) {
+                var ret = Array();
+                
+                for (var j = 0; j < rows.length; j++) {
+                    ret.push({
+                        fanpage: {
+                            id: rows[j].ref,
+                            name: names[rows[j].ref]
+                        },
+                        ticket: rows[j]
+                    });
+                }
+                
+                res.status(200).send({ tickets: ret });
+            });
+        }
+    });
+    
     /* api method to list all user fanpages without sites */
     router.get('/remaining-fanpages', function (req, res) {
         if (req.isAuthenticated() && req.user && req.user.fanpages) {
@@ -157,6 +186,7 @@ module.exports = function (router) {
 
                                 /* billing info */
                                 var ticket = new Ticket();
+                                ticket.ref = newFanpage._id;
                                 ticket.time = Date.now();
                                 ticket.validity.months = 0;
                                 ticket.validity.days = 7;
