@@ -1,4 +1,18 @@
-var app = angular.module('MobYourLife.Controllers', []);
+var app = angular.module('MobYourLife.Controllers', ['validator']);
+
+app.config(function($validatorProvider) {
+    $validatorProvider.register('required', {
+        invoke: 'blur',
+        validator: /.+/,
+        error: 'Campo obrigatório.'
+    });
+    
+    $validatorProvider.register('email', {
+        invoke: 'watch',
+        validator: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        error: 'Endereço de email inválido.'
+    });
+});
 
 /* my sites index */
 app.controller('MySitesController', function($scope, $http) {
@@ -139,6 +153,10 @@ app.controller('FaqController', function($scope, $http) {
 
 
 /* technical support */
-app.controller('SupportController', function($scope, $http) {
-    //
+app.controller('SupportController', function($scope, $http, $validator) {
+    $scope.sendMail = function() {
+        $validator.validate($scope).success(function() {
+            //
+        });
+    }
 });

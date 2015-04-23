@@ -3,4 +3,37 @@
         <li><a href="/">Mob Your Life</a></li>
         <li class="active">{@pre type="content" key="support.support"/}</li>
     </ul>
+    
+    <div class="col-md-8 col-md-offset-2 col-xs-12">
+        <form name="formMail" class="form-horizontal">
+            <fieldset>
+                <legend class="text-center">Escreva a sua dúvida, teremos prazer em atendê-lo!</legend>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="name">Nome:</label>
+                    <div class="col-md-9">
+                        <input ng-model="name" validator="[required]" class="form-control" type="text" placeholder="Seu nome">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="name">E-mail:</label>
+                    <div class="col-md-9">
+                        <input ng-model="email" validator="[required,email]" class="form-control" type="text" placeholder="Seu endereço de e-mail">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="name">Mensagem:</label>
+                    <div class="col-md-9">
+                        <textarea ng-model="message" validator="[required]" class="form-control" placeholder="Digite a sua mensagem aqui" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-lg pull-right" style="margin-right:14px" ng-click="sendMail()">Enviar</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>
