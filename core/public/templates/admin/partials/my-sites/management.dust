@@ -4,4 +4,17 @@
         <li><a href="/admin/#/">{@pre type="content" key="management.my-sites"/}</a></li>
         <li class="active">{@pre type="content" key="management.page-title"/}</li>
     </ul>
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="row">
+                <label class="col-md-2 col-xs-4">Nome do site:</label>
+                <span class="col-md-10 col-xs-8" ng-bind="data.facebook.name"></span>
+            </div>
+            
+            <div class="row">
+                <label class="col-md-2 col-xs-4">Endereço:</label>
+                <span class="col-md-10 col-xs-8"><a ng-href="http://##data.url##" target="_blank" ng-bind="data.url"></a></span>
+            </div>
+        </fieldset>
+    </form>
 </div>
