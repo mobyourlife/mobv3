@@ -1,8 +1,12 @@
 'use strict';
 
 var FB = require('FB');
+var moment = require('moment');
+var Domain = require('../../models/domain');
 var Fanpage = require('../../models/fanpage');
-
+var Ticket = require('../../models/ticket');
+var email = require('../../lib/email')();
+var sync = require('../../lib/sync')();
 
 module.exports = function (router) {
 
@@ -31,17 +35,180 @@ module.exports = function (router) {
         }
     });
     
+    /* api method to list all user fanpages without sites */
+    router.get('/remaining-fanpages', function (req, res) {
+        if (req.isAuthenticated() && req.user && req.user.fanpages) {
+            FB.setAccessToken(req.user.facebook.token);
+            FB.api('/me/permissions', function(records) {
+                var required = ['public_profile', 'email', 'manage_pages'];
+                var pending = [];
+
+                for (var i = 0; i < records.data.length; i++) {
+                    var perm = records.data[i];
+                    if (required.indexOf(perm.permission) != -1) {
+                        if (perm.status != 'granted') {
+                            switch (perm.permission) {
+                                case 'public_profile':
+                                    pending.push('Perfil público');
+                                    break;
+
+                                case 'email':
+                                    pending.push('Endereço de email');
+                                    break;
+
+                                case 'manage_pages':
+                                    pending.push('Gerenciar páginas');
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                if (pending.length != 0) {
+                    res.status(401).send({ pending: pending });
+                    return;
+                }
+
+                FB.api('/me/accounts', { locale: 'pt_BR', fields: ['id', 'name', 'about', 'link', 'picture'] }, function(records) {
+                    if (records.data) {
+                        var pages_list = Array();
+                        var ids_list = Array();
+
+                        for (var r = 0; r < records.data.length; r++) {
+                            var item = {
+                                id: records.data[r].id,
+                                name: records.data[r].name,
+                                about: records.data[r].about,
+                                link: records.data[r].link,
+                                picture: records.data[r].picture.data.url
+                            };
+                            pages_list.push(item);
+                            ids_list.push(records.data[r].id);
+                        }
+
+                        pages_list.sort(function(a, b) {
+                            var x = a.name.toLowerCase(), y = b.name.toLowerCase();
+                            if (x < y) return -1;
+                            if (x > y) return 1;
+                            return 0;
+                        });
+
+                        Fanpage.find({ _id: { $in: ids_list } }, function(err, records) {
+                            var built_list = Array();
+
+                            if (records) {
+                                for (i = 0; i < pages_list.length; i++) {
+                                    var existe = false;
+
+                                    for (var j = 0; j < records.length; j++) {
+                                        if (pages_list[i].id == records[j]._id) {
+                                            existe = true;
+                                        }
+                                    }
+
+                                    if (existe === false) {
+                                        built_list.push(pages_list[i]);
+                                    }
+                                }
+                            } else {
+                                built_list = pages_list;
+                            }
+
+                            res.status(200).send({ pages: built_list });
+                        });
+                    }
+                });
+            });
+        }
+    });
+    
     /* new website creation */
     router.get('/create-new-website/:pageid', function (req, res) {
         if (req.isAuthenticated()) {
-            FB.api('/' + req.params.pageid, { locale: req.cookies.locale }, function(data) {
-                if (data.error) {
-                    console.log(data.error);
+            FB.setAccessToken(req.user.facebook.token);
+            FB.api('/' + req.params.pageid, { locale: 'pt_BR', fields: ['id', 'name', 'about', 'link', 'picture', 'access_token'] }, function(records) {
+                
+                if (records) {
+                    FB.setAccessToken(records.access_token);
+                    FB.api('/v2.2/' + records.id + '/subscribed_apps', 'post', function(ret) {
+                        Fanpage.findOne({ _id : records.id }, function(err, found) {
+                            var newFanpage = null;
+
+                            if (found) {
+                                newFanpage = found;
+                            } else {
+                                newFanpage = new Fanpage();
+                                newFanpage._id = records.id;
+                                newFanpage.facebook.name = records.name;
+                                newFanpage.facebook.about = records.about;
+                                newFanpage.facebook.link = records.link;
+                                newFanpage.url = newFanpage.facebook.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '') + '.meusitemob.com.br';
+                                
+                                if (records.picture && records.picture.data) {
+                                    newFanpage.facebook.picture = records.picture.data.url;
+                                }
+
+                                /* creation info */
+                                newFanpage.creation.time = Date.now();
+                                newFanpage.creation.user = req.user;
+
+                                /* billing info */
+                                var ticket = new Ticket();
+                                ticket.time = Date.now();
+                                ticket.validity.months = 0;
+                                ticket.validity.days = 7;
+                                ticket.coupon.reason = 'signup_freebie';
+
+                                newFanpage.billing.active = true;
+                                newFanpage.billing.evaluation = true;
+                                newFanpage.billing.expiration = moment()
+                                    .add(ticket.validity.months, 'months')
+                                    .add(ticket.validity.days, 'days');
+
+                                ticket.save(function(err) {
+                                    if (err)
+                                        throw err;
+                                });
+                            }
+
+                            // save the new fanpage to the database
+                            Fanpage.update({ _id: records.id }, newFanpage.toObject(), { upsert: true }, function(err) {
+                                if (err)
+                                    throw err;
+
+                                // start syncing fanpage's current data
+                                sync.syncFanpage(newFanpage);
+
+                                // create default subdomain
+                                var domain = new Domain();
+                                domain._id = newFanpage.url;
+                                domain.ref = newFanpage;
+
+                                Domain.update({ _id: domain._id }, domain.toObject(), { upsert: true }, function(err) {
+                                    if (err)
+                                        throw err;
+
+                                    // send welcome email
+                                    var filename = './email/bem-vindo.html';
+                                    //var filename = '/var/www/mob/email/bem-vindo.html';
+
+                                    if (req.user.facebook.email) {
+                                        email.montarEmail(filename, newFanpage._id, function(html, user_email) {
+                                            email.enviarEmail('Mob Your Life', 'nao-responder@mobyourlife.com.br', 'Bem-vindo ao Mob Your Life', html, user_email);
+                                        });
+                                    }
+
+                                    res.status(200).send({ url: domain._id });
+                                });
+                            });
+                        });
+                    });
+                } else {
+                    res.status(400).send();
                 }
-                
-                console.log(data);
-                
-                res.status(400).send();
             });
         }
     });

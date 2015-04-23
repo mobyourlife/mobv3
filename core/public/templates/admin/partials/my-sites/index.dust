@@ -32,7 +32,7 @@
                                 <span>{@pre type="content" key="my-sites.view-site"/}</span>
                             </a>
                         </li>
-                        <li ng-show="s.wizard && s.wizard.finished">
+                        <!--<li ng-show="s.wizard && s.wizard.finished">
                             &middot;
                         </li>
                         <li ng-show="s.wizard && s.wizard.finished">
@@ -41,7 +41,7 @@
                                 <span>&nbsp;</span>
                                 <span>{@pre type="content" key="my-sites.manage"/}</span>
                             </a>
-                        </li>
+                        </li>-->
                         <li ng-hide="s.wizard && s.wizard.finished">
                             <a ng-href="/admin/#/##s._id##/wizard">
                                 <i class="fa fa-rocket fa-fw"></i>

@@ -13,13 +13,15 @@ app.controller('MySitesController', function($scope, $http) {
 
 /* create new website */
 app.controller('NewWebsiteController', function($scope, $http, $routeParams, $location) {
-    $http.get('/api/my-sites').success(function(data) {
+    $http.get('/api/remaining-fanpages').success(function(data) {
         $scope.data = data;
     });
     
     $scope.createNewWebsite = function(pageid) {
-        $http.get('/api/create-new-website/' + $routeParams.pageid).success(function(data) {
-            $location.path('/' + $routeParams.pageid + '/wizard');
+        $scope.error = null;
+        
+        $http.get('/api/create-new-website/' + pageid).success(function(data) {
+            $location.path('/' + pageid + '/wizard');
         }).error(function(data, status) {
             if (status == 401) {
                 location.href = '/account/logout';
