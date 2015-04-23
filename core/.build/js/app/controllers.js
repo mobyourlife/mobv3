@@ -156,9 +156,7 @@ app.controller('FaqController', function($scope, $http) {
 app.controller('SupportController', function($scope, $http, $validator) {
     $scope.sendMail = function() {
         $validator.validate($scope).success(function() {
-            alert('ok!');
-        }).error(function() {
-            alert('error!');
+            //
         });
     }
 });
