@@ -4,6 +4,10 @@ var app = angular.module('MobYourLife.Controllers', []);
 app.controller('MySitesController', function($scope, $http) {
     $http.get('/api/my-sites').success(function(data) {
         $scope.data = data;
+    }).error(function(data, status) {
+        if (status == 401) {
+            location.href = '/account/logout';
+        }
     });
 });
 
@@ -17,6 +21,10 @@ app.controller('NewWebsiteController', function($scope, $http, $routeParams, $lo
         $http.get('/api/create-new-website/' + $routeParams.pageid).success(function(data) {
             $location.path('/' + $routeParams.pageid + '/wizard');
         }).error(function(data, status) {
+            if (status == 401) {
+                location.href = '/account/logout';
+            }
+            
             $scope.error = 'Error ' + status + ' while trying to create the new website! Please try again!';
         });
     }
@@ -34,6 +42,10 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
             $rootScope.fanpageName = $scope.data.facebook.name;
         } else {
             $location.path('/' + $routeParams.pageid + '/wizard');
+        }
+    }).error(function(data, status) {
+        if (status == 401) {
+            location.href = '/account/logout';
         }
     });
 });
@@ -54,6 +66,10 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
             $scope.data = data;
             $rootScope.fanpageId = $scope.data._id;
             $rootScope.fanpageName = $scope.data.facebook.name;
+        }
+    }).error(function(data, status) {
+        if (status == 401) {
+            location.href = '/account/logout';
         }
     });
     
