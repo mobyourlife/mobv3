@@ -5,7 +5,7 @@
     </ul>
     
     <div ng-hide="data.sites" class="text-center">
-        <p><img src="https://cdn0.iconfinder.com/data/icons/kameleon-free-pack-rounded/110/Party-Poppers-256.png" alt='{@pre type="content" key="my-sites.welcome-title"/}'></p>
+        <p><img src="/img/party.png" alt='{@pre type="content" key="my-sites.welcome-title"/}'></p>
         <h2>{@pre type="content" key="my-sites.welcome-title"/}</h2>
         <h4>{@pre type="content" key="my-sites.welcome-message-1"/}</h4>
         <p>{@pre type="content" key="my-sites.welcome-message-2"/}</p>

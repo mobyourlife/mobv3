@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">
+                <a class="navbar-brand topnav goto-link" href="/#">
                     <img src="img/logo.png" alt="Mob Your Life"/>
                 </a>
             </div>
@@ -54,13 +54,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#conheca">{@pre type="content" key="index.getting-started"/}</a>
+                        <a class="goto-link" href="/#getting-started">{@pre type="content" key="index.getting-started"/}</a>
                     </li>
                     <li>
-                        <a href="#crie-seu-site-agora">{@pre type="content" key="index.create-your-website-now"/}</a>
+                        <a class="goto-link" href="#create-your-website-now">{@pre type="content" key="index.create-your-website-now"/}</a>
                     </li>
                     <li>
-                        <a href="#fale-conosco">{@pre type="content" key="index.contact-us"/}</a>
+                        <a class="goto-link" href="#contact-us">{@pre type="content" key="index.contact-us"/}</a>
                     </li>
                     <li>
                         <a class="no-deco btn-language" data-toggle="dropdown" aria-expanded="false">
@@ -80,10 +80,8 @@
 
 
     <!-- Header -->
-    <a name="about"></a>
     <div class="intro-header {background}">
         <div class="container">
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
@@ -108,7 +106,7 @@
 
     <!-- Page Content -->
 
-	<a name="conheca"></a>
+	<a name="getting-started"></a>
     <div class="content-section-a">
 
         <div class="container">
@@ -129,7 +127,7 @@
     </div>
     <!-- /.content-section-a -->
 
-	<a name="crie-seu-site-agora"></a>
+	<a name="create-your-website-now"></a>
     <div class="content-section-b">
 
         <div class="container">
@@ -159,7 +157,7 @@
     </div>
     <!-- /.content-section-b -->
 
-	<a name="avise-me"></a>
+	<a name="mail-list"></a>
     <div class="content-section-a">
 
         <div class="container">
@@ -170,7 +168,7 @@
                     <h2 class="section-heading">{@pre type="content" key="index.getting-started-3-title"/}</h2>
                     <p class="lead">{@pre type="content" key="index.getting-started-3-text"/}</p>
                     <div>
-                        <div class="input-group hidden-xs">
+                        <div class="input-group input-group-lg hidden-xs">
                             <input type="text" name="email" placeholder='{@pre type="content" key="index.getting-started-3-input-placeholder"/}' class="form-control">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary">
@@ -203,7 +201,7 @@
     </div>
     <!-- /.content-section-a -->
 
-	<a  name="fale-conosco"></a>
+	<a name="contact-us"></a>
     <div class="banner">
 
         <div class="container">
@@ -215,7 +213,7 @@
                 <div class="col-lg-8">
                     <ul class="list-inline banner-social-buttons">
                         <li>
-                            <a href="#" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-users fa-fw"></i> <span class="network-name">{@pre type="content" key="index.support"/}</span></a>
+                            <a href="/#support" onclick="zE(function() { zE.activate() } ); return false;" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-users fa-fw"></i> <span class="network-name">{@pre type="content" key="index.support"/}</span></a>
                         </li>
                         <li>
                             <a href="https://www.facebook.com/MobYourLife" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">{@pre type="content" key="index.contact-facebook"/}</span></a>
@@ -243,27 +241,27 @@
                 <div class="col-lg-12">
                     <ul class="list-inline">
                         <li>
-                            <a href="#conheca">{@pre type="content" key="index.getting-started"/}</a>
+                            <a class="goto-link" href="/#getting-started">{@pre type="content" key="index.getting-started"/}</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#crie-seu-site-agora">{@pre type="content" key="index.create-your-website-now"/}</a>
+                            <a class="goto-link" href="/#create-your-website-now">{@pre type="content" key="index.create-your-website-now"/}</a>
+                        </li>
+                        <!--<li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/pricing">{@pre type="content" key="index.pricing"/}</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#precos">{@pre type="content" key="index.pricing"/}</a>
+                            <a href="/help-centre">{@pre type="content" key="index.help-centre"/}</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#central-de-ajuda">{@pre type="content" key="index.help-centre"/}</a>
-                        </li>
+                            <a href="/support">{@pre type="content" key="index.support"/}</a>
+                        </li>-->
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#suporte-tecnico">{@pre type="content" key="index.support"/}</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#fale-conosco">{@pre type="content" key="index.contact-us"/}</a>
+                            <a class="goto-link" href="/#contact-us">{@pre type="content" key="index.contact-us"/}</a>
                         </li>
                     </ul>
                     <p class="copyright text-muted small">Copyright<sup>&copy;</sup> Mob Your Life 2013-2015. {@pre type="content" key="index.copyright-disclaimer"/}</p>
