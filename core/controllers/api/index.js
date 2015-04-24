@@ -307,4 +307,24 @@ module.exports = function (router) {
         }
     });
 
+    /* api method to list all sites from all users */
+    router.get('/all-sites', function (req, res) {
+        if (req.isAuthenticated() && req.user && req.user.id != 0) {
+            
+            Fanpage.find().sort({ 'facebook.name': 1 }).exec(function(err, rows) {
+                if (err) {
+                    console.log(err);
+                }
+
+                var model = {
+                    sites: rows
+                };
+
+                res.send(model);
+            });
+        } else {
+            res.status(401).send();
+        }
+    });
+
 };

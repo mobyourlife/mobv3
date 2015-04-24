@@ -23,6 +23,9 @@ app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
         }).when('/billing', {
             templateUrl: '/admin/partials/billing',
             controller: 'BillingController'
+        }).when('/all-sites', {
+            templateUrl: '/admin/partials/all-sites',
+            controller: 'AllSitesController'
         }).when('/faq', {
             templateUrl: '/admin/partials/faq',
             controller: 'FaqController'

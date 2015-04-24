@@ -48,6 +48,9 @@
                     <li ng-class="{'active': $root.activeController == 'BillingController'}"><a ng-href="/admin/#/billing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
                 </ul>
                 <ul class="nav nav-sidebar">
+                    <li ng-class="{'active': $root.activeController == 'AllSitesController'}"><a href="/admin/#/all-sites"><i class="fa fa-wrench fa-fw"></i> {@pre type="content" key="index.all-sites"/}</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
                     <li ng-class="{'active': $root.activeController == 'FaqController'}"><a ng-href="/admin/#/faq"><i class="fa fa-question fa-fw"></i> {@pre type="content" key="index.faq"/}</a></li>
                     <li ng-class="{'active': $root.activeController == 'SupportController'}"><a ng-href="/admin/#/support"><i class="fa fa-life-buoy fa-fw"></i> {@pre type="content" key="index.support"/}</a></li>
                 </ul>
