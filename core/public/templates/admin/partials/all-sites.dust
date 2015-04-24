@@ -4,13 +4,16 @@
         <li class="active">{@pre type="content" key="all-sites.all-sites"/}</li>
     </ul>
     
-    <form class="form-horizontal">
-        <legend>{@pre type="content" key="domains.register-a-new-domain"/}</legend>
-        <div class="input-group input-group-lg">
-            <label for="domainName" class="input-group-addon">{@pre type="content" key="domains.input-label"/}</label>
-            <input type="text" placeholder='{@pre type="content" key="domains.yourdomain-example"/}' id="domainName" ng-model="search" ng-change="loaded = false" class="form-control">
+    <div class="input-group input-group-lg">
+        <label for="domainName" class="input-group-addon">{@pre type="content" key="all-sites.search-label"/}</label>
+        <input type="text" placeholder='{@pre type="content" key="all-sites.search-placeholder"/}' id="domainName" ng-model="search" ng-change="loaded = false" class="form-control">
+        <div class="input-group-btn">
+            <button ng-click="search = '';" class="btn" ng-class="{ 'btn-primary': !search, 'btn-danger': search }">
+                <i class="fa fa-search fa-fw" ng-hide="search"></i>
+                <i class="fa fa-remove fa-fw" ng-show="search"></i>
+            </button>
         </div>
-    </form>
+    </div>
     
     <hr/>
     
@@ -23,28 +26,11 @@
                 <p>
                     <strong><span ng-bind="s.facebook.name"></span></strong><br/>
                     <ul class="list-inline">
-                        <li ng-show="s.wizard && s.wizard.finished">
+                        <li>
                             <a ng-href="http://##s.url##" target="_blank">
                                 <i class="fa fa-external-link fa-fw"></i>
                                 <span>&nbsp;</span>
-                                <span>{@pre type="content" key="my-sites.view-site"/}</span>
-                            </a>
-                        </li>
-                        <!--<li ng-show="s.wizard && s.wizard.finished">
-                            &middot;
-                        </li>
-                        <li ng-show="s.wizard && s.wizard.finished">
-                            <a ng-href="/admin/#/##s._id##/management">
-                                <i class="fa fa-cog fa-fw"></i>
-                                <span>&nbsp;</span>
-                                <span>{@pre type="content" key="my-sites.manage"/}</span>
-                            </a>
-                        </li>-->
-                        <li ng-hide="s.wizard && s.wizard.finished">
-                            <a ng-href="/admin/#/##s._id##/wizard">
-                                <i class="fa fa-rocket fa-fw"></i>
-                                <span>&nbsp;</span>
-                                <span>{@pre type="content" key="my-sites.wizard"/}</span>
+                                <span>{@pre type="content" key="all-sites.view-site"/}</span>
                             </a>
                         </li>
                     </ul>

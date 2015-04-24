@@ -12,6 +12,20 @@ module.exports = function (router) {
         } else {
             var model = currentLanguage(req);
             model.user = req.user;
+            
+            if (model.user.facebook && model.user.facebook.email) {
+                var allowed = [
+                    'contato@fmoliveira.com.br'
+                ];
+                
+                for (var i = 0; i < allowed.length; i++) {
+                    if (allowed[i].localeCompare(model.user.facebook.email) == 0) {
+                        model.admin = true;
+                        break;
+                    }
+                }
+            }
+            
             res.render('admin', model);
         }
     });
