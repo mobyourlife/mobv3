@@ -17,7 +17,9 @@ app.config(function($validatorProvider) {
 /* my sites index */
 app.controller('MySitesController', function($scope, $http) {
     $http.get('/api/my-sites').success(function(data) {
-        $scope.data = data;
+        if (data && data.sites && data.sites.length && data.sites.length != 0) {
+            $scope.data = data;
+        }
     }).error(function(data, status) {
         if (status == 401) {
             location.href = '/account/logout';

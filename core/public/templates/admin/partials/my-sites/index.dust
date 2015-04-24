@@ -3,54 +3,72 @@
         <li><a href="/">Mob Your Life</a></li>
         <li class="active">{@pre type="content" key="my-sites.my-sites"/}</li>
     </ul>
-    <div class="row">
-        <div class="col-xs-12">
-            <ul class="list-inline">
-                <li>
-                    <a ng-href="/admin/#/new-website" class="btn btn-primary btn-lg">
-                        <i class="fa fa-plus fa-fw"></i>
-                        <span>&nbsp;</span>
-                        <span>{@pre type="content" key="my-sites.create-new-site"/}</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    
+    <div ng-hide="data.sites" class="text-center">
+        <p><img src="https://cdn0.iconfinder.com/data/icons/kameleon-free-pack-rounded/110/Party-Poppers-256.png" alt='{@pre type="content" key="my-sites.welcome-title"/}'></p>
+        <h2>{@pre type="content" key="my-sites.welcome-title"/}</h2>
+        <h4>{@pre type="content" key="my-sites.welcome-message-1"/}</h4>
+        <p>{@pre type="content" key="my-sites.welcome-message-2"/}</p>
+        <p>
+            <a ng-href="/admin/#/new-website" class="btn btn-primary btn-lg">
+                <i class="fa fa-star fa-fw"></i>
+                <span>&nbsp;</span>
+                <span>{@pre type="content" key="my-sites.create-my-first-site"/} &raquo;</span>
+            </a>
+        </p>
     </div>
-    <div class="well" ng-repeat="s in data.sites">
-        <div class="media">
-            <div class="media-left">
-                <img class="media-object" ng-src="##s.facebook.picture##" alt="##s.facebook.name##" />
+    
+    <div ng-show="data.sites">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="list-inline">
+                    <li>
+                        <a ng-href="/admin/#/new-website" class="btn btn-primary btn-lg">
+                            <i class="fa fa-plus fa-fw"></i>
+                            <span>&nbsp;</span>
+                            <span>{@pre type="content" key="my-sites.create-new-site"/}</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="media-body">
-                <p>
-                    <strong><span ng-bind="s.facebook.name"></span></strong><br/>
-                    <ul class="list-inline">
-                        <li ng-show="s.wizard && s.wizard.finished">
-                            <a ng-href="http://##s.url##" target="_blank">
-                                <i class="fa fa-external-link fa-fw"></i>
-                                <span>&nbsp;</span>
-                                <span>{@pre type="content" key="my-sites.view-site"/}</span>
-                            </a>
-                        </li>
-                        <!--<li ng-show="s.wizard && s.wizard.finished">
-                            &middot;
-                        </li>
-                        <li ng-show="s.wizard && s.wizard.finished">
-                            <a ng-href="/admin/#/##s._id##/management">
-                                <i class="fa fa-cog fa-fw"></i>
-                                <span>&nbsp;</span>
-                                <span>{@pre type="content" key="my-sites.manage"/}</span>
-                            </a>
-                        </li>-->
-                        <li ng-hide="s.wizard && s.wizard.finished">
-                            <a ng-href="/admin/#/##s._id##/wizard">
-                                <i class="fa fa-rocket fa-fw"></i>
-                                <span>&nbsp;</span>
-                                <span>{@pre type="content" key="my-sites.wizard"/}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </p>
+        </div>
+
+        <div class="well" ng-repeat="s in data.sites">
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" ng-src="##s.facebook.picture##" alt="##s.facebook.name##" />
+                </div>
+                <div class="media-body">
+                    <p>
+                        <strong><span ng-bind="s.facebook.name"></span></strong><br/>
+                        <ul class="list-inline">
+                            <li ng-show="s.wizard && s.wizard.finished">
+                                <a ng-href="http://##s.url##" target="_blank">
+                                    <i class="fa fa-external-link fa-fw"></i>
+                                    <span>&nbsp;</span>
+                                    <span>{@pre type="content" key="my-sites.view-site"/}</span>
+                                </a>
+                            </li>
+                            <!--<li ng-show="s.wizard && s.wizard.finished">
+                                &middot;
+                            </li>
+                            <li ng-show="s.wizard && s.wizard.finished">
+                                <a ng-href="/admin/#/##s._id##/management">
+                                    <i class="fa fa-cog fa-fw"></i>
+                                    <span>&nbsp;</span>
+                                    <span>{@pre type="content" key="my-sites.manage"/}</span>
+                                </a>
+                            </li>-->
+                            <li ng-hide="s.wizard && s.wizard.finished">
+                                <a ng-href="/admin/#/##s._id##/wizard">
+                                    <i class="fa fa-rocket fa-fw"></i>
+                                    <span>&nbsp;</span>
+                                    <span>{@pre type="content" key="my-sites.wizard"/}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
