@@ -135,9 +135,9 @@ app.controller('WizardNextController', function($routeParams, $location) {
 app.controller('DomainsController', function($scope, $http) {
     $scope.checkDomain = function() {
         $scope.loaded = false;
-        $http.get('https://whois.apitruck.com/' + $scope.domainName).success(function(data) {
+        $http.get('/api/whois/' + $scope.domainName).success(function(data) {
             $scope.loaded = true;
-            $scope.available = (data.error == 200 && data.response.status == null);
+            $scope.available = (data.status.localeCompare("available") == 0);
         });
     }
 });

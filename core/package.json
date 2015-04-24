@@ -21,7 +21,8 @@
     "mongoose": "^4.0.1",
     "nodemailer": "^1.3.4",
     "passport": "^0.2.1",
-    "passport-facebook": "^2.0.0"
+    "passport-facebook": "^2.0.0",
+    "unirest": "^0.4.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

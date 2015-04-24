@@ -2,6 +2,7 @@
 
 var FB = require('FB');
 var moment = require('moment');
+var unirest = require('unirest');
 var Domain = require('../../models/domain');
 var Fanpage = require('../../models/fanpage');
 var Ticket = require('../../models/ticket');
@@ -324,6 +325,24 @@ module.exports = function (router) {
             });
         } else {
             res.status(401).send();
+        }
+    });
+    
+    /* whois method */
+    router.get('/whois/:domain', function (req, res) {
+        if (req.isAuthenticated()) {
+            unirest.get('https://jsonwhois.com/api/v1/whois')
+                .headers({
+                    'Accept': 'application/json',
+                    'Authorization': 'Token token=f3079dff6c459f9d596faf14dead2e6b'
+                })
+                .query({
+                    "domain": req.params.domain
+                })
+                .end(function (response) {
+                    res.status(200).send(response.body);
+                }
+            );
         }
     });
 
