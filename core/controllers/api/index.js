@@ -223,8 +223,8 @@ module.exports = function (router) {
                                         throw err;
 
                                     // send welcome email
-                                    var filename = './email/bem-vindo.html';
-                                    //var filename = '/var/www/mob/email/bem-vindo.html';
+                                    //var filename = './email/bem-vindo.html';
+                                    var filename = '/var/www/mob/email/bem-vindo.html';
 
                                     if (req.user.facebook.email) {
                                         email.montarEmail(filename, newFanpage._id, function(html, user_email) {
