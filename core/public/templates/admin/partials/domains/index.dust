@@ -21,4 +21,29 @@
         <span ng-show="available">{@pre type="content" key="domains-index.name-is-available"/} <a href="/admin/#/domains/register/##domainName##">{@pre type="content" key="domains-index.click-here-to-register"/}</a></span>
         <span ng-show="!available">{@pre type="content" key="domains-index.name-is-not-available"/}</span>
     </div>
+    
+    <table class="table">
+        <colgroup>
+            <col class="col-md-4"></col>
+            <col class="col-md-4"></col>
+            <col class="col-md-4"></col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Domínio</th>
+                <th>Site</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in data.domains">
+                <td ng-bind="d.domain._id"></td>
+                <td ng-bind="d.fanpage.name"></td>
+                <td>
+                    <span ng-show="d.domain.status == 'waiting'">Aguardando</span>
+                    <span ng-show="d.domain.status == 'registered'">Registrado</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

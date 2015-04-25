@@ -377,5 +377,34 @@ module.exports = function (router) {
             });
         }
     });
+    
+    /* api method to list all user websites registered domains */
+    router.get('/my-domains', function (req, res) {
+        if (req.isAuthenticated() && req.user && req.user.fanpages) {
+            var list = Array();
+            var names = Array();
+            
+            for(var i = 0; i < req.user.fanpages.length; i++) {
+                list.push(req.user.fanpages[i].id);
+                names[req.user.fanpages[i].id] = req.user.fanpages[i].name;
+            }
+            
+            Domain.find({ ref: { $in: list } }).sort({ '_id': 1 }).exec(function(err, rows) {
+                var ret = Array();
+                
+                for (var j = 0; j < rows.length; j++) {
+                    ret.push({
+                        fanpage: {
+                            id: rows[j].ref,
+                            name: names[rows[j].ref]
+                        },
+                        domain: rows[j]
+                    });
+                }
+                
+                res.status(200).send({ domains: ret });
+            });
+        }
+    });
 
 };

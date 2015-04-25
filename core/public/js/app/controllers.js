@@ -133,6 +133,10 @@ app.controller('WizardNextController', function($routeParams, $location) {
 
 /* list user websites domains */
 app.controller('DomainsController', function($scope, $http) {
+    $http.get('/api/my-domains').success(function(data) {
+        $scope.data = data;
+    });
+    
     $scope.checkDomain = function() {
         $scope.loaded = false;
         $http.get('/api/whois/' + $scope.domainName).success(function() {
