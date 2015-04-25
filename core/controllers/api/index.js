@@ -430,5 +430,338 @@ module.exports = function (router) {
             });
         }
     });
+    
+    /* OLD API BEGINNING */
+    
+    var validateSubdomain = function(uri, res, callbackTop, callbackSubdomain) {
+        var parsed = new URL(uri);
+        var hostname = parsed.hostname;
+        var subdomain = hostname.split('.')[0];
+
+        if (hostname == 'www.mobyourlife.com.br') {
+            callbackTop(topMenu);
+        } else {
+            Domain.findOne({'_id': hostname }, function(err, found) {
+                if (found) {
+                    Fanpage.findOne({'_id': found.ref}, function(err, found) {
+                        if (found) {
+                            var fanpage = found;
+
+                            if (fanpage.billing.expiration <= Date.now()) {
+                                res.render('expired', { fanpage: fanpage });
+                                return;
+                            }
+
+                            TextPage.find({ ref: fanpage._id }, function(err, found) {
+                                if (err)
+                                    throw err;
+
+                                Album.find({ ref: fanpage._id, special: 'page' }, function(err, albums) {
+
+                                    var menu = Array();
+                                    menu.push({ path: 'inicio', text: 'Início' });
+                                    menu.push({ path: 'sobre', text: 'Sobre' });
+
+                                    for (i = 0; i < found.length; i++) {
+                                        menu.push({ path: found[i].path, text: found[i].title });
+                                    }
+
+                                    for (i = 0; i < albums.length; i++) {
+                                        menu.push({ path: albums[i].path, text: albums[i].name });
+                                    }
+
+                                    menu.push({ path: 'fotos', text: 'Fotos' });
+
+                                    if (fanpage.video_count && fanpage.video_count > 0) {
+                                        menu.push({ path: 'videos', text: 'Vídeos' });
+                                    }
+
+                                    menu.push({ path: 'contato', text: 'Contato' });
+
+                                    if(!fanpage.theme) {
+                                        fanpage.theme = {
+                                            css: themes[0].css,
+                                            navbar: themes[0].navbar
+                                        };
+                                    }
+
+                                    callbackSubdomain(fanpage, menu);
+                                });
+                            });
+                        } else {
+                            res.redirect('http://www.mobyourlife.com.br');
+                        }
+                    });
+                } else {
+                    res.redirect('http://www.mobyourlife.com.br');
+                }
+            });
+        }
+    }
+    
+    // botões de compartilhamento social
+    router.get('/share', function(req, res) {
+        validateSubdomain(req.headers.referer, res, function(menu) {
+            res.render('404', { link: 'sobre', auth: req.isAuthenticated(), user: req.user, menu: menu });
+        }, function(userFanpage, menu) {
+            res.render('share', { link: req.query.link, label: req.query.label, fanpage: userFanpage });
+        });
+    });
+    
+    // enviar foto de capa
+    router.post('/upload-cover', function(req, res) {
+        validateSubdomain(req.headers.host, res, function(menu) {
+            res.render('404', { link: 'upload-cover', auth: req.isAuthenticated(), user: req.user, menu: menu });
+        }, function(userFanpage, menu) {
+            var form = new formidable.IncomingForm(), height = 0, cover = null;
+            //if (app.get('env') === 'development') {
+                form.uploadDir = './public/uploads';
+            //} else {
+            //    form.uploadDir = '/var/www/mob/public/uploads';
+            //}
+            form.keepExtensions = true;
+
+            form
+                .on('field', function(field, value) {
+                    if (field === 'height') {
+                        height = value;
+                    }
+                })
+                .on('file', function(field, file) {
+                    if (field === 'cover') {
+                        cover = file;
+                    }
+                })
+                .on('end', function() {
+                    var patharr = cover.path.indexOf('\\') != -1 ? cover.path.split('\\') : cover.path.split('/');
+                    var path = patharr[patharr.length - 1];
+                    Fanpage.update({ _id: userFanpage._id }, { cover: height != 0 ? { path: path, height: height } : null }, { upsert: true}, function(err) {
+                        if (err)
+                            throw err;
+                        
+                        res.redirect(req.headers.referer);
+                    });
+                });
+            form.parse(req);
+        });
+    });
+    
+    // api para gerenciar álbuns
+    router.post('/set-album', function(req, res) {
+        if (req.isAuthenticated()) {
+            if (req.body.album_id && req.body.special_type) {
+                Album.findOne({ _id: req.body.album_id }, function(err, one) {
+                    if (err)
+                        throw err;
+                    
+                    var proceed = false;
+                    
+                    for (i = 0; i < req.user.fanpages.length; i++) {
+                        if (req.user.fanpages[i].id.toString().localeCompare(one.ref.toString()) === 0) {
+                            proceed = true;
+                            break;
+                        }
+                    }
+                    
+                    if (proceed) {
+                        var saveit = function() {
+                            Album.update({ _id: req.body.album_id }, { special: req.body.special_type }, function(err) {
+                                if (err)
+                                    throw err;
+
+                                res.status(200).send();
+                            });
+                        };
+
+                        if (req.body.special_type === 'banner') {
+                            Album.update({ ref: one.ref, special: 'banner' }, { special: 'default' }, function(err) {
+                                if (err)
+                                    throw err;
+
+                                saveit();
+                            });
+                        } else {
+                            saveit();
+                        }
+                    } else {
+                        res.status(403).send();
+                    }
+                });
+            } else {
+                res.status(402).send();
+            }
+        }
+    });
+    
+    // api para sincronização de login
+    router.get('/login', function(req, res) {
+        if (req.isAuthenticated()) {
+            var parsed = new URL(req.headers.referer);
+            Domain.findOne({ '_id': parsed.hostname }, function(err, found) {
+                if (found) {
+                    Fanpage.findOne({ '_id': found.ref }, function(err, found) {
+                        if (found) {
+                            for (i = 0; i < req.user.fanpages.length; i++) {
+                                if (req.user.fanpages[i].id == found._id) {
+                                    res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: true });
+                                    return;
+                                }
+                            }
+                            
+                            /* não é o dono quem está acessando */
+                            res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: false });
+                        } else {
+                            res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: false });
+                        }
+                    });
+                } else {
+                    res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: false });
+                }
+            });
+            
+            // res.send({auth: true, id: req.session.id, username: req.session.username, _csrf: req.session._csrf});
+        } else {
+            res.status(401).send({ auth: false });
+            // res.send(401, {auth: false, _csrf: req.session._csrf});
+        }
+    });
+    
+    // api para consulta do feed
+    router.get('/feeds/:before?', function(req, res) {
+        validateSubdomain(req.headers.host, res, function(menu) {
+            res.render('404', { link: 'opcoes', auth: req.isAuthenticated(), user: req.user, menu: menu });
+        }, function(userFanpage, menu) {
+            var filter = { ref: userFanpage._id };
+            
+            if (req.params.before) {
+                filter.time = { $lte: moment.unix(req.params.before).format() };
+            }
+            
+            Feed.find(filter).limit(5).sort('-time').exec(function(err, found) {
+                for (i = 0; i < found.length; i++) {
+                    found[i].unix = moment(found[i].time).unix();
+                    found[i].fromNow = moment(found[i].time).fromNow();
+                }
+                res.render('api-feeds', { feeds: found });
+            });
+        });
+    });
+    
+    // api para consulta das fotos
+    router.get('/fotos/:before?', function(req, res) {
+        validateSubdomain(req.headers.host, res, function(menu) {
+            res.render('404', { link: 'opcoes', auth: req.isAuthenticated(), user: req.user, menu: menu });
+        }, function(userFanpage, menu) {
+            var filter = { ref: userFanpage._id };
+            
+            if (req.params.before) {
+                filter.time = { $lte: moment.unix(req.params.before).format() };
+            }
+            
+            Album.find({ ref: userFanpage._id, special: { '$in': [null, 'default'] } }, function(err, list) {
+                var albums = [];
+                
+                if (list) {
+                    for (i = 0; i < list.length; i++) {
+                        albums.push(list[i]._id);
+                    }
+                }
+                
+                filter.album_id = { '$in': albums };
+                
+                Photo.find(filter).limit(15).sort('-time').exec(function(err, found) {
+                    res.send({ fotos: found });
+                });
+            });
+        });
+    });
+    
+    router.get('/fotos-:album/:before?', function(req, res) {
+        validateSubdomain(req.headers.host, res, function(menu) {
+            res.render('404', { link: 'opcoes', auth: req.isAuthenticated(), user: req.user, menu: menu });
+        }, function(userFanpage, menu) {
+            var filter = { ref: userFanpage._id };
+            
+            if (req.params.before) {
+                filter.time = { $lte: moment.unix(req.params.before).format() };
+            }
+            
+            Album.findOne({ ref: userFanpage._id, path: req.params.album }, function(err, one) {
+                if (one) {
+                    filter.album_id = one._id;
+                    Photo.find(filter).limit(15).sort('-time').exec(function(err, found) {
+                        res.send({ fotos: found });
+                    });
+                }
+            });
+        });
+    });
+    
+    // api para consulta dos vídeos
+    router.get('/videos/:before?', function(req, res) {
+        validateSubdomain(req.headers.host, res, function(menu) {
+            res.render('404', { link: 'opcoes', auth: req.isAuthenticated(), user: req.user, menu: menu });
+        }, function(userFanpage, menu) {
+            var filter = { ref: userFanpage._id };
+            
+            if (req.params.before) {
+                filter.time = { $lte: moment.unix(req.params.before).format() };
+            }
+            
+            Video.find(filter).limit(15).sort('-time').exec(function(err, found) {
+                res.send({ videos: found });
+            });
+        });
+    });
+    
+    /* atualizações em tempo real do Facebook */
+    router.get('/realtime', function(req, res) {
+        console.log('Realtime updates verification request received.');
+        if (req.query['hub.mode'] === 'subscribe') {
+            if (req.query['hub.verify_token'] === '123456') {
+                console.log('Challenge answered.');
+                res.send(req.query['hub.challenge']);
+                return;
+            }
+        }
+        res.status(500).send();
+    });
+    
+    router.post('/realtime', function(req, res) {
+        var update = new Update();
+        update.time = Date.now();
+        update.data = req.body;
+        update.save(function(err, data) {
+            if (err)
+                throw err;
+            
+            RTU.syncPending();
+        });
+        res.status(200).send();
+    });
+    
+    // middleware de autenticação
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated()) {
+            next();
+        } else {
+            res.redirect('/');
+        }
+    }
+    
+    // middleware de administração
+    function isAdmin(req, res, next) {
+        if (req.isAuthenticated()) {
+            if (validateAdmin(req.user)) {
+                next();
+            } else {
+                res.redirect('/meus-sites');
+            }
+        } else {
+            res.redirect('/');
+        }
+    }
+    
+    /* OLD API END */
 
 };
