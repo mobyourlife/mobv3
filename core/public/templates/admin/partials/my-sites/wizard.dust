@@ -1,6 +1,6 @@
 <div class="row">
     <ul class="breadcrumb">
-        <li><a href="/">Mob Your Life</a></li>
+        <li><a href="/admin/#/">Mob Your Life</a></li>
         <li><a href="/admin/#/">{@pre type="content" key="wizard.my-sites"/}</a></li>
         <li class="active">{@pre type="content" key="wizard.page-title"/}</li>
     </ul>
