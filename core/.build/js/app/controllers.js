@@ -145,6 +145,24 @@ app.controller('DomainsController', function($scope, $http) {
 /* register a new domain */
 app.controller('DomainRegisterController', function($scope, $http, $routeParams) {
     $scope.domain = $routeParams.domain;
+    
+    $http.get('/api/my-sites').success(function(data) {
+        if (data && data.sites && data.sites.length && data.sites.length != 0) {
+            $scope.data = data;
+            
+            if ($scope.data.sites.length == 1) {
+                $scope.selectedSite = $scope.data.sites[0];
+            }
+        }
+    }).error(function(data, status) {
+        if (status == 401) {
+            location.href = '/account/logout';
+        }
+    });
+    
+    $scope.selectSite = function(site) {
+        $scope.selectedSite = site;
+    }
 });
 
 /* user websites billing */

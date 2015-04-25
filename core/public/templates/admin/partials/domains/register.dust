@@ -5,7 +5,9 @@
         <li class="active">{@pre type="content" key="domains-register.register"/}</li>
     </ul>
     
-    Parabéns! Você está registrando o domínio:
+    <h2>Parabéns!</h2>
+    <h4>Você está registrando o domínio:</h4>
+    
     <div class="alert alert-success"><h3 ng-bind="domain"></h3></div>
     
     <p class="text-success">
@@ -18,10 +20,19 @@
     
     <hr>
     
-    <p>Para confirmar o pedido de registro do domínio, clique no botão abaixo.</p>
+    <div ng-show="data.sites">
+        <p>Selecione o site que deseja vincular este domínio:</p>
+        <div class="list-group">
+            <a class="list-group-item ng-click" ng-repeat="i in data.sites" ng-class="{ 'active': i == selectedSite }" ng-click="selectSite(i)"><span ng-bind="i.facebook.name"></span><span class="fa fa-check fa-fw pull-right" ng-show="i == selectedSite"></span></a>
+        </ul>
+    </div>
+    
+    <hr ng-show="data.sites">
+    
+    <p>Para confirmar o pedido de registro do domínio<span ng-hide="selectedSite">, primeiro selecione acima o site que deseja vincular este domínio, e em seguida</span>, clique no botão abaixo.</p>
     
     <p>
-        <a class="btn btn-primary btn-lg"><i class="fa fa-check fa-fw"></i> Confirmar pedido de registro &raquo;</a>
+        <a class="btn btn-primary btn-lg" ng-disabled="!selectedSite"><i class="fa fa-check fa-fw"></i> Confirmar pedido de registro &raquo;</a>
         &nbsp;
         <a href="/admin/#/domains" class="btn btn-danger btn-lg"><i class="fa fa-remove fa-fw"></i> Cancelar</a>
     </p>

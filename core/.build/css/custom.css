@@ -51,7 +51,7 @@ img.user-picture {
 .well-cash {
   background-image: url('/img/well-cash.png'); }
 
-.language a, .btn-ng {
+.language a, .btn-ng, a.ng-click {
   cursor: pointer; }
 
 .alert.url a {
