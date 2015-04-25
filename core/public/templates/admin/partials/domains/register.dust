@@ -1,0 +1,28 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/admin/#/">Mob Your Life</a></li>
+        <li><a href="/admin/#/domains/">{@pre type="content" key="domains-register.domains"/}</a></li>
+        <li class="active">{@pre type="content" key="domains-register.register"/}</li>
+    </ul>
+    
+    Parabéns! Você está registrando o domínio:
+    <div class="alert alert-success"><h3 ng-bind="domain"></h3></div>
+    
+    <p class="text-success">
+        <i class="fa fa-thumbs-up fa-fw"></i> <strong>Observação:</strong> O registro de um domínio por site é gratuito. Domínios adicionais são cobrados a parte.
+    </p>
+    
+    <p class="text-danger">
+        <i class="fa fa-warning fa-fw"></i> <strong>Atenção:</strong> Verifique se o nome de domínio desejado está correto e não houve erros de digitação. Não é possível desfazer o registro de um domínio.
+    </p>
+    
+    <hr>
+    
+    <p>Para confirmar o pedido de registro do domínio, clique no botão abaixo.</p>
+    
+    <p>
+        <a class="btn btn-primary btn-lg"><i class="fa fa-check fa-fw"></i> Confirmar pedido de registro &raquo;</a>
+        &nbsp;
+        <a href="/admin/#/domains" class="btn btn-danger btn-lg"><i class="fa fa-remove fa-fw"></i> Cancelar</a>
+    </p>
+</div>

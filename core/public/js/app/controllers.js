@@ -137,9 +137,14 @@ app.controller('DomainsController', function($scope, $http) {
         $scope.loaded = false;
         $http.get('/api/whois/' + $scope.domainName).success(function(data) {
             $scope.loaded = true;
-            $scope.available = (data.status.localeCompare("available") == 0);
+            $scope.available = (data && data.status && data.status.localeCompare("available") == 0);
         });
     }
+});
+
+/* register a new domain */
+app.controller('DomainRegisterController', function($scope, $http, $routeParams) {
+    $scope.domain = $routeParams.domain;
 });
 
 /* user websites billing */

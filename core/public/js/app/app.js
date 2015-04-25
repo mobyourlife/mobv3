@@ -18,8 +18,11 @@ app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
             templateUrl: '/admin/partials/my-sites/management',
             controller: 'ManagementController'
         }).when('/domains', {
-            templateUrl: '/admin/partials/domains',
+            templateUrl: '/admin/partials/domains/index',
             controller: 'DomainsController'
+        }).when('/domains/register/:domain', {
+            templateUrl: '/admin/partials/domains/register',
+            controller: 'DomainRegisterController'
         }).when('/billing', {
             templateUrl: '/admin/partials/billing',
             controller: 'BillingController'

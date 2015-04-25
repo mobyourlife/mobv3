@@ -1,0 +1,24 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/">Mob Your Life</a></li>
+        <li class="active">{@pre type="content" key="domains-index.domains"/}</li>
+    </ul>
+    
+    <form class="form-horizontal">
+        <legend>{@pre type="content" key="domains-index.register-a-new-domain"/}</legend>
+        <div class="input-group input-group-lg">
+            <label for="domainName" class="input-group-addon">{@pre type="content" key="domains-index.input-label"/}</label>
+            <input type="text" placeholder='{@pre type="content" key="domains-index.yourdomain-example"/}' id="domainName" ng-model="domainName" ng-change="loaded = false" class="form-control">
+            <div class="input-group-btn">
+                <button ng-click="checkDomain()" class="btn btn-primary">{@pre type="content" key="domains-index.search-domain"/}</button>
+            </div>
+        </div>
+    </form>
+    
+    &nbsp;<br/>
+
+    <div class="alert" ng-show="loaded" ng-class="{ 'alert-success': available == true, 'alert-danger': available == false }">
+        <span ng-show="available">{@pre type="content" key="domains-index.name-is-available"/} <a href="/admin/#/domains/register/##domainName##">{@pre type="content" key="domains-index.click-here-to-register"/}</a></span>
+        <span ng-show="!available">{@pre type="content" key="domains-index.name-is-not-available"/}</span>
+    </div>
+</div>
