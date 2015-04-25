@@ -1,4 +1,4 @@
-var app = angular.module('MobYourLife', ['MobYourLife.Controllers', 'ngRoute', 'angular-loading-bar', 'ngAnimate']);
+var app = angular.module('MobYourLife', ['MobYourLife.Controllers', 'MobYourLife.Filters', 'ngRoute', 'angular-loading-bar', 'ngAnimate']);
 
 app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
     $routeProvider.
@@ -24,8 +24,11 @@ app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
             templateUrl: '/admin/partials/domains/register',
             controller: 'DomainRegisterController'
         }).when('/billing', {
-            templateUrl: '/admin/partials/billing',
+            templateUrl: '/admin/partials/billing/index',
             controller: 'BillingController'
+        }).when('/billing/payment', {
+            templateUrl: '/admin/partials/billing/payment',
+            controller: 'BillingPaymentController'
         }).when('/all-sites', {
             templateUrl: '/admin/partials/all-sites',
             controller: 'AllSitesController'

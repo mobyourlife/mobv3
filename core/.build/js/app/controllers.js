@@ -191,6 +191,41 @@ app.controller('BillingController', function($scope, $http) {
     });
 });
 
+/* user websites billing */
+app.controller('BillingPaymentController', function($scope, $http) {
+    $http.get('/api/my-sites').success(function(data) {
+        if (data && data.sites && data.sites.length && data.sites.length != 0) {
+            $scope.data = data;
+            
+            if ($scope.data.sites.length == 1) {
+                $scope.selectedSite = $scope.data.sites[0];
+            }
+        }
+    }).error(function(data, status) {
+        if (status == 401) {
+            location.href = '/account/logout';
+        }
+    });
+    
+    $scope.selectSite = function(site) {
+        $scope.selectedSite = site;
+    }
+    
+    $scope.makePayment = function() {
+        $scope.error = undefined;
+        
+        $http.post('/api/make-payment', {
+            _csrf: $scope.csrf,
+            pageid: $scope.selectedSite._id
+        }).success(function(data) {
+            $scope.success = true;
+            location.href = data.uri;
+        }).error(function(data, status) {
+            $scope.error = true;
+        });
+    }
+});
+
 /* all sites index */
 app.controller('AllSitesController', function($scope, $http) {
     $http.get('/api/all-sites').success(function(data) {

@@ -1,0 +1,46 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/admin/#/">Mob Your Life</a></li>
+        <li><a href="/admin/#/billing/">{@pre type="content" key="billing-payment.billing"/}</a></li>
+        <li class="active">{@pre type="content" key="billing-payment.payment"/}</li>
+    </ul>
+    
+    <div ng-hide="success">
+
+        <div ng-show="data.sites">
+            <p>Selecione o site para qual você deseja efetuar o pagamento:</p>
+            <div class="list-group">
+                <a class="list-group-item ng-click" ng-repeat="i in data.sites" ng-class="{ 'active': i == selectedSite }" ng-click="selectSite(i)"><span ng-bind="i.facebook.name"></span><span class="fa fa-check fa-fw pull-right" ng-show="i == selectedSite"></span></a>
+            </div>
+
+            <hr ng-show="data.sites">
+            
+            <div ng-show="selectedSite">
+                <p>Você será redirecionado ao ambiente do PagSeguro para realizar o pagamento.</p>
+                <p><img src="/img/pagseguro.png" alt="PagSeguro"></p>
+                <p>Clique no botão abaixo para continuar.</p>
+            </div>
+            
+            <div ng-hide="selectedSite">
+                <p>Para realizar o pagamento, primeiro selecione acima o site a ser pago, e em seguida, clique no botão abaixo.</p>
+            </div>
+
+            <input type="hidden" name="_csrf" value="{_csrf}" ng-init="csrf='{_csrf}'">
+                
+            <div class="alert alert-danger" ng-show="error">Falha ao tentar preparar o pagamento! Por favor tente novamente.</div>
+            
+            <p>
+                <a class="btn btn-success btn-lg" ng-disabled="!selectedSite" ng-click="makePayment()"><i class="fa fa-dollar fa-fw"></i> Efetuar pagamento &raquo;</a>
+                &nbsp;
+                <a href="/admin/#/billing" class="btn btn-danger btn-lg"><i class="fa fa-remove fa-fw"></i> Cancelar</a>
+            </p>
+        </div>
+    </div>
+        
+    <div ng-show="success" class="text-center zoomIn animated" style="-webkit-animation-delay: 0.5s;">
+        <p><img src="/img/loading.gif" alt=""></p>
+        <p><img src="/img/pagseguro.png" alt=""></p>
+        <h2>Por favor aguarde...</h2>
+        <h4>Estamos lhe redirecionando ao ambiente do PagSeguro.</h4>
+    </div>
+</div>

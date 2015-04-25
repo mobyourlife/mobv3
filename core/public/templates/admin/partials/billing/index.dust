@@ -1,14 +1,14 @@
 <div class="row">
     <ul class="breadcrumb">
         <li><a href="/admin/#/">Mob Your Life</a></li>
-        <li class="active">{@pre type="content" key="billing.billing"/}</li>
+        <li class="active">{@pre type="content" key="billing-index.billing"/}</li>
     </ul>
     
     <div class="row">
         <div class="col-xs-12">
             <ul class="list-inline">
                 <li>
-                    <a ng-href="/admin/#/new-website" class="btn btn-success btn-lg">
+                    <a ng-href="/admin/#/billing/payment" class="btn btn-success btn-lg">
                         <i class="fa fa-dollar fa-fw"></i>
                         <span>&nbsp;</span>
                         <span>Efetuar pagamento</span>
@@ -39,11 +39,15 @@
             <tr ng-repeat="t in data.tickets">
                 <td ng-bind="t.ticket._id"></td>
                 <td ng-bind="t.fanpage.name"></td>
-                <td ng-bind="t.ticket.time"></td>
-                <td ng-bind="t.ticket.validity.days"></td>
+                <td ng-bind="t.ticket.time | momentTimeAgo"></td>
                 <td>
-                    <span ng-show="t.ticket.coupon">Bônus gratuito</span>
-                    <span ng-hide="t.ticket.coupon">Pagamento confirmado</span>
+                    <span ng-show="t.ticket.validity.days"><span ng-bind="t.ticket.validity.days"></span> dias</span>
+                    <span ng-show="t.ticket.validity.months"><span ng-bind="t.ticket.validity.months"></span> meses</span>
+                </td>
+                <td>
+                    <span ng-show="t.ticket.status == 'freebie'">Bônus gratuito</span>
+                    <span ng-show="t.ticket.status == 'pending'">Pagamento pendente</span>
+                    <span ng-show="t.ticket.status == 'finished'">Pagamento confirmado</span>
                 </td>
             </tr>
         </tbody>

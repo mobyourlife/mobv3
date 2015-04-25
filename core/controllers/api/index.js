@@ -6,8 +6,10 @@ var unirest = require('unirest');
 var Domain = require('../../models/domain');
 var Fanpage = require('../../models/fanpage');
 var Ticket = require('../../models/ticket');
+
 var email = require('../../lib/email')();
 var sync = require('../../lib/sync')();
+var pagamento = require('../../lib/pagamento');
 
 module.exports = function (router) {
 
@@ -189,9 +191,9 @@ module.exports = function (router) {
                                 var ticket = new Ticket();
                                 ticket.ref = newFanpage._id;
                                 ticket.time = Date.now();
+                                ticket.status = 'freebie';
                                 ticket.validity.months = 0;
                                 ticket.validity.days = 15;
-                                ticket.coupon.reason = 'signup_freebie';
 
                                 newFanpage.billing.active = true;
                                 newFanpage.billing.evaluation = true;
@@ -229,13 +231,15 @@ module.exports = function (router) {
                                     var filename = '/var/www/mob/email/bem-vindo.html';
                                     //var filename = './email/bem-vindo.html';
 
-                                    if (req.user.facebook.email) {
-                                        email.montarEmail(filename, newFanpage._id, function(html, user_email) {
-                                            email.enviarEmail('Mob Your Life', 'nao-responder@mobyourlife.com.br', 'Bem-vindo ao Mob Your Life', html, user_email);
-                                        });
-                                    }
-
                                     res.status(200).send({ url: domain._id });
+                                    
+                                    setTimeout(function() {
+                                        if (req.user.facebook.email) {
+                                            email.montarEmail(filename, newFanpage._id, function(html, user_email) {
+                                                email.enviarEmail('Mob Your Life', 'nao-responder@mobyourlife.com.br', 'Bem-vindo ao Mob Your Life', html, user_email);
+                                            });
+                                        }
+                                    }, (60 * 1000));
                                 });
                             });
                         });
@@ -406,6 +410,23 @@ module.exports = function (router) {
                 }
                 
                 res.status(200).send({ domains: ret });
+            });
+        }
+    });
+    
+    /* api method to call for payment */
+    router.post('/make-payment', function (req, res) {
+        if (req.isAuthenticated()) {
+            Fanpage.findOne({ _id: req.body.pageid }, function(err, fanpage) {
+                if (err) {
+                    console.log(err);
+                }
+                
+                pagamento(req.user, fanpage, 999.90, function(uri) {
+                    res.status(200).send({ uri: uri });
+                }, function() {
+                    res.status(500).send();
+                });
             });
         }
     });

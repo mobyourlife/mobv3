@@ -7,12 +7,10 @@ var mongoose = require('mongoose')
 var ticketSchema = mongoose.Schema({
     ref: { type: String, ref: 'Fanpage' },
     time: Date,
+    status: String,
     validity: {
         months: Number,
         days: Number
-    },
-    coupon: {
-        reason: String
     },
     payment: {
         value: Number,
