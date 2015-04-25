@@ -135,9 +135,12 @@ app.controller('WizardNextController', function($routeParams, $location) {
 app.controller('DomainsController', function($scope, $http) {
     $scope.checkDomain = function() {
         $scope.loaded = false;
-        $http.get('/api/whois/' + $scope.domainName).success(function(data) {
+        $http.get('/api/whois/' + $scope.domainName).success(function() {
             $scope.loaded = true;
-            $scope.available = (data && data.status && data.status.localeCompare("available") == 0);
+            $scope.available = true;
+        }).error(function() {
+            $scope.loaded = true;
+            $scope.available = false;
         });
     }
 });
@@ -162,6 +165,18 @@ app.controller('DomainRegisterController', function($scope, $http, $routeParams)
     
     $scope.selectSite = function(site) {
         $scope.selectedSite = site;
+    }
+    
+    $scope.confirmRegister = function() {
+        $http.post('/api/register-domain', {
+            _csrf: $scope.csrf,
+            domain: $scope.domain,
+            pageid: $scope.selectedSite._id
+        }).success(function(data) {
+            $scope.success = true;
+        }).error(function(data) {
+            $scope.error = true;
+        });
     }
 });
 

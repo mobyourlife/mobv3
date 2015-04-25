@@ -331,18 +331,20 @@ module.exports = function (router) {
     /* whois method */
     router.get('/whois/:domain', function (req, res) {
         if (req.isAuthenticated()) {
-            unirest.get('https://jsonwhois.com/api/v1/whois')
+            unirest.get('https://whois.apitruck.com/' + req.params.domain)
                 .headers({
-                    'Accept': 'application/json',
-                    'Authorization': 'Token token=f3079dff6c459f9d596faf14dead2e6b'
-                })
-                .query({
-                    "domain": req.params.domain
+                    'Accept': 'application/json'
                 })
                 .end(function (response) {
-                    res.status(200).send(response.body);
+                    if (response && response.body && response.body.response && response.body.response.registered == false) {
+                        res.status(200).send();
+                    } else {
+                        res.status(500).send();
+                    }
                 }
             );
+        } else {
+            res.status(401).send();
         }
     });
     
@@ -356,6 +358,22 @@ module.exports = function (router) {
             }, function(err) {
                 console.log(err);
                 res.status(500).send({ responseCode: err.responseCode, response: err.response });
+            });
+        }
+    });
+    
+    /* register domain method */
+    router.post('/register-domain', function (req, res) {
+        if (req.isAuthenticated()) {
+            var find = { _id: req.body.domain, ref: req.body.pageid };
+            var item = { _id: req.body.domain, ref: req.body.pageid, status: 'waiting', 'creation.time': Date.now(), 'creation.user': req.user._id };
+            
+            Domain.update(find, item, { upsert: true }, function(err) {
+                if (err) {
+                    res.status(500).send();
+                } else {
+                    res.status(200).send();
+                }
             });
         }
     });
