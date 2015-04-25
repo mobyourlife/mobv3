@@ -18,6 +18,7 @@
     <!-- Custom CSS -->
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/flag-icon.min.css" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
     <link href="/favicon.ico" rel="icon">
 
     <!-- Custom Fonts -->
@@ -117,7 +118,7 @@
                     <p class="lead">{@pre type="content" key="index.getting-started-1-text"/}</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="img/star.png" alt="">
+                    <img class="img-responsive wow tada animated" data-wow-delay="0.5s" style="-webkit-animation-delay: 0.5s;" src="img/star.png" alt="">
                 </div>
             </div>
 
@@ -147,7 +148,7 @@
                     </p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="img/clock.png" alt="">
+                    <img class="img-responsive wow rotateIn animated" data-wow-delay="0.5s" style="-webkit-animation-delay: 0.5s;" src="img/clock.png" alt="">
                 </div>
             </div>
 
@@ -191,7 +192,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="img/chat.png" alt="">
+                    <img class="img-responsive wow shake animated" data-wow-delay="0.5s" style="-webkit-animation-delay: 0.5s;" src="img/chat.png" alt="">
                 </div>
             </div>
 
@@ -277,6 +278,12 @@
     <script src="/js/bootstrap.min.js"></script>
     
     <!-- Others -->
+    <script src="/js/wow.min.js"></script>
+    <script>
+        new WOW({
+                offset: 200
+            }).init();
+    </script>
     <script src="/js/helpers.js"></script>
     <script src="/js/zendesk.js"></script>
 
