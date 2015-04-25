@@ -36,7 +36,7 @@
             </p>
         </div>
     </div>
-        
+    
     <div ng-show="success" class="text-center zoomIn animated" style="-webkit-animation-delay: 0.5s;">
         <p><img src="/img/loading.gif" alt=""></p>
         <p><img src="/img/pagseguro.png" alt=""></p>

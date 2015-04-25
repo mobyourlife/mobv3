@@ -5,30 +5,38 @@
         <li class="active">{@pre type="content" key="new-website.new-website"/}</li>
     </ul>
     
-    <h3>{@pre type="content" key="new-website.select-desired-page"/}</h3>
-    
-    <div class="alert alert-danger" ng-show="error">
-        <p ng-bind="error"></p>
+    <div ng-hide="loaded" class="text-center">
+        <p><img src="/img/loading.gif" alt=""></p>
+        <h2>{@pre type="content" key="new-website.please-wait"/}</h2>
+        <h4>{@pre type="content" key="new-website.loading"/}</h4>
     </div>
     
-    <div class="well" ng-repeat="s in data.pages">
-        <div class="media">
-            <div class="media-left">
-                <img class="media-object" ng-src="##s.picture##" alt="##s.name##" />
-            </div>
-            <div class="media-body">
-                <p>
-                    <strong><span ng-bind="s.name"></span></strong><br/>
-                    <ul class="list-inline">
-                        <li>
-                            <a class="btn-ng" ng-click="createNewWebsite(s.id)" target="_blank">
-                                <i class="fa fa-plus fa-fw"></i>
-                                <span>&nbsp;</span>
-                                <span>{@pre type="content" key="new-website.create-new-website-action"/}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </p>
+    <div ng-show="loaded" class="text-center bounceIn animated" style="-webkit-animation-delay: 0.5s;">
+        <h3>{@pre type="content" key="new-website.select-desired-page"/}</h3>
+
+        <div class="alert alert-danger" ng-show="error">
+            <p ng-bind="error"></p>
+        </div>
+
+        <div class="well" ng-repeat="s in data.pages">
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" ng-src="##s.picture##" alt="##s.name##" />
+                </div>
+                <div class="media-body">
+                    <p>
+                        <strong><span ng-bind="s.name"></span></strong><br/>
+                        <ul class="list-inline">
+                            <li>
+                                <a class="btn-ng" ng-click="createNewWebsite(s.id)" target="_blank">
+                                    <i class="fa fa-plus fa-fw"></i>
+                                    <span>&nbsp;</span>
+                                    <span>{@pre type="content" key="new-website.create-new-website-action"/}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

@@ -31,6 +31,7 @@ app.controller('MySitesController', function($scope, $http) {
 app.controller('NewWebsiteController', function($scope, $http, $routeParams, $location) {
     $http.get('/api/remaining-fanpages').success(function(data) {
         $scope.data = data;
+        $scope.loaded = true;
     });
     
     $scope.createNewWebsite = function(pageid) {
