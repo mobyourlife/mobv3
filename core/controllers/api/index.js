@@ -190,7 +190,7 @@ module.exports = function (router) {
                                 ticket.ref = newFanpage._id;
                                 ticket.time = Date.now();
                                 ticket.validity.months = 0;
-                                ticket.validity.days = 7;
+                                ticket.validity.days = 15;
                                 ticket.coupon.reason = 'signup_freebie';
 
                                 newFanpage.billing.active = true;
