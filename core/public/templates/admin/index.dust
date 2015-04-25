@@ -50,7 +50,7 @@
                     <li ng-class="{'active': $root.activeController == 'ManagementController'}" ng-show="$root.activeController == 'ManagementController'"><a ng-href="/admin/#/##fanpageId##/management"><i class="fa fa-cog fa-fw"></i> <span ng-bind="fanpageName"></span></a></li>
                     <li ng-class="{'active': $root.activeController == 'WizardController'}" ng-show="$root.activeController == 'WizardController'"><a ng-href="/admin/#/##fanpageId##/wizard"><i class="fa fa-rocket fa-fw"></i> <span ng-bind="fanpageName"></span></a></li>
                     <li ng-class="{'active': $root.activeController == 'DomainsController' || $root.activeController == 'DomainRegisterController'}"><a ng-href="/admin/#/domains"><i class="fa fa-globe fa-fw"></i> {@pre type="content" key="index.domains"/}</a></li>
-                    <li ng-class="{'active': $root.activeController == 'BillingController'}"><a ng-href="/admin/#/billing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
+                    <li ng-class="{'active': $root.activeController == 'BillingController' || $root.activeController == 'BillingPaymentController'}"><a ng-href="/admin/#/billing"><i class="fa fa-dollar fa-fw"></i> {@pre type="content" key="index.billing"/}</a></li>
                 </ul>
                 {#admin}
                 <ul class="nav nav-sidebar">

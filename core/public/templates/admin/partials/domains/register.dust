@@ -6,52 +6,54 @@
     </ul>
     
     <div ng-hide="success">
-        <h2>Parabéns!</h2>
-        <h4>Você está registrando o domínio:</h4>
+        <h2>{@pre type="content" key="domains-register.congratulations-title"/}</h2>
+        <h4>{@pre type="content" key="domains-register.congratulations-description"/}</h4>
 
         <div class="alert alert-success"><h3 ng-bind="domain"></h3></div>
 
         <p class="text-success">
-            <i class="fa fa-thumbs-up fa-fw"></i> <strong>Observação:</strong> O registro de um domínio por site é gratuito. Domínios adicionais são cobrados a parte.
+            <i class="fa fa-thumbs-up fa-fw"></i> <strong>{@pre type="content" key="domains-register.ps-note-key"/}</strong> {@pre type="content" key="domains-register.ps-note-value"/}
         </p>
 
         <p class="text-danger">
-            <i class="fa fa-warning fa-fw"></i> <strong>Atenção:</strong> Verifique se o nome de domínio desejado está correto e não houve erros de digitação. Não é possível desfazer o registro de um domínio. A efetivação do registro de domínio está sujeita a confirmação de disponibilidade.
+            <i class="fa fa-warning fa-fw"></i> <strong>{@pre type="content" key="domains-register.ps-warning-key"/}</strong> {@pre type="content" key="domains-register.ps-warning-value"/}
         </p>
 
         <hr>
 
         <div ng-show="data.sites">
-            <p>Selecione o site que deseja vincular este domínio:</p>
+            <p>{@pre type="content" key="domains-register.select-website-to-bind"/}</p>
             <div class="list-group">
                 <a class="list-group-item ng-click" ng-repeat="i in data.sites" ng-class="{ 'active': i == selectedSite }" ng-click="selectSite(i)"><span ng-bind="i.facebook.name"></span><span class="fa fa-check fa-fw pull-right" ng-show="i == selectedSite"></span></a>
             </div>
 
             <hr ng-show="data.sites">
 
-            <p>Para confirmar o pedido de registro do domínio<span ng-hide="selectedSite">, primeiro selecione acima o site que deseja vincular este domínio, e em seguida</span>, clique no botão abaixo.</p>
+            <p ng-hide="selectedSite">{@pre type="content" key="domains-register.confirm-no-selection"/}</p>
+            
+            <p ng-show="selectedSite">{@pre type="content" key="domains-register.confirm-with-selection"/}</p>
 
             <input type="hidden" name="_csrf" value="{_csrf}" ng-init="csrf='{_csrf}'">
 
                 
-            <div class="alert alert-danger" ng-show="error">Falha ao tentar registrar o domínio! Por favor tente novamente.</div>
+            <div class="alert alert-danger" ng-show="error">{@pre type="content" key="domains-register.failure"/}</div>
             
             <p>
-                <a class="btn btn-primary btn-lg" ng-disabled="!selectedSite" ng-click="confirmRegister()"><i class="fa fa-check fa-fw"></i> Confirmar pedido de registro &raquo;</a>
+                <a class="btn btn-primary btn-lg" ng-disabled="!selectedSite" ng-click="confirmRegister()"><i class="fa fa-check fa-fw"></i> {@pre type="content" key="domains-register.submit"/} &raquo;</a>
                 &nbsp;
-                <a href="/admin/#/domains" class="btn btn-danger btn-lg"><i class="fa fa-remove fa-fw"></i> Cancelar</a>
+                <a href="/admin/#/domains" class="btn btn-danger btn-lg"><i class="fa fa-remove fa-fw"></i> {@pre type="content" key="domains-register.cancel"/}</a>
             </p>
         </div>
     </div>
         
     <div ng-show="success" class="text-center zoomIn animated" style="-webkit-animation-delay: 0.5s;">
         <img src="/img/thumbs-up.png" alt="">
-        <h2>Seu pedido foi enviado com sucesso!</h2>
-        <h4>Por favor aguarde até 24 horas úteis para receber uma resposta de nossa equipe.</h4>
+        <h2>{@pre type="content" key="domains-register.request-sent"/}</h2>
+        <h4>{@pre type="content" key="domains-register.wait-for-our-reply"/}</h4>
         <hr>
-        <h5>Obrigado pela confiança!</h5>
+        <h5>{@pre type="content" key="domains-register.thanks-for-trusting"/}</h5>
         <p>
-            <a href="/admin/#/domains" class="btn btn-primary btn-lg"><i class="fa fa-list fa-fw"></i> Voltar aos meus domínios &raquo;</a>
+            <a href="/admin/#/domains" class="btn btn-primary btn-lg"><i class="fa fa-list fa-fw"></i> {@pre type="content" key="domains-register.back-to-my-domains"/} &raquo;</a>
         </p>
     </div>
 </div>

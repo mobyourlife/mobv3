@@ -11,7 +11,7 @@
                     <a ng-href="/admin/#/billing/payment" class="btn btn-success btn-lg">
                         <i class="fa fa-dollar fa-fw"></i>
                         <span>&nbsp;</span>
-                        <span>Efetuar pagamento</span>
+                        <span>{@pre type="content" key="billing-index.make-payment"/}</span>
                     </a>
                 </li>
             </ul>
@@ -28,11 +28,11 @@
         </colgroup>
         <thead>
             <tr>
-                <th>Transação</th>
-                <th>Site</th>
-                <th>Data</th>
-                <th>Validade</th>
-                <th>Estado</th>
+                <th>{@pre type="content" key="billing-index.transaction"/}</th>
+                <th>{@pre type="content" key="billing-index.website"/}</th>
+                <th>{@pre type="content" key="billing-index.date"/}</th>
+                <th>{@pre type="content" key="billing-index.validity"/}</th>
+                <th>{@pre type="content" key="billing-index.status"/}</th>
             </tr>
         </thead>
         <tbody>
@@ -41,13 +41,13 @@
                 <td ng-bind="t.fanpage.name"></td>
                 <td ng-bind="t.ticket.time | momentTimeAgo"></td>
                 <td>
-                    <span ng-show="t.ticket.validity.days"><span ng-bind="t.ticket.validity.days"></span> dias</span>
-                    <span ng-show="t.ticket.validity.months"><span ng-bind="t.ticket.validity.months"></span> meses</span>
+                    <span ng-show="t.ticket.validity.days">{@pre type="content" key="billing-index.validity-days"/}</span>
+                    <span ng-show="t.ticket.validity.months">{@pre type="content" key="billing-index.validity-months"/}</span>
                 </td>
                 <td>
-                    <span ng-show="t.ticket.status == 'freebie'">Bônus gratuito</span>
-                    <span ng-show="t.ticket.status == 'pending'">Pagamento pendente</span>
-                    <span ng-show="t.ticket.status == 'finished'">Pagamento confirmado</span>
+                    <span ng-show="t.ticket.status == 'freebie'">{@pre type="content" key="billing-index.status-freebie"/}</span>
+                    <span ng-show="t.ticket.status == 'pending'">{@pre type="content" key="billing-index.status-pending"/}</span>
+                    <span ng-show="t.ticket.status == 'approved'">{@pre type="content" key="billing-index.status-approved"/}</span>
                 </td>
             </tr>
         </tbody>

@@ -30,9 +30,9 @@
         </colgroup>
         <thead>
             <tr>
-                <th>Domínio</th>
-                <th>Site</th>
-                <th>Estado</th>
+                <th>{@pre type="content" key="domains-index.domain"/}</th>
+                <th>{@pre type="content" key="domains-index.website"/}</th>
+                <th>{@pre type="content" key="domains-index.status"/}</th>
             </tr>
         </thead>
         <tbody>
@@ -40,8 +40,8 @@
                 <td ng-bind="d.domain._id"></td>
                 <td ng-bind="d.fanpage.name"></td>
                 <td>
-                    <span ng-show="d.domain.status == 'waiting'">Aguardando</span>
-                    <span ng-show="d.domain.status == 'registered'">Registrado</span>
+                    <span ng-show="d.domain.status == 'waiting'">{@pre type="content" key="domains-index.status-waiting"/}</span>
+                    <span ng-show="d.domain.status == 'registered'">{@pre type="content" key="domains-index.status-registered"/}</span>
                 </td>
             </tr>
         </tbody>
