@@ -171,7 +171,16 @@ app.controller('FaqController', function($scope, $http) {
 app.controller('SupportController', function($scope, $http, $validator) {
     $scope.sendMail = function() {
         $validator.validate($scope).success(function() {
-            //
+            $http.post('/api/sendmail', {
+                _csrf: $scope.csrf,
+                name: $scope.name,
+                email: $scope.email,
+                message: $scope.message
+            }).success(function(data) {
+                $scope.success = true;
+            }).error(function(data) {
+                $scope.error = data.response;
+            });
         });
     }
 });

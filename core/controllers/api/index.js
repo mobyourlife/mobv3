@@ -345,5 +345,19 @@ module.exports = function (router) {
             );
         }
     });
+    
+    /* send mail method */
+    router.post('/sendmail', function (req, res) {
+        if (req.isAuthenticated()) {
+            var subject = req.body.message.length > 20 ? req.body.message.substr(0, 20) : req.body.message;
+            
+            email.enviarEmail(req.body.name, req.body.email, subject, req.body.message, 'suporte@mobyourlife.com.br', function() {
+                res.status(200).send();
+            }, function(err) {
+                console.log(err);
+                res.status(500).send({ responseCode: err.responseCode, response: err.response });
+            });
+        }
+    });
 
 };

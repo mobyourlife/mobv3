@@ -21,6 +21,7 @@
     <link href="/css/loading-bar.css" rel="stylesheet">
     <link href="/css/flag-icon.min.css" rel="stylesheet">
     <link href="/css/bootstrap-social.css" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
     <link href="/favicon.ico" rel="icon">
 
     <!-- Custom Fonts -->
