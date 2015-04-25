@@ -217,14 +217,17 @@ module.exports = function (router) {
                                 var domain = new Domain();
                                 domain._id = newFanpage.url;
                                 domain.ref = newFanpage;
+                                domain.status = 'registered';
+                                domain.creation.time = Date.now();
+                                domain.creation.user = req.user._id;
 
                                 Domain.update({ _id: domain._id }, domain.toObject(), { upsert: true }, function(err) {
                                     if (err)
                                         throw err;
 
                                     // send welcome email
-                                    //var filename = './email/bem-vindo.html';
                                     var filename = '/var/www/mob/email/bem-vindo.html';
+                                    //var filename = './email/bem-vindo.html';
 
                                     if (req.user.facebook.email) {
                                         email.montarEmail(filename, newFanpage._id, function(html, user_email) {
