@@ -3,13 +3,17 @@
 var FB = require('FB');
 var moment = require('moment');
 var unirest = require('unirest');
+var URL = require('url-parse');
 var Domain = require('../../models/domain');
 var Fanpage = require('../../models/fanpage');
 var Ticket = require('../../models/ticket');
+var TextPage = require('../../models/textpage');
+var Album = require('../../models/album');
 
 var email = require('../../lib/email')();
 var sync = require('../../lib/sync')();
 var pagamento = require('../../lib/pagamento');
+var themes = require('../../lib/old-themes');
 
 module.exports = function (router) {
 
@@ -434,14 +438,14 @@ module.exports = function (router) {
     /* OLD API BEGINNING */
     
     var validateSubdomain = function(uri, res, callbackTop, callbackSubdomain) {
-        var parsed = new URL(uri);
-        var hostname = parsed.hostname;
-        var subdomain = hostname.split('.')[0];
+        var parsed = uri ? new URL(uri) : null;
+        var hostname = parsed ? parsed.hostname : null;
+        var subdomain = hostname ? hostname.split('.')[0] : null;
 
-        if (hostname == 'www.mobyourlife.com.br') {
-            callbackTop(topMenu);
+        if (!hostname || hostname == 'www.mobyourlife.com.br') {
+            callbackTop();
         } else {
-            Domain.findOne({'_id': hostname }, function(err, found) {
+            Domain.findOne({ '_id': hostname }, function(err, found) {
                 if (found) {
                     Fanpage.findOne({'_id': found.ref}, function(err, found) {
                         if (found) {
@@ -462,7 +466,7 @@ module.exports = function (router) {
                                     menu.push({ path: 'inicio', text: 'Início' });
                                     menu.push({ path: 'sobre', text: 'Sobre' });
 
-                                    for (i = 0; i < found.length; i++) {
+                                    for (var i = 0; i < found.length; i++) {
                                         menu.push({ path: found[i].path, text: found[i].title });
                                     }
 
@@ -480,8 +484,8 @@ module.exports = function (router) {
 
                                     if(!fanpage.theme) {
                                         fanpage.theme = {
-                                            css: themes[0].css,
-                                            navbar: themes[0].navbar
+                                            name: 'bootstrap',
+                                            colour: 'white'
                                         };
                                     }
 
@@ -498,15 +502,6 @@ module.exports = function (router) {
             });
         }
     }
-    
-    // botões de compartilhamento social
-    router.get('/share', function(req, res) {
-        validateSubdomain(req.headers.referer, res, function(menu) {
-            res.render('404', { link: 'sobre', auth: req.isAuthenticated(), user: req.user, menu: menu });
-        }, function(userFanpage, menu) {
-            res.render('share', { link: req.query.link, label: req.query.label, fanpage: userFanpage });
-        });
-    });
     
     // enviar foto de capa
     router.post('/upload-cover', function(req, res) {
@@ -595,7 +590,7 @@ module.exports = function (router) {
     
     // api para sincronização de login
     router.get('/login', function(req, res) {
-        if (req.isAuthenticated()) {
+        if (req.isAuthenticated() && req.headers.referer) {
             var parsed = new URL(req.headers.referer);
             Domain.findOne({ '_id': parsed.hostname }, function(err, found) {
                 if (found) {
