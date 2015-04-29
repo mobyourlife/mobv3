@@ -7,6 +7,7 @@ var Facebook = require('facebook-node-sdk');
 var session = require('express-session');
 var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo')(session);
+var http = require('http');
 
 var auth = require('./config/auth');
 var config = require('./config/config');
@@ -42,6 +43,8 @@ app.use(Facebook.middleware({ appID: auth.facebook.clientID, secret: auth.facebo
 require('./lib/passport')(passport);
 require('./lib/auth')(app, passport);
 
+var server = http.createServer(app);
+
 /* start express */
 app.on('start', function () {
     /* start SSL proxy in development environment */
@@ -52,4 +55,6 @@ app.on('start', function () {
     
     console.log('Application ready to serve requests.');
     console.log('Environment: %s', app.kraken.get('env:env'));
+    
+    server.listen(3100);
 });
