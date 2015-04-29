@@ -10,6 +10,8 @@ var Feed = require('../../models/feed');
 var Ticket = require('../../models/ticket');
 var TextPage = require('../../models/textpage');
 var Album = require('../../models/album');
+var Photo = require('../../models/photo');
+var Video = require('../../models/video');
 
 var email = require('../../lib/email')();
 var sync = require('../../lib/sync')();
@@ -438,6 +440,7 @@ module.exports = function (router) {
     
     /* OLD API BEGINNING */
     
+    /* [retro ok] */
     var validateSubdomain = function(uri, res, callbackTop, callbackSubdomain) {
         /* TODO: localizar para o idioma do site */
         moment.locale('pt-br');
@@ -507,6 +510,7 @@ module.exports = function (router) {
         }
     }
     
+    /* [retro ok] */
     var enableCors = function(req, res, next) {
         if (req.headers.origin) {
             validateSubdomain(req.headers.origin, res, function() {
@@ -514,8 +518,9 @@ module.exports = function (router) {
             }, function(fanpage, menu) {
                 req.fanpage = fanpage;
                 req.menu = menu;
-                res.header("Access-Control-Allow-Origin", "*");
-                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                res.header('Access-Control-Allow-Origin', req.headers.origin);
+                res.header('Access-Control-Allow-Credentials', true);
+                res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
                 next();
             });
         } else {
@@ -608,8 +613,8 @@ module.exports = function (router) {
         }
     });
     
-    // api para sincronização de login
-    router.get('/login', function(req, res) {
+    /* [retro ok] api para sincronização de login */
+    router.get('/login', enableCors, function(req, res) {
         if (req.isAuthenticated() && req.headers.referer) {
             var parsed = new URL(req.headers.referer);
             Domain.findOne({ '_id': parsed.hostname }, function(err, found) {
@@ -633,15 +638,12 @@ module.exports = function (router) {
                     res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: false });
                 }
             });
-            
-            // res.send({auth: true, id: req.session.id, username: req.session.username, _csrf: req.session._csrf});
         } else {
             res.status(401).send({ auth: false });
-            // res.send(401, {auth: false, _csrf: req.session._csrf});
         }
     });
     
-    // api para consulta do feed
+    /* [retro ok] api para consulta do feed */
     router.get('/feeds/:before?', enableCors, function(req, res) {
         var filter = { ref: req.fanpage._id };
 
@@ -684,75 +686,64 @@ module.exports = function (router) {
         });
     });
     
-    // api para consulta das fotos
-    router.get('/fotos/:before?', function(req, res) {
-        validateSubdomain(req.headers.host, res, function(menu) {
-            res.render('404', { link: 'opcoes', auth: req.isAuthenticated(), user: req.user, menu: menu });
-        }, function(userFanpage, menu) {
-            var filter = { ref: userFanpage._id };
-            
-            if (req.params.before) {
-                filter.time = { $lte: moment.unix(req.params.before).format() };
-            }
-            
-            Album.find({ ref: userFanpage._id, special: { '$in': [null, 'default'] } }, function(err, list) {
-                var albums = [];
-                
-                if (list) {
-                    for (i = 0; i < list.length; i++) {
-                        albums.push(list[i]._id);
-                    }
+    /* [retro ok] api para consulta das fotos */
+    router.get('/fotos/:before?', enableCors, function(req, res) {
+        var filter = { ref: req.fanpage._id };
+
+        if (req.params.before) {
+            filter.time = { $lte: moment.unix(req.params.before).format() };
+        }
+
+        Album.find({ ref: req.fanpage._id, special: { '$in': [null, 'default'] } }, function(err, list) {
+            var albums = [];
+
+            if (list) {
+                for (var i = 0; i < list.length; i++) {
+                    albums.push(list[i]._id);
                 }
-                
-                filter.album_id = { '$in': albums };
-                
+            }
+
+            filter.album_id = { '$in': albums };
+
+            Photo.find(filter).limit(15).sort('-time').exec(function(err, found) {
+                res.status(200).send({ fotos: found });
+            });
+        });
+    });
+    
+    /* [retro ok] */
+    router.get('/fotos-:album/:before?', enableCors, function(req, res) {
+        var filter = { ref: req.fanpage._id };
+
+        if (req.params.before) {
+            filter.time = { $lte: moment.unix(req.params.before).format() };
+        }
+
+        Album.findOne({ ref: req.fanpage._id, path: req.params.album }, function(err, one) {
+            if (one) {
+                filter.album_id = one._id;
                 Photo.find(filter).limit(15).sort('-time').exec(function(err, found) {
                     res.send({ fotos: found });
                 });
-            });
-        });
-    });
-    
-    router.get('/fotos-:album/:before?', function(req, res) {
-        validateSubdomain(req.headers.host, res, function(menu) {
-            res.render('404', { link: 'opcoes', auth: req.isAuthenticated(), user: req.user, menu: menu });
-        }, function(userFanpage, menu) {
-            var filter = { ref: userFanpage._id };
-            
-            if (req.params.before) {
-                filter.time = { $lte: moment.unix(req.params.before).format() };
             }
-            
-            Album.findOne({ ref: userFanpage._id, path: req.params.album }, function(err, one) {
-                if (one) {
-                    filter.album_id = one._id;
-                    Photo.find(filter).limit(15).sort('-time').exec(function(err, found) {
-                        res.send({ fotos: found });
-                    });
-                }
-            });
         });
     });
     
-    // api para consulta dos vídeos
-    router.get('/videos/:before?', function(req, res) {
-        validateSubdomain(req.headers.host, res, function(menu) {
-            res.render('404', { link: 'opcoes', auth: req.isAuthenticated(), user: req.user, menu: menu });
-        }, function(userFanpage, menu) {
-            var filter = { ref: userFanpage._id };
-            
-            if (req.params.before) {
-                filter.time = { $lte: moment.unix(req.params.before).format() };
-            }
-            
-            Video.find(filter).limit(15).sort('-time').exec(function(err, found) {
-                res.send({ videos: found });
-            });
+    /* [retro ok] api para consulta dos vídeos */
+    router.get('/videos/:before?', enableCors, function(req, res) {
+        var filter = { ref: req.fanpage._id };
+
+        if (req.params.before) {
+            filter.time = { $lte: moment.unix(req.params.before).format() };
+        }
+
+        Video.find(filter).limit(15).sort('-time').exec(function(err, found) {
+            res.send({ videos: found });
         });
     });
     
-    /* atualizações em tempo real do Facebook */
-    router.get('/realtime', function(req, res) {
+    /* [should be retro ok] atualizações em tempo real do Facebook */
+    router.get('/facebook/realtime', function(req, res) {
         console.log('Realtime updates verification request received.');
         if (req.query['hub.mode'] === 'subscribe') {
             if (req.query['hub.verify_token'] === '123456') {
@@ -764,7 +755,8 @@ module.exports = function (router) {
         res.status(500).send();
     });
     
-    router.post('/realtime', function(req, res) {
+    /* [should be retro ok] */
+    router.post('/facebook/realtime', function(req, res) {
         var update = new Update();
         update.time = Date.now();
         update.data = req.body;
@@ -776,28 +768,6 @@ module.exports = function (router) {
         });
         res.status(200).send();
     });
-    
-    // middleware de autenticação
-    function isLoggedIn(req, res, next) {
-        if (req.isAuthenticated()) {
-            next();
-        } else {
-            res.redirect('/');
-        }
-    }
-    
-    // middleware de administração
-    function isAdmin(req, res, next) {
-        if (req.isAuthenticated()) {
-            if (validateAdmin(req.user)) {
-                next();
-            } else {
-                res.redirect('/meus-sites');
-            }
-        } else {
-            res.redirect('/');
-        }
-    }
     
     /* OLD API END */
 
