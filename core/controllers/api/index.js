@@ -6,6 +6,7 @@ var unirest = require('unirest');
 var URL = require('url-parse');
 var Domain = require('../../models/domain');
 var Fanpage = require('../../models/fanpage');
+var Feed = require('../../models/feed');
 var Ticket = require('../../models/ticket');
 var TextPage = require('../../models/textpage');
 var Album = require('../../models/album');
@@ -438,6 +439,9 @@ module.exports = function (router) {
     /* OLD API BEGINNING */
     
     var validateSubdomain = function(uri, res, callbackTop, callbackSubdomain) {
+        /* TODO: localizar para o idioma do site */
+        moment.locale('pt-br');
+        
         var parsed = uri ? new URL(uri) : null;
         var hostname = parsed ? parsed.hostname : null;
         var subdomain = hostname ? hostname.split('.')[0] : null;
@@ -500,6 +504,22 @@ module.exports = function (router) {
                     res.redirect('http://www.mobyourlife.com.br');
                 }
             });
+        }
+    }
+    
+    var enableCors = function(req, res, next) {
+        if (req.headers.origin) {
+            validateSubdomain(req.headers.origin, res, function() {
+                next();
+            }, function(fanpage, menu) {
+                req.fanpage = fanpage;
+                req.menu = menu;
+                res.header("Access-Control-Allow-Origin", "*");
+                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                next();
+            });
+        } else {
+            next();
         }
     }
     
@@ -596,7 +616,7 @@ module.exports = function (router) {
                 if (found) {
                     Fanpage.findOne({ '_id': found.ref }, function(err, found) {
                         if (found) {
-                            for (i = 0; i < req.user.fanpages.length; i++) {
+                            for (var i = 0; i < req.user.fanpages.length; i++) {
                                 if (req.user.fanpages[i].id == found._id) {
                                     res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: true });
                                     return;
@@ -622,23 +642,45 @@ module.exports = function (router) {
     });
     
     // api para consulta do feed
-    router.get('/feeds/:before?', function(req, res) {
-        validateSubdomain(req.headers.host, res, function(menu) {
-            res.render('404', { link: 'opcoes', auth: req.isAuthenticated(), user: req.user, menu: menu });
-        }, function(userFanpage, menu) {
-            var filter = { ref: userFanpage._id };
-            
-            if (req.params.before) {
-                filter.time = { $lte: moment.unix(req.params.before).format() };
-            }
-            
-            Feed.find(filter).limit(5).sort('-time').exec(function(err, found) {
-                for (i = 0; i < found.length; i++) {
-                    found[i].unix = moment(found[i].time).unix();
-                    found[i].fromNow = moment(found[i].time).fromNow();
+    router.get('/feeds/:before?', enableCors, function(req, res) {
+        var filter = { ref: req.fanpage._id };
+
+        if (req.params.before) {
+            filter.time = { $lte: moment.unix(req.params.before).format() };
+        }
+
+        Feed.find(filter).limit(5).sort('-time').exec(function(err, found) {
+            for (var i = 0; i < found.length; i++) {
+                found[i].unix = moment(found[i].time).unix();
+                found[i].fromNow = moment(found[i].time).fromNow();
+                found[i].timelineInverted = ((i % 2) == 0 ? '' : 'timeline-inverted');
+                found[i].isVideo = (found[i].type == 'video');
+                
+                if (found[i].isVideo) {
+                    var link = f.link;
+                    link = link.replace('m.youtube.com/watch?v=', 'youtube.com/embed/');
+                    link = link.replace('youtube.com/watch?v=', 'youtube.com/embed/');
+                    link = link.replace('facebook.com/video.php?v=', 'facebook.com/video/embed?video_id=');
+                    found[i].videoLink = link;
+                } else {
+                    if (found[i].cdn) {
+                        found[i].imageLink = found[i].cdn;
+                    } else if (found[i].source) {
+                        found[i].imageLink = found[i].source;
+                    } else {
+                        found[i].imageLink = found[i].picture;
+                    }
                 }
-                res.render('api-feeds', { feeds: found });
-            });
+                
+                found[i].textName = (found[i].name ? found[i].name : '');
+                found[i].textMessage = (found[i].message ? found[i].message : found[i].description);
+                found[i].hasBody = (found[i].textName || found[i].textMessage);
+                
+                if (found[i].textMessage) {
+                    found[i].textMessage = found[i].textMessage.replace('\n', '<br/>');
+                }
+            }
+            res.render('api-feeds', { feeds: found });
         });
     });
     

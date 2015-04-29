@@ -1,0 +1,42 @@
+{#feeds}
+    <li class="feed {timelineInverted}" data-imgid="{id}" data-imgtime="{unix}">
+        <div class="timeline-badge primary hidden-xs">
+            <a>
+                <i class="glyphicon glyphicon-record" rel="tooltip" title="{fromNow} via Facebook"></i>
+            </a>
+        </div>
+        <div class="timeline-panel">
+            <div class="timeline-heading">
+                {#isVideo}
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="{videoLink}"></iframe>
+                    </div>
+                {:else}
+                    <a href="{link}" target="_blank">
+                        <img src="{imageLink}" class="validate-image" onerror="imageFailed('{id}');">
+                    </a>
+                {/isVideo}
+            </div>
+            {#hasBody}
+                <div class="timeline-body">
+                    {#hasBody}
+                        <p>
+                            {#textName}
+                                <strong>{textName}</strong><br/>
+                            {/textName}
+                            {textMessage|s}
+                        </p>
+                    {/hasBody}
+                </div>
+            {/hasBody}
+            <div class="timeline-footer timeline-footer-bg">
+                <div class="pull-right" style="margin-bottom: 1.2em;">
+                    <!-- Compartilhar -->
+                    <a class="btn btn-primary btn-sm" href="https://www.facebook.com/sharer/sharer.php?u={link}" target="_blank" style="margin-right: 10px;"><i class="fa fa-share fa-fw"></i> Compartilhar</a>
+                    <!-- Mais detalhes -->
+                    <a class="btn btn-primary btn-sm" href="{link}" target="_blank"><i class="fa fa-external-link fa-fw"></i> Mais detalhes</a>
+                </div>
+            </div>
+        </div>
+    </li>
+{/feeds}
