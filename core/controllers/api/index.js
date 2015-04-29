@@ -1,6 +1,6 @@
 'use strict';
 
-var FB = require('FB');
+var FB = require('fb');
 var moment = require('moment');
 var unirest = require('unirest');
 var URL = require('url-parse');
