@@ -528,46 +528,42 @@ module.exports = function (router) {
         }
     }
     
-    // enviar foto de capa
-    router.post('/upload-cover', function(req, res) {
-        validateSubdomain(req.headers.host, res, function(menu) {
-            res.render('404', { link: 'upload-cover', auth: req.isAuthenticated(), user: req.user, menu: menu });
-        }, function(userFanpage, menu) {
-            var form = new formidable.IncomingForm(), height = 0, cover = null;
-            //if (app.get('env') === 'development') {
-                form.uploadDir = './public/uploads';
-            //} else {
-            //    form.uploadDir = '/var/www/mob/public/uploads';
-            //}
-            form.keepExtensions = true;
+    // [should be retro ok] enviar foto de capa
+    router.post('/upload-cover', enableCors, function(req, res) {
+        var form = new formidable.IncomingForm(), height = 0, cover = null;
+        //if (app.get('env') === 'development') {
+        //    form.uploadDir = './public/uploads';
+        //} else {
+            form.uploadDir = '/var/www/mob/public/uploads';
+        //}
+        form.keepExtensions = true;
 
-            form
-                .on('field', function(field, value) {
-                    if (field === 'height') {
-                        height = value;
-                    }
-                })
-                .on('file', function(field, file) {
-                    if (field === 'cover') {
-                        cover = file;
-                    }
-                })
-                .on('end', function() {
-                    var patharr = cover.path.indexOf('\\') != -1 ? cover.path.split('\\') : cover.path.split('/');
-                    var path = patharr[patharr.length - 1];
-                    Fanpage.update({ _id: userFanpage._id }, { cover: height != 0 ? { path: path, height: height } : null }, { upsert: true}, function(err) {
-                        if (err)
-                            throw err;
-                        
-                        res.redirect(req.headers.referer);
-                    });
+        form
+            .on('field', function(field, value) {
+                if (field === 'height') {
+                    height = value;
+                }
+            })
+            .on('file', function(field, file) {
+                if (field === 'cover') {
+                    cover = file;
+                }
+            })
+            .on('end', function() {
+                var patharr = cover.path.indexOf('\\') != -1 ? cover.path.split('\\') : cover.path.split('/');
+                var path = patharr[patharr.length - 1];
+                Fanpage.update({ _id: req.fanpage._id }, { cover: height != 0 ? { path: path, height: height } : null }, { upsert: true}, function(err) {
+                    if (err)
+                        throw err;
+
+                    res.redirect(req.headers.referer);
                 });
-            form.parse(req);
-        });
+            });
+        form.parse(req);
     });
     
     // api para gerenciar álbuns
-    router.post('/set-album', function(req, res) {
+    router.post('/set-album', enableCors, function(req, res) {
         if (req.isAuthenticated()) {
             if (req.body.album_id && req.body.special_type) {
                 Album.findOne({ _id: req.body.album_id }, function(err, one) {
