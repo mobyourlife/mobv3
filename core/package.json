@@ -25,7 +25,8 @@
     "pagseguro": "0.0.5",
     "passport": "^0.2.1",
     "passport-facebook": "^2.0.0",
-    "unirest": "^0.4.0"
+    "unirest": "^0.4.0",
+    "universal-analytics": "^0.3.6"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

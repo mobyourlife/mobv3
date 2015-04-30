@@ -4,6 +4,8 @@ var FB = require('fb');
 var moment = require('moment');
 var unirest = require('unirest');
 var URL = require('url-parse');
+var ua = require('universal-analytics');
+
 var Domain = require('../../models/domain');
 var Fanpage = require('../../models/fanpage');
 var Feed = require('../../models/feed');
@@ -763,6 +765,12 @@ module.exports = function (router) {
             RTU.syncPending();
         });
         res.status(200).send();
+    });
+    
+    router.get('/pagseguro/callback', function(req, res) {
+        var visitor = ua('');
+        visitor.event('billing', 'finish-payment').send();
+        res.redirect('/account/login');
     });
     
     /* OLD API END */

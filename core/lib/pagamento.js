@@ -43,8 +43,8 @@ module.exports = function(user, fanpage, preco, sucesso, falha) {
         });
         
         // urls de retorno
-        pag.setRedirectURL('https://www.mobyourlife.com.br/pagseguro/callback');
-        pag.setNotificationURL('https://www.mobyourlife.com.br/pagseguro/notification');
+        pag.setRedirectURL('https://www.mobyourlife.com.br/api/pagseguro/callback');
+        pag.setNotificationURL('https://www.mobyourlife.com.br/api/pagseguro/notification');
         
         // envia os dados ao pagseguro
         pag.send(function(err, ret) {
