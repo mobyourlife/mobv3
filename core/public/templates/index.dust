@@ -278,6 +278,7 @@
     <script src="/js/bootstrap.min.js"></script>
     
     <!-- Others -->
+    <script src="/js/ga.js"></script>
     <script src="/js/wow.min.js"></script>
     <script>
         new WOW({
