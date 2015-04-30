@@ -281,6 +281,8 @@
     <script src="/js/ga.js"></script>
     <script src="/js/wow.min.js"></script>
     <script>
+        ga('send', 'pageview');
+        
         new WOW({
                 offset: 200
             }).init();

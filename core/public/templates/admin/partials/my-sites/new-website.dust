@@ -11,7 +11,7 @@
         <h4>{@pre type="content" key="new-website.loading"/}</h4>
     </div>
     
-    <div ng-show="loaded" class="text-center bounceIn animated" style="-webkit-animation-delay: 0.5s;">
+    <div ng-show="loaded" class="bounceIn animated" style="-webkit-animation-delay: 0.5s;">
         <h3>{@pre type="content" key="new-website.select-desired-page"/}</h3>
 
         <div class="alert alert-danger" ng-show="error">

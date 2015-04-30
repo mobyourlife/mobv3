@@ -38,6 +38,7 @@ app.controller('NewWebsiteController', function($scope, $http, $routeParams, $lo
         $scope.error = null;
         
         $http.get('/api/create-new-website/' + pageid).success(function(data) {
+            ga('send', 'event', 'getting-started', 'create-new-website');
             $location.path('/' + pageid + '/wizard');
         }).error(function(data, status) {
             if (status == 401) {
@@ -122,6 +123,7 @@ app.controller('WizardController', function($scope, $http, $routeParams, $rootSc
     $scope.websiteFinished = function() {
         $http.get('/api/wizard/website-finished/' + $routeParams.pageid).success(function(data) {
             //$location.path('/' + $routeParams.pageid + '/management');
+            ga('send', 'event', 'getting-started', 'wizard-finished');
             $location.path('/');
         });
     }
@@ -139,11 +141,12 @@ app.controller('DomainsController', function($scope, $http) {
     });
     
     $scope.checkDomain = function() {
+        ga('send', 'event', 'domains', 'search-domain');
         $scope.loaded = false;
         $http.get('/api/whois/' + $scope.domainName).success(function() {
             $scope.loaded = true;
             $scope.available = true;
-        }).error(function() {
+        }).error(function(data) {
             $scope.loaded = true;
             $scope.available = false;
         });
@@ -178,6 +181,7 @@ app.controller('DomainRegisterController', function($scope, $http, $routeParams)
             domain: $scope.domain,
             pageid: $scope.selectedSite._id
         }).success(function(data) {
+            ga('send', 'event', 'domains', 'register-domain');
             $scope.success = true;
         }).error(function(data) {
             $scope.error = true;
@@ -219,6 +223,7 @@ app.controller('BillingPaymentController', function($scope, $http) {
             _csrf: $scope.csrf,
             pageid: $scope.selectedSite._id
         }).success(function(data) {
+            ga('send', 'event', 'billing', 'go-to-payment');
             $scope.success = true;
             location.href = data.uri;
         }).error(function(data, status) {
@@ -255,6 +260,7 @@ app.controller('SupportController', function($scope, $http, $validator) {
                 email: $scope.email,
                 message: $scope.message
             }).success(function(data) {
+                ga('send', 'event', 'support', 'support-email-sent');
                 $scope.success = true;
             }).error(function(data) {
                 $scope.error = data.response;
