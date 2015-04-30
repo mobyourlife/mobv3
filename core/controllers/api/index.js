@@ -769,7 +769,7 @@ module.exports = function (router) {
     
     router.get('/pagseguro/callback', function(req, res) {
         var visitor = ua('UA-52753958-4');
-        visitor.event('billing', 'finish-payment').send();
+        visitor.event('billing', 'finish-payment', '', 999.90).send();
         res.redirect('/account/login');
     });
     
