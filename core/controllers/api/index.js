@@ -655,7 +655,7 @@ module.exports = function (router) {
                 found[i].isVideo = (found[i].type == 'video');
                 
                 if (found[i].isVideo) {
-                    var link = f.link;
+                    var link = found[i].link;
                     link = link.replace('m.youtube.com/watch?v=', 'youtube.com/embed/');
                     link = link.replace('youtube.com/watch?v=', 'youtube.com/embed/');
                     link = link.replace('facebook.com/video.php?v=', 'facebook.com/video/embed?video_id=');
