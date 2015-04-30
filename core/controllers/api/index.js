@@ -768,7 +768,7 @@ module.exports = function (router) {
     });
     
     router.get('/pagseguro/callback', function(req, res) {
-        var visitor = ua('');
+        var visitor = ua('UA-52753958-4');
         visitor.event('billing', 'finish-payment').send();
         res.redirect('/account/login');
     });
