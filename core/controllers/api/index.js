@@ -574,7 +574,7 @@ module.exports = function (router) {
                     
                     var proceed = false;
                     
-                    for (i = 0; i < req.user.fanpages.length; i++) {
+                    for (var i = 0; i < req.user.fanpages.length; i++) {
                         if (req.user.fanpages[i].id.toString().localeCompare(one.ref.toString()) === 0) {
                             proceed = true;
                             break;
