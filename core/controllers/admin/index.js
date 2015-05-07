@@ -15,7 +15,9 @@ module.exports = function (router) {
             
             if (model.user.facebook && model.user.facebook.email) {
                 var allowed = [
-                    'contato@fmoliveira.com.br'
+                    'contato@fmoliveira.com.br',
+                    'marcelofante01@gmail.com',
+                    'latorremarcelo08@gmail.com'
                 ];
                 
                 for (var i = 0; i < allowed.length; i++) {
