@@ -621,7 +621,7 @@ module.exports = function (router) {
                         if (found) {
                             for (var i = 0; i < req.user.fanpages.length; i++) {
                                 if (req.user.fanpages[i].id == found._id) {
-                                    res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: true });
+                                    res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: true, csrf: res.locals._csrf });
                                     return;
                                 }
                             }
