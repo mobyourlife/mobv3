@@ -234,6 +234,15 @@ app.controller('BillingPaymentController', function($scope, $http) {
 
 /* all sites index */
 app.controller('AllSitesController', function($scope, $http) {
+    $http.get('/api/latest-stats').success(function(latest) {
+        $scope.latest = latest;
+        console.log(latest);
+    }).error(function(data, status) {
+        if (status == 401) {
+            location.href = '/account/logout';
+        }
+    });
+    
     $http.get('/api/all-sites').success(function(data) {
         $scope.data = data;
     }).error(function(data, status) {

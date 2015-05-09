@@ -17,6 +17,11 @@
     
     <hr/>
     
+    <div class="row container" ng-show="latest">
+        <p><strong>Total de sites:</strong> <span ng-bind="latest.count"></span></p>
+        <p><strong>Último site criado:</strong> <span class="label label-success" ng-bind="latest.site.facebook.name"></span> a <span class="label label-default" ng-bind="latest.site.creation.time | momentTimeAgo"></span></p>
+    </div>
+    
     <div class="well" ng-repeat="s in data.sites | filter:search">
         <div class="media">
             <div class="media-left">

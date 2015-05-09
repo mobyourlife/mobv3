@@ -344,6 +344,32 @@ module.exports = function (router) {
         }
     });
     
+    /* api method to look for latest statistics about sites creation */
+    router.get('/latest-stats', function (req, res) {
+        if (req.isAuthenticated()) {
+            Fanpage.find().limit(1).sort({ 'creation.time': -1 }).exec(function(err, latest) {
+                if (err) {
+                    console.log(err);
+                }
+                
+                Fanpage.count().exec(function(err, count) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    
+                    var model = {
+                        site: latest[0],
+                        count: count
+                    };
+                    
+                    res.send(model);
+                });
+            });
+        } else {
+            res.status(401).send();
+        }
+    });
+    
     /* whois method */
     router.get('/whois/:domain', function (req, res) {
         if (req.isAuthenticated()) {
