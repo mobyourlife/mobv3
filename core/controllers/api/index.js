@@ -14,11 +14,13 @@ var TextPage = require('../../models/textpage');
 var Album = require('../../models/album');
 var Photo = require('../../models/photo');
 var Video = require('../../models/video');
+var Update = require('../../models/update');
 
 var email = require('../../lib/email')();
 var sync = require('../../lib/sync')();
 var pagamento = require('../../lib/pagamento');
 var themes = require('../../lib/old-themes');
+var RTU = require('../../lib/realtime');
 
 module.exports = function (router) {
 
