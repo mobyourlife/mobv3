@@ -1,0 +1,14 @@
+{
+  "name": "backsync",
+  "version": "1.0.0",
+  "description": "Background service responsible for syncing all data from Facebook.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
+  "license": "Copyright",
+  "dependencies": {
+    "fb": "^0.7.0"
+  }
+}
