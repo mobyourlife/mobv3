@@ -9,8 +9,11 @@
     "test": "grunt test"
   },
   "dependencies": {
+    "adaro": "^0.1.10",
     "bcrypt-nodejs": "0.0.3",
     "connect-mongo": "^0.8.0",
+    "dustjs-helpers": "^1.6.3",
+    "dustjs-linkedin": "^2.6.2",
     "engine-munger": "^0.2.0",
     "express": "^4.3.0",
     "express-session": "^1.11.1",
