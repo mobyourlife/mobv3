@@ -48,13 +48,13 @@ var server = http.createServer(app);
 /* start express */
 app.on('start', function () {
     /* start SSL proxy in development environment */
-    if (app.kraken.get('env:env') === 'development') {
+    /*if (app.kraken.get('env:env') === 'development') {
         console.log('Starting HTTPS proxy...');
         require('./lib/ssl-proxy');
-    }
+    }*/
     
     console.log('Application ready to serve requests.');
     console.log('Environment: %s', app.kraken.get('env:env'));
     
-    server.listen(3100);
+    //server.listen(3100);
 });
