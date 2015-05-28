@@ -25,7 +25,6 @@ var syncPageInfo = function(page) {
 /* parse page info callback response */
 var syncPageInfoCallback = function(row) {
     Fanpage.update({ _id: row.id }, {
-        'init_done': true,
         'cover.path': row.cover.source,
         'facebook.about': row.about,
         'facebook.link': row.link,
@@ -70,7 +69,7 @@ module.exports = {
             throw 'No callback has been supplied for "checkConditions"!';
         }
 
-        Fanpage.find({ init_done: { $ne: true } }, function (err, records) {
+        Fanpage.find({ 'facebook.name': { $exists: false } }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
             } else {
