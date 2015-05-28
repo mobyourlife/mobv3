@@ -8,6 +8,7 @@ var mongoose = require('mongoose')
 // define the model schema
 var fanpageSchema = mongoose.Schema({
     _id: String,
+    init_done: Boolean,
     theme: {
         /* deprecated theme fields */
         css: String,
