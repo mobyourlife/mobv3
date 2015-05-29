@@ -14,6 +14,7 @@ var queue = require('./lib/queue');
 /* load jobs */
 var jobs = [];
 jobs.push(require('./jobs/new-site-created'));
+jobs.push(require('./jobs/update-page-info'));
 
 /* background loop */
 var execute = function() {

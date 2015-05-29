@@ -58,8 +58,8 @@ module.exports = {
             /* format the query string */
             url = cur.request;
             for(j = 0; j < cur.fields; j += 1) {
-                url += (j === 0) ? '?' : '&';
-                url += cur.fields[j].key + '=' + cur.fields[j].value;
+                url += (j === 0) ? '?fields=' : ',';
+                url += cur.fields[j];
             }
             
             /* add each job to the batch poll */

@@ -133,6 +133,10 @@ var fanpageSchema = mongoose.Schema({
         personal_touch: Boolean,
         share_it: Boolean,
         finished: Boolean
+    },
+    jobs: {
+        new_site_created: Date,
+        update_page_info: Date
     }
 });
 
