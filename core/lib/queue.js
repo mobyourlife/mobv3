@@ -56,9 +56,9 @@ module.exports = {
             cur = RequestsQueue.pop();
             
             /* format the query string */
-            url = cur.request;
+            url = cur.request + '?locale=pt_BR';
             for(j = 0; j < cur.fields; j += 1) {
-                url += (j === 0) ? '?fields=' : ',';
+                url += (j === 0) ? '&fields=' : ',';
                 url += cur.fields[j];
             }
             
