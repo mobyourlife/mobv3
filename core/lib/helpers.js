@@ -112,8 +112,32 @@ module.exports = function() {
         return str;
     }
     
+    function safeImage(url) {
+        var cfs = /\/safe_image\.php\?.*url=(.*)(&cfs=1)/.exec(url);
+        var result = /\/safe_image\.php\?.*url=(.*)/.exec(url);
+
+        if (cfs) {
+            return unescape(cfs[1]);
+        } else if (result) {
+            return unescape(result[1]);
+        }
+
+        return url;
+    }
+    
+    function formatLineBreaks(s) {
+        if (s) {
+            while (s.indexOf('\n') != -1) {
+                s = s.replace('\n', '<br/>');
+            }
+            return s;
+        }
+    }
+    
     return {
         removeAccents: removeDiacritics,
-        formatAsPath: formatAsPath
+        formatAsPath: formatAsPath,
+        safeImage: safeImage,
+        formatLineBreaks: formatLineBreaks
     }
 }

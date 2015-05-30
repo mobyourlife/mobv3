@@ -6,6 +6,7 @@ var moment = require('moment');
 
 /* app libs */
 var queue = require('../lib/queue');
+var helpers = require('../lib/helpers')();
 
 /* database models */
 var Fanpage = require('../models/fanpage');
@@ -25,10 +26,12 @@ var syncPageInfo = function(page) {
 /* parse page info callback response */
 var syncPageInfoCallback = function(row) {
     Fanpage.update({ _id: row.id }, {
+        /* basic info */
         'cover.path': (row.cover ? row.cover.source : null),
-        'facebook.about': row.about,
+        'facebook.about': helpers.formatLineBreaks(row.about),
         'facebook.category': row.category,
         'facebook.category_list': row.category_list,
+        'facebook.description': helpers.formatLineBreaks(row.description),
         'facebook.emails': row.emails,
         'facebook.is_verified': row.is_verified,
         'facebook.link': row.link,
@@ -36,14 +39,79 @@ var syncPageInfoCallback = function(row) {
         'facebook.picture': (row.picture && row.picture.data ? row.picture.data.url : null),
         'facebook.website': row.website,
         
+        /* bands */
+        'facebook.info.band.band_members': row.band_members,
+        'facebook.info.band.booking_agent': row.booking_agent,
+        'facebook.info.band.press_contact': row.press_contact,
+        'facebook.info.band.hometown': row.hometown,
+        
+        /* company */
+        'facebook.info.company.company_overview': (row.company_overview ? helpers.formatLineBreaks(row.company_overview) : null),
+        'facebook.info.company.founded': row.founded,
+        'facebook.info.company.mission': (row.mission ? helpers.formatLineBreaks(row.mission) : null),
+        
+        /* extra info */
+        'facebook.info.general_info': row.general_info,
+        'facebook.info.hours': row.hours,
+        'facebook.info.impressum': row.impressum,
+        
+        /* films */
+        'facebook.info.film.directed_by': row.directed_by,
+        
+        /* location */
+        'facebook.place.location.street': (row.location ? row.location.street : null),
+        'facebook.place.location.city': (row.location ? row.location.city : null),
+        'facebook.place.location.state': (row.location ? row.location.state : null),
+        'facebook.place.location.country': (row.location ? row.location.country : null),
+        'facebook.place.location.zip': (row.location ? row.location.zip : null),
+        'facebook.place.location.coordinates': (row.location && row.location.latitude && row.location.longitude ? [ parseFloat(row.location.latitude), parseFloat(row.location.longitude) ] : null),
+        
+        /* parking */
+        'facebook.place.parking.lot': (row.parking ? row.parking.lot : null),
+        'facebook.place.parking.street': (row.parking ? row.parking.street : null),
+        'facebook.place.parking.valet': (row.parking ? row.parking.valet : null),
+        
+        /* payment options */
+        'facebook.info.payment_options.amex': (row.payment_options ? row.payment_options.amex : null),
+        'facebook.info.payment_options.cash_only': (row.payment_options ? row.payment_options.cash_only : null),
+        'facebook.info.payment_options.discover': (row.payment_options ? row.payment_options.discover : null),
+        'facebook.info.payment_options.mastercard': (row.payment_options ? row.payment_options.mastercard : null),
+        'facebook.info.payment_options.visa': (row.payment_options ? row.payment_options.visa : null),
+        
+        /* personality */
+        'facebook.info.personality.birthday': row.birthday,
+        
+        /* place */
+        'facebook.place.phone': row.phone,
+        
+        /* restaurants and night life */
+        'facebook.info.foodnight.attire': row.attire,
+        'facebook.info.foodnight.general_manager': row.general_manager,
+        'facebook.info.foodnight.price_range': row.price_range,
+        
+        /* restaurants services */
+        'facebook.info.foodnight.restaurant.services.kids': (row.restaurant_services ? row.restaurant_services.kids : null),
+        'facebook.info.foodnight.restaurant.services.delivery': (row.restaurant_services ? row.restaurant_services.delivery : null),
+        'facebook.info.foodnight.restaurant.services.walkins': (row.restaurant_services ? row.restaurant_services.walkins : null),
+        'facebook.info.foodnight.restaurant.services.catering': (row.restaurant_services ? row.restaurant_services.catering : null),
+        'facebook.info.foodnight.restaurant.services.reserve': (row.restaurant_services ? row.restaurant_services.reserve : null),
+        'facebook.info.foodnight.restaurant.services.groups': (row.restaurant_services ? row.restaurant_services.groups : null),
+        'facebook.info.foodnight.restaurant.services.waiter': (row.restaurant_services ? row.restaurant_services.waiter : null),
+        'facebook.info.foodnight.restaurant.services.outdoor': (row.restaurant_services ? row.restaurant_services.outdoor : null),
+        'facebook.info.foodnight.restaurant.services.takeout': (row.restaurant_services ? row.restaurant_services.takeout : null),
+
+        /* restaurants specialties */
+        'facebook.info.foodnight.restaurant.specialties.coffee': (row.restaurant_specialties ? row.restaurant_specialties.coffee : null),
+        'facebook.info.foodnight.restaurant.specialties.drinks': (row.restaurant_specialties ? row.restaurant_specialties.drinks : null),
+        'facebook.info.foodnight.restaurant.specialties.breakfast': (row.restaurant_specialties ? row.restaurant_specialties.breakfast : null),
+        'facebook.info.foodnight.restaurant.specialties.dinner': (row.restaurant_specialties ? row.restaurant_specialties.dinner : null),
+        'facebook.info.foodnight.restaurant.specialties.lunch': (row.restaurant_specialties ? row.restaurant_specialties.lunch : null),
+        
         /* stats */
         'facebook.stats.checkins': row.checkins,
         'facebook.stats.likes': row.likes,
         'facebook.stats.talking_about_count': row.talking_about_count,
         'facebook.stats.were_here_count': row.were_here_count,
-        
-        /* place */
-        'facebook.place.phone': row.phone,
         
         /* job status */
         'jobs.update_page_info': Date.now()
