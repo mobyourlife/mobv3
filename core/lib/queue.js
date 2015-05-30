@@ -25,6 +25,7 @@ module.exports = {
                 console.log(!res ? 'Unknown Facebook error!' : res.error);
             } else {
                 console.log('Authorisation successful!');
+                console.log('Access token: ' + res.access_token);
                 FB.setAccessToken(res.access_token);
                 callback();
             }
@@ -57,7 +58,7 @@ module.exports = {
             
             /* format the query string */
             url = cur.request + '?locale=pt_BR';
-            for(j = 0; j < cur.fields; j += 1) {
+            for(j = 0; j < cur.fields.length; j += 1) {
                 url += (j === 0) ? '&fields=' : ',';
                 url += cur.fields[j];
             }
@@ -68,6 +69,8 @@ module.exports = {
                 relative_url: url,
                 callback: cur.callback
             });
+            
+            console.log('>> GET ' + url);
         }
         
         /* post the batch request */

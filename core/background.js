@@ -32,10 +32,10 @@ var loop = function () {
         if (cur) {
             if (now >= cur.nextRun()) {
                 console.log('Checking conditions for job "' + cur.jobName + '"...');
-                cur.checkConditions(function (status, model) {
-                    console.log(status ? '  [OK] Running job...' : '  [NOPE] Job will not run.');
-                    cur.doWork(model, function() {
-                        console.log('  [DONE] Finished job "' + cur.jobName + '.');
+                cur.checkConditions(function (job, status, model) {
+                    console.log(status ? '  [OK] Running job "' + job.jobName + '"...' : '  [NOPE] Job "' + job.jobName + '" will not run.');
+                    job.doWork(model, function() {
+                        console.log('  [DONE] Finished job "' + job.jobName + '.');
                     });
                 });
             }

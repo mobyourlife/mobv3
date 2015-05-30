@@ -19,13 +19,13 @@ var nextRun = moment().unix();
 
 /* add page info to the queue */
 var syncPageInfo = function(page) {
-    queue.add(page._id, syncPageInfoCallback, [ 'id', 'name', 'about', 'description', 'picture', 'category', 'category_list', 'is_verified', 'link', 'website', 'emails', 'checkins', 'likes', 'talking_about_count', 'were_here_count', 'phone', 'location', 'parking', 'general_info', 'hours', 'band_members', 'booking_agent', 'press_contact', 'hometown', 'company_overview', 'founded', 'mission', 'directed_by', 'attire', 'general_manager', 'price_range', 'restaurant_services', 'restaurant_specialties', 'birthday', 'payment_options' ]);
+    queue.add(page._id, syncPageInfoCallback, [ 'id', 'name', 'about', 'cover', 'description', 'picture', 'category', 'category_list', 'is_verified', 'link', 'website', 'emails', 'checkins', 'likes', 'talking_about_count', 'were_here_count', 'phone', 'location', 'parking', 'general_info', 'hours', 'band_members', 'booking_agent', 'press_contact', 'hometown', 'company_overview', 'founded', 'mission', 'directed_by', 'attire', 'general_manager', 'price_range', 'restaurant_services', 'restaurant_specialties', 'birthday', 'payment_options' ]);
 }
 
 /* parse page info callback response */
 var syncPageInfoCallback = function(row) {
     Fanpage.update({ _id: row.id }, {
-        'cover.path': row.cover.source,
+        'cover.path': (row.cover ? row.cover.source : null),
         'facebook.about': row.about,
         'facebook.category': row.category,
         'facebook.category_list': row.category_list,
@@ -33,6 +33,7 @@ var syncPageInfoCallback = function(row) {
         'facebook.is_verified': row.is_verified,
         'facebook.link': row.link,
         'facebook.name': row.name,
+        'facebook.picture': (row.picture && row.picture.data ? row.picture.data.url : null),
         'facebook.website': row.website,
         
         /* stats */
@@ -69,7 +70,7 @@ var startSyncing = function (records, callback) {
 };
 
 /* job interface */
-module.exports = {
+var job = {
     
     /* job name */
     jobName: 'Update page info',
@@ -90,7 +91,7 @@ module.exports = {
                 console.log('Database error: ' + err);
             } else {
                 var status = (records && records.length !== 0);
-                callback(status, records);
+                callback(job, status, records);
             }
         });
     },
@@ -102,3 +103,5 @@ module.exports = {
     }
     
 };
+
+module.exports = job;

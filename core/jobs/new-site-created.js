@@ -19,16 +19,17 @@ var nextRun = moment().unix();
 
 /* add page info to the queue */
 var syncPageInfo = function(page) {
-    queue.add(page._id, syncPageInfoCallback, [ 'about', 'cover', 'link', 'name', 'stats' ]);
+    queue.add(page._id, syncPageInfoCallback, [ 'about', 'cover{source}', 'likes', 'link', 'name', 'picture{url}' ]);
 }
 
 /* parse page info callback response */
 var syncPageInfoCallback = function(row) {
     Fanpage.update({ _id: row.id }, {
-        'cover.path': row.cover.source,
+        'cover.path': (row.cover ? row.cover.source : null),
         'facebook.about': row.about,
         'facebook.link': row.link,
         'facebook.name': row.name,
+        'facebook.picture': (row.picture && row.picture.data ? row.picture.data.url : null),
         'facebook.stats.link': row.likes,
         'jobs.new_site_created': Date.now()
     }, function(err) {
@@ -54,7 +55,7 @@ var startSyncing = function (records, callback) {
 };
 
 /* job interface */
-module.exports = {
+var job = {
     
     /* job name */
     jobName: 'New site created',
@@ -75,7 +76,7 @@ module.exports = {
                 console.log('Database error: ' + err);
             } else {
                 var status = (records && records.length !== 0);
-                callback(status, records);
+                callback(job, status, records);
             }
         });
     },
@@ -87,3 +88,5 @@ module.exports = {
     }
     
 };
+
+module.exports = job;
