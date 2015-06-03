@@ -33,8 +33,9 @@ module.exports = {
     },
     
     /* add a new request to the queue */
-    add: function (request, callback, fields) {
+    add: function (page, request, callback, fields) {
         var newRequest = {
+            page: page,
             request: request,
             callback: callback,
             fields: fields
@@ -67,6 +68,7 @@ module.exports = {
             poll.push({
                 method: 'get',
                 relative_url: url,
+                page: cur.page,
                 callback: cur.callback
             });
             
@@ -83,7 +85,7 @@ module.exports = {
                 /* parse each response and exec the corresponding callback */
                 for (j = 0; j < res.length; j += 1) {
                     obj = JSON.parse(res[j].body);
-                    poll[j].callback(obj);
+                    poll[j].callback(poll[j].page, obj);
                 }
             });
         }

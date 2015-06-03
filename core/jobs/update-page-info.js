@@ -20,11 +20,12 @@ var nextRun = moment().unix();
 
 /* add page info to the queue */
 var syncPageInfo = function(page) {
-    queue.add(page._id, syncPageInfoCallback, [ 'id', 'name', 'about', 'cover', 'description', 'picture', 'category', 'category_list', 'is_verified', 'link', 'website', 'emails', 'checkins', 'likes', 'talking_about_count', 'were_here_count', 'phone', 'location', 'parking', 'general_info', 'hours', 'band_members', 'booking_agent', 'press_contact', 'hometown', 'company_overview', 'founded', 'mission', 'directed_by', 'attire', 'general_manager', 'price_range', 'restaurant_services', 'restaurant_specialties', 'birthday', 'payment_options' ]);
+    var url = page._id;
+    queue.add(page, url, syncPageInfoCallback, [ 'id', 'name', 'about', 'cover', 'description', 'picture', 'category', 'category_list', 'is_verified', 'link', 'website', 'emails', 'checkins', 'likes', 'talking_about_count', 'were_here_count', 'phone', 'location', 'parking', 'general_info', 'hours', 'band_members', 'booking_agent', 'press_contact', 'hometown', 'company_overview', 'founded', 'mission', 'directed_by', 'attire', 'general_manager', 'price_range', 'restaurant_services', 'restaurant_specialties', 'birthday', 'payment_options' ]);
 }
 
 /* parse page info callback response */
-var syncPageInfoCallback = function(row) {
+var syncPageInfoCallback = function(page, row) {
     Fanpage.update({ _id: row.id }, {
         /* basic info */
         'cover.path': (row.cover ? row.cover.source : null),

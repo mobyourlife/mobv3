@@ -19,11 +19,12 @@ var nextRun = moment().unix();
 
 /* add page info to the queue */
 var syncPageInfo = function(page) {
-    queue.add(page._id, syncPageInfoCallback, [ 'about', 'cover{source}', 'likes', 'link', 'name', 'picture{url}' ]);
+    var url = page._id;
+    queue.add(page, url, syncPageInfoCallback, [ 'about', 'cover{source}', 'likes', 'link', 'name', 'picture{url}' ]);
 }
 
 /* parse page info callback response */
-var syncPageInfoCallback = function(row) {
+var syncPageInfoCallback = function(page, row) {
     Fanpage.update({ _id: row.id }, {
         'cover.path': (row.cover ? row.cover.source : null),
         'facebook.about': row.about,
