@@ -16,6 +16,7 @@ var jobs = [];
 jobs.push(require('./jobs/new-site-created'));
 jobs.push(require('./jobs/update-page-info'));
 jobs.push(require('./jobs/sync-feeds'));
+jobs.push(require('./jobs/feeds-pictures'));
 
 /* background loop */
 var execute = function() {
@@ -44,7 +45,7 @@ var loop = function () {
     }
     
     setTimeout(execute, 5000);
-    setTimeout(loop, 10000);
+    setTimeout(loop, 30000);
 };
 
 var start = function () {

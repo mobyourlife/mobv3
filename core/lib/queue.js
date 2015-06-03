@@ -55,7 +55,7 @@ module.exports = {
             obj;
         
         /* pop all the queue */
-        while (RequestsQueue.length > 0) {
+        while (RequestsQueue.length > 0 && poll.length < 50) {
             cur = RequestsQueue.pop();
             
             /* format the query string */
@@ -85,8 +85,8 @@ module.exports = {
         if (poll.length > 0) {
             FB.api('', 'post', { batch: poll }, function(res) {
                 if (!res || res.error) {
-                    console.log('Unknown Facebook error:');
-                    throw res;
+                    console.log(res);
+                    throw 'Unknown Facebook error!';
                 }
 
                 /* parse each response and exec the corresponding callback */
