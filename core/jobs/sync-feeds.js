@@ -116,7 +116,7 @@ var job = {
             throw 'No callback has been supplied for "checkConditions"!';
         }
 
-        Fanpage.find({ 'jobs.sync_feeds': { $exists: false } }, function (err, records) {
+        Fanpage.find({ 'jobs.new_site_created': { $exists: true, $ne: null }, 'jobs.sync_feeds': { $exists: false } }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
             } else {
