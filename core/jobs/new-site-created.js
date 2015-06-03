@@ -20,7 +20,7 @@ var nextRun = moment().unix();
 /* add page info to the queue */
 var syncPageInfo = function(page) {
     var url = page._id;
-    queue.add(page, url, syncPageInfoCallback, [ 'about', 'cover{source}', 'likes', 'link', 'name', 'picture{url}' ]);
+    queue.add(page, url, null, syncPageInfoCallback, [ 'about', 'cover{source}', 'likes', 'link', 'name', 'picture{url}' ]);
 }
 
 /* parse page info callback response */

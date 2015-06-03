@@ -33,10 +33,11 @@ module.exports = {
     },
     
     /* add a new request to the queue */
-    add: function (page, request, callback, fields) {
+    add: function (page, request, args, callback, fields) {
         var newRequest = {
             page: page,
             request: request,
+            args: args,
             callback: callback,
             fields: fields
         };
@@ -59,6 +60,11 @@ module.exports = {
             
             /* format the query string */
             url = cur.request + '?locale=pt_BR';
+            
+            if (cur.args) {
+                url += '&' + cur.args;
+            }
+            
             for(j = 0; j < cur.fields.length; j += 1) {
                 url += (j === 0) ? '&fields=' : ',';
                 url += cur.fields[j];
@@ -79,7 +85,8 @@ module.exports = {
         if (poll.length > 0) {
             FB.api('', 'post', { batch: poll }, function(res) {
                 if (!res || res.error) {
-                    throw !res ? 'Unknown Facebook error!' : res;
+                    console.log('Unknown Facebook error:');
+                    throw res;
                 }
 
                 /* parse each response and exec the corresponding callback */

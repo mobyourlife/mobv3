@@ -21,7 +21,7 @@ var nextRun = moment().unix();
 /* add page info to the queue */
 var syncPageInfo = function(page) {
     var url = page._id;
-    queue.add(page, url, syncPageInfoCallback, [ 'id', 'name', 'about', 'cover', 'description', 'picture', 'category', 'category_list', 'is_verified', 'link', 'website', 'emails', 'checkins', 'likes', 'talking_about_count', 'were_here_count', 'phone', 'location', 'parking', 'general_info', 'hours', 'band_members', 'booking_agent', 'press_contact', 'hometown', 'company_overview', 'founded', 'mission', 'directed_by', 'attire', 'general_manager', 'price_range', 'restaurant_services', 'restaurant_specialties', 'birthday', 'payment_options' ]);
+    queue.add(page, url, null, syncPageInfoCallback, [ 'id', 'name', 'about', 'cover', 'description', 'picture', 'category', 'category_list', 'is_verified', 'link', 'website', 'emails', 'checkins', 'likes', 'talking_about_count', 'were_here_count', 'phone', 'location', 'parking', 'general_info', 'hours', 'band_members', 'booking_agent', 'press_contact', 'hometown', 'company_overview', 'founded', 'mission', 'directed_by', 'attire', 'general_manager', 'price_range', 'restaurant_services', 'restaurant_specialties', 'birthday', 'payment_options' ]);
 }
 
 /* parse page info callback response */

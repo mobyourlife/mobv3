@@ -24,10 +24,14 @@ var syncPageFeeds = function(page, args) {
     var url = page._id + '/feed';
     
     if (args) {
-        url += '?' + args;
+        args += '&';
+    } else {
+        args = '';
     }
     
-    queue.add(page, url, syncPageFeedsCallback, [ 'id', 'story', 'picture', 'link', 'updated_time', 'type', 'name', 'caption', 'description', 'message', 'object_id', 'source', 'actions', 'shares', 'likes' ]);
+    args += 'limit=25';
+    
+    queue.add(page, url, args, syncPageFeedsCallback, [ 'id', 'story', 'picture', 'link', 'updated_time', 'type', 'name', 'caption', 'description', 'message', 'object_id', 'source', 'actions', 'shares', 'likes' ]);
 }
 
 /* parse page info callback response */
@@ -35,6 +39,15 @@ var syncPageFeedsCallback = function(page, result) {
     var i, item;
     
     if (result.data && result.data.length != 0) {
+        /* update sync feeds execution time */
+        Fanpage.update({ _id: page._id }, {
+            'jobs.sync_feeds': Date.now()
+        }, function(err) {
+            if (err) {
+                throw 'Error updating output from sync page info: ' + err;
+            }
+        });
+        
         /* processes all received feeds */
         for (i = 0; i < result.data.length; i++) {
             item = result.data[i];
@@ -63,23 +76,12 @@ var syncPageFeedsCallback = function(page, result) {
         
         /* queue next page */
         if (result.paging && result.paging.next) {
-            //syncPageFeeds(page, 'limit=25&until=');
+            var regex = /until=([0-9]+)/.exec(result.paging.next);
+            if (regex && regex.length == 2) {
+                syncPageFeeds(page, 'until=' + regex[1]);
+            }
         }
     }
-    
-    /*Fanpage.update({ _id: row.id }, {
-        'cover.path': (row.cover ? row.cover.source : null),
-        'facebook.about': row.about,
-        'facebook.link': row.link,
-        'facebook.name': row.name,
-        'facebook.picture': (row.picture && row.picture.data ? row.picture.data.url : null),
-        'facebook.stats.link': row.likes,
-        'jobs.new_site_created': Date.now()
-    }, function(err) {
-        if (err) {
-            throw 'Error updating output from sync page info: ' + err;
-        }
-    });*/
 };
 
 /* start syncing page contents */
