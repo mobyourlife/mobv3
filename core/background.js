@@ -17,6 +17,7 @@ jobs.push(require('./jobs/new-site-created'));
 jobs.push(require('./jobs/update-page-info'));
 jobs.push(require('./jobs/sync-feeds'));
 jobs.push(require('./jobs/feeds-pictures'));
+jobs.push(require('./jobs/sync-albums'));
 
 /* background loop */
 var execute = function() {
