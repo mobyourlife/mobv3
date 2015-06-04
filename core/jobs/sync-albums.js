@@ -66,8 +66,8 @@ var syncPageAlbumsCallback = function(page, result) {
         }
         
         /* queue next page */
-        if (result.paging && result.paging.before) {
-            syncPageFeeds(page, 'before=' + result.paging.before);
+        if (result.paging && result.paging.next && result.paging.cursors && result.paging.cursors.after) {
+            syncPageAlbums(page, 'after=' + result.paging.cursors.after);
         }
     }
 };

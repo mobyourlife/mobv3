@@ -9,8 +9,8 @@ var queue = require('../lib/queue');
 var helpers = require('../lib/helpers')();
 
 /* database models */
-var Album = require('../models/album');
-var Photo = require('../models/photo');
+var Fanpage = require('../models/fanpage');
+var Video = require('../models/video');
 
 /* constantes */
 var timeout = 1;
@@ -20,8 +20,9 @@ var nextRun = moment().unix();
 /* job tasks */
 
 /* add page info to the queue */
-var syncAlbumPhotos = function(album, args) {
-    var url = album._id + '/photos';
+var syncPageVideos = function(page, args) {
+    var url = page._id + '/videos';
+    var und = page._id + '/posts';
     
     if (args) {
         args += '&';
@@ -29,22 +30,23 @@ var syncAlbumPhotos = function(album, args) {
         args = '';
     }
     
-    args += 'limit=25';
+    args += 'type=video&limit=25';
     
-    queue.add(album, url, args, syncAlbumPhotosCallback, [ 'id', 'source', 'updated_time', 'images', 'album', 'name' ]);
+    queue.add(page, url, args, syncPageVideosCallback, [ 'id', 'updated_time', 'description', 'name' ]);
+    queue.add(page, und, args, syncPageVideosCallback, [ 'id', 'updated_time', 'message', 'name', 'link' ]);
 }
 
 /* parse page info callback response */
-var syncAlbumPhotosCallback = function(album, result) {
+var syncPageVideosCallback = function(page, result) {
     var i, item;
     
     if (result.data && result.data.length != 0) {
         /* update sync feeds execution time */
-        Album.update({ _id: album._id }, {
-            latest_sync: Date.now()
+        Fanpage.update({ _id: page._id }, {
+            'jobs.sync_videos': Date.now()
         }, function(err) {
             if (err) {
-                throw 'Error updating output from album info: ' + err;
+                throw 'Error updating output from sync page info: ' + err;
             }
         });
         
@@ -52,24 +54,26 @@ var syncAlbumPhotosCallback = function(album, result) {
         for (i = 0; i < result.data.length; i++) {
             item = result.data[i];
             
-            /* insert field to database */
-            Photo.update({ _id: item.id }, {
-                ref: album.ref,
-                source: item.source,
-                time: item.updated_time,
-                name: item.name,
-                album_id: item.album.id,
-                picture: (item.images && item.images.length != 0) ? helpers.safeImage(item.images[0].source) : null
-            }, { upsert: true }, function(err) {
-                if (err) {
-                    throw 'Error updating photo: ' + err;
-                }
-            });
+            /* check if it isn't a post or it's a video post */
+            if (!item.type || item.type === 'video') {
+                /* insert field to database */
+                Video.update({ _id: item.id }, {
+                    ref: page,
+                    time: item.updated_time,
+                    name: item.name,
+                    description: (item.description ? item.description : (item.message ? item.message : null)),
+                    link: (item.link ? item.link : 'https://www.facebook.com/video.php?v=' + item.id)
+                }, { upsert: true }, function(err) {
+                    if (err) {
+                        throw 'Error updating video: ' + err;
+                    }
+                });
+            }
         }
         
         /* queue next page */
         if (result.paging && result.paging.next && result.paging.cursors && result.paging.cursors.after) {
-            syncAlbumPhotos(album, 'after=' + result.paging.cursors.after);
+            syncPageVideos(page, 'after=' + result.paging.cursors.after);
         }
     }
 };
@@ -85,7 +89,7 @@ var startSyncing = function (records, callback) {
     
     for (i = 0; i < records.length; i += 1) {
         cur = records[i];
-        syncAlbumPhotos(cur);
+        syncPageVideos(cur);
     }
 };
 
@@ -93,7 +97,7 @@ var startSyncing = function (records, callback) {
 var job = {
     
     /* job name */
-    jobName: 'Sync photos',
+    jobName: 'Sync videos',
     
     /* expose timeout */
     nextRun: function () {
@@ -106,7 +110,7 @@ var job = {
             throw 'No callback has been supplied for "checkConditions"!';
         }
 
-        Album.find({ latest_sync: { $exists: false } }, function (err, records) {
+        Fanpage.find({ 'jobs.new_site_created': { $exists: true, $ne: null }, 'jobs.sync_videos': { $exists: false } }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
             } else {
