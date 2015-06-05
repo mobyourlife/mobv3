@@ -28,7 +28,6 @@ var syncPageInfo = function(page) {
 var syncPageInfoCallback = function(page, row) {
     Fanpage.update({ _id: row.id }, {
         /* basic info */
-        'cover.path': (row.cover ? row.cover.source : null),
         'facebook.about': helpers.formatLineBreaks(row.about),
         'facebook.category': row.category,
         'facebook.category_list': row.category_list,
