@@ -104,7 +104,7 @@ var job = {
             throw 'No callback has been supplied for "checkConditions"!';
         }
 
-        Fanpage.find({ 'jobs.new_site_created': { $exists: true, $ne: null }, 'jobs.sync_albums': { $exists: false } }, function (err, records) {
+        Fanpage.find({ 'jobs.new_site_created': { $exists: true, $ne: null }, $or: [ { 'jobs.sync_albums': { $exists: false } }, { 'jobs.sync_albums': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
             } else {
