@@ -115,8 +115,8 @@ var job = {
         if (!callback) {
             throw 'No callback has been supplied for "checkConditions"!';
         }
-
-        Fanpage.find({ 'jobs.new_site_created': { $exists: true, $ne: null }, $or: [ { 'jobs.sync_feeds': { $exists: false } }, { 'jobs.sync_feeds': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] }, function (err, records) {
+        
+        Fanpage.find({ $and: [ { 'billing.expiration': { $gt: new Date() } }, { 'jobs.new_site_created': { $exists: true, $ne: null }, $or: [ { 'jobs.sync_feeds': { $exists: false } }, { 'jobs.sync_feeds': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] } ] }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
             } else {

@@ -9,6 +9,7 @@ var queue = require('../lib/queue');
 var helpers = require('../lib/helpers')();
 
 /* database models */
+var Fanpage = require('../models/fanpage');
 var Feed = require('../models/feed');
 
 /* constantes */
@@ -67,13 +68,20 @@ var job = {
             throw 'No callback has been supplied for "checkConditions"!';
         }
 
-        Feed.find({ picture: { $exists: false } }, function (err, records) {
-            if (err) {
-                console.log('Database error: ' + err);
-            } else {
-                var status = (records && records.length !== 0);
-                callback(job, status, records);
+        Fanpage.find({ 'billing.expiration': { $gt: new Date() }, 'jobs.new_site_created': { $exists: true, $ne: null } }, function (err, pages) {
+            var pages_list = [];
+            for (var i = 0; i < pages.length; i++) {
+                pages_list.push(pages._id);
             }
+            
+            Feed.find({ ref: { $in: pages_list }, picture: { $exists: false } }, function (err, records) {
+                if (err) {
+                    console.log('Database error: ' + err);
+                } else {
+                    var status = (records && records.length !== 0);
+                    callback(job, status, records);
+                }
+            });
         });
     },
     
