@@ -110,7 +110,7 @@ var job = {
         Fanpage.find({ 'billing.expiration': { $gt: new Date() }, 'jobs.new_site_created': { $exists: true, $ne: null } }, function (err, pages) {
             var pages_list = [];
             for (var i = 0; i < pages.length; i++) {
-                pages_list.push(pages._id);
+                pages_list.push(pages[i]._id);
             }
             
             Album.find({ 'ref': { $in: pages_list }, $or: [ { 'latest_sync': { $exists: false } }, { 'latest_sync': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] }, function (err, records) {
