@@ -28,7 +28,8 @@ var syncFeedPicture = function(feed, args) {
 /* parse page info callback response */
 var syncFeedPictureCallback = function(feed, result) {
     Feed.update({ _id: feed._id }, {
-        picture: result.picture
+        picture: (result.images && result.images.length != 0 ? result.images[0].source : (result.source ? result.source : result.picture)),
+        picture_synced: Date.now()
     }, function (err) {
         if (err) {
             throw err;
@@ -74,7 +75,7 @@ var job = {
                 pages_list.push(pages[i]._id);
             }
             
-            Feed.find({ ref: { $in: pages_list }, picture: { $exists: false } }, function (err, records) {
+            Feed.find({ ref: { $in: pages_list }, object_id: { $exists: true }, picture_synced: { $exists: false } }, function (err, records) {
                 if (err) {
                     console.log('Database error: ' + err);
                 } else {
