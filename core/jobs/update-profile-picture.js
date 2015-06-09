@@ -21,7 +21,7 @@ var nextRun = moment().unix();
 /* add page info to the queue */
 var syncProfilePicture = function(page) {
     var url = page._id + '/picture';
-    queue.add(page, url, 'width=320&height=320' , syncProfilePictureCallback, [ 'url' ]);
+    queue.add(page, url, 'width=320&height=320&redirect=false' , syncProfilePictureCallback, [ 'url' ]);
 }
 
 /* parse page info callback response */
