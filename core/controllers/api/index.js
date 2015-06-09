@@ -710,6 +710,7 @@ module.exports = function (router) {
                 
                 found[i].textName = (found[i].name ? found[i].name : '');
                 found[i].textMessage = (found[i].message ? found[i].message : found[i].description);
+                found[i].hasHeader = (found[i].videoLink || found[i].imageLink);
                 found[i].hasBody = (found[i].textName || found[i].textMessage);
                 
                 if (found[i].textMessage) {
