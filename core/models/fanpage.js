@@ -137,6 +137,7 @@ var fanpageSchema = mongoose.Schema({
     jobs: {
         new_site_created: Date,
         update_page_info: Date,
+        update_profile_picture: Date,
         sync_feeds: Date,
         sync_albums: Date,
         sync_videos: Date
