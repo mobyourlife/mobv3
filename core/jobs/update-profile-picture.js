@@ -21,12 +21,12 @@ var nextRun = moment().unix();
 /* add page info to the queue */
 var syncProfilePicture = function(page) {
     var url = page._id + '/picture';
-    queue.add(page, url, 'width=320&height=320', syncProfilePictureCallback, [ 'url' ]);
+    queue.add(page, url, 'width=320&height=320' , syncProfilePictureCallback, [ 'url' ]);
 }
 
 /* parse page info callback response */
 var syncProfilePictureCallback = function(page, row) {
-    Fanpage.update({ _id: row.id }, {
+    Fanpage.update({ _id: page._id }, {
         /* profile picture */
         'facebook.picture': helpers.safeImage(row.url),
         
