@@ -21,7 +21,7 @@ var nextRun = moment().unix();
 
 /* add page info to the queue */
 var syncFeedPicture = function(feed, args) {
-    var url = feed._id;
+    var url = feed.object_id;
     queue.add(feed, url, args, syncFeedPictureCallback, [ 'picture', 'source' ]);
 }
 
@@ -76,7 +76,7 @@ var job = {
                 pages_list.push(pages[i]._id);
             }
             
-            Feed.find({ ref: { $in: pages_list }, object_id: { $exists: true }, picture_synced: { $exists: false } }, function (err, records) {
+            Feed.find({ ref: { $in: pages_list }, type: 'photo', object_id: { $exists: true }, picture_synced: { $exists: false } }, function (err, records) {
                 if (err) {
                     console.log('Database error: ' + err);
                 } else {
