@@ -683,6 +683,8 @@ module.exports = function (router) {
                 found[i].fromNow = moment(found[i].time).fromNow();
                 found[i].timelineInverted = ((i % 2) == 0 ? '' : 'timeline-inverted');
                 found[i].isVideo = (found[i].type == 'video');
+                found[i].videoLink = null;
+                found[i].imageLink = null;
                 
                 if (found[i].isVideo) {
                     var link = found[i].link;
@@ -708,10 +710,10 @@ module.exports = function (router) {
                     }
                 }
                 
-                found[i].textName = (found[i].name ? found[i].name : '');
+                found[i].textName = (found[i].name ? found[i].name : null);
                 found[i].textMessage = (found[i].message ? found[i].message : found[i].description);
-                found[i].hasHeader = (found[i].videoLink || found[i].imageLink);
-                found[i].hasBody = (found[i].textName || found[i].textMessage);
+                found[i].hasHeader = (found[i].videoLink != null || found[i].imageLink != null);
+                found[i].hasBody = (found[i].textName != null || found[i].textMessage);
                 
                 if (found[i].textMessage) {
                     found[i].textMessage = found[i].textMessage.replace('\n', '<br/>');
