@@ -27,8 +27,9 @@ var syncFeedPicture = function(feed, args) {
 
 /* parse page info callback response */
 var syncFeedPictureCallback = function(feed, result) {
+    var safe_picture = helpers.safeImage((result.images && result.images.length != 0 ? result.images[0].source : (result.source ? result.source : result.picture)));
     Feed.update({ _id: feed._id }, {
-        picture: (result.images && result.images.length != 0 ? result.images[0].source : (result.source ? result.source : result.picture)),
+        picture: safe_picture,
         picture_synced: Date.now()
     }, function (err) {
         if (err) {
