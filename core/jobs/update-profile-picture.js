@@ -28,7 +28,7 @@ var syncProfilePicture = function(page) {
 var syncProfilePictureCallback = function(page, row) {
     Fanpage.update({ _id: page._id }, {
         /* profile picture */
-        'facebook.picture': helpers.safeImage(row.url),
+        'facebook.picture': (row.data && row.data.url ? helpers.safeImage(row.data.url) : null),
         
         /* job status */
         'jobs.update_profile_picture': Date.now()
