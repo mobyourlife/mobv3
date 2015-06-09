@@ -12,9 +12,11 @@
                         <iframe class="embed-responsive-item" src="{videoLink}"></iframe>
                     </div>
                 {:else}
-                    <a href="{link}" target="_blank">
-                        <img src="{imageLink}" class="validate-image" onerror="imageFailed('{id}');">
-                    </a>
+                    {#imageLink}
+                        <a href="{link}" target="_blank">
+                            <img src="{imageLink}" class="validate-image" onerror="imageFailed('{id}');">
+                        </a>
+                    {/imageLink}
                 {/isVideo}
             </div>
             {#hasBody}
