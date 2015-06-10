@@ -11,14 +11,20 @@
         <h4>{@pre type="content" key="new-website.loading"/}</h4>
     </div>
     
+    <div ng-show="loaded && creating" class="text-center">
+        <p><img src="/img/loading.gif" alt=""></p>
+        <h2>{@pre type="content" key="new-website.please-wait"/}</h2>
+        <h4>{@pre type="content" key="new-website.creating"/}</h4>
+    </div>
+    
     <div ng-show="loaded" class="bounceIn animated" style="-webkit-animation-delay: 0.5s;">
-        <h3>{@pre type="content" key="new-website.select-desired-page"/}</h3>
+        <h3 ng-show="!creating">{@pre type="content" key="new-website.select-desired-page"/}</h3>
 
         <div class="alert alert-danger" ng-show="error">
             <p ng-bind="error"></p>
         </div>
 
-        <div class="well" ng-repeat="s in data.pages">
+        <div class="well" ng-repeat="s in data.pages" ng-hide="opted && opted != s.id">
             <div class="media">
                 <div class="media-left">
                     <img class="media-object" ng-src="##s.picture##" alt="##s.name##" />
@@ -28,7 +34,7 @@
                         <strong><span ng-bind="s.name"></span></strong><br/>
                         <ul class="list-inline">
                             <li>
-                                <a class="btn-ng" ng-click="createNewWebsite(s.id)" target="_blank">
+                                <a class="btn-ng" ng-class="{ 'disabled': creating }" ng-click="createNewWebsite(s.id)" target="_blank">
                                     <i class="fa fa-plus fa-fw"></i>
                                     <span>&nbsp;</span>
                                     <span>{@pre type="content" key="new-website.create-new-website-action"/}</span>

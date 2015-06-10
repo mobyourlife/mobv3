@@ -337,3 +337,8 @@ ol.faq {
 }
 
 /* /process steps list */
+
+a.disabled {
+    pointer-events: none;
+    color: gray;
+}

@@ -184,7 +184,6 @@ module.exports = function (router) {
                                 newFanpage = found;
                             } else {
                                 newFanpage = new Fanpage();
-                                newFanpage._id = records.id;
                                 newFanpage.facebook.name = records.name;
                                 newFanpage.facebook.about = records.about;
                                 newFanpage.facebook.link = records.link;
@@ -213,40 +212,43 @@ module.exports = function (router) {
                                     .add(ticket.validity.days, 'days');
 
                                 ticket.save(function(err) {
-                                    if (err)
+                                    if (err) {
+                                        console.log('Error creating ticket!');
+                                        console.log(ticket);
                                         throw err;
+                                    }
                                 });
                             }
 
                             // save the new fanpage to the database
                             Fanpage.update({ _id: records.id }, newFanpage.toObject(), { upsert: true }, function(err) {
-                                if (err)
+                                if (err) {
+                                    console.log('Error creating fanpage!');
+                                    console.log(newFanpage);
                                     throw err;
-
-                                // start syncing fanpage's current data
-                                sync.syncFanpage(newFanpage);
+                                }
 
                                 // create default subdomain
                                 var domain = new Domain();
-                                domain._id = newFanpage.url;
                                 domain.ref = newFanpage;
                                 domain.status = 'registered';
                                 domain.creation.time = Date.now();
-                                domain.creation.user = req.user._id;
+                                domain.creation.user = req.user;
 
-                                Domain.update({ _id: domain._id }, domain.toObject(), { upsert: true }, function(err) {
-                                    if (err)
+                                Domain.update({ _id: newFanpage.url }, domain.toObject(), { upsert: true }, function(err) {
+                                    if (err) {
+                                        console.log('Error creating domain!');
+                                        console.log(domain);
                                         throw err;
-
-                                    // send welcome email
-                                    var filename = '/var/www/mob/email/bem-vindo.html';
-                                    //var filename = './email/bem-vindo.html';
+                                    }
 
                                     res.status(200).send({ url: domain._id });
                                     
+                                    // TODO: replace for a job
+                                    // send welcome email
                                     setTimeout(function() {
                                         if (req.user.facebook.email) {
-                                            email.montarEmail(filename, newFanpage._id, function(html, user_email) {
+                                            email.montarEmail('/var/www/mob/email/bem-vindo.html', newFanpage._id, function(html, user_email) {
                                                 email.enviarEmail('Mob Your Life', 'nao-responder@mobyourlife.com.br', 'Bem-vindo ao Mob Your Life', html, user_email);
                                             });
                                         }

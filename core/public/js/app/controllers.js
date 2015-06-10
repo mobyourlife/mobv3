@@ -35,7 +35,9 @@ app.controller('NewWebsiteController', function($scope, $http, $routeParams, $lo
     });
     
     $scope.createNewWebsite = function(pageid) {
+        $scope.opted = pageid;
         $scope.error = null;
+        $scope.creating = true;
         
         $http.get('/api/create-new-website/' + pageid).success(function(data) {
             ga('send', 'event', 'getting-started', 'create-new-website');
@@ -46,6 +48,7 @@ app.controller('NewWebsiteController', function($scope, $http, $routeParams, $lo
             }
             
             $scope.error = 'Error ' + status + ' while trying to create the new website! Please try again!';
+            $scope.creating = false;
         });
     }
 });
