@@ -230,7 +230,7 @@ module.exports = function (router) {
 
                                 // create default subdomain
                                 var domain = new Domain();
-                                domain.ref = newFanpage;
+                                domain.ref = records.id;
                                 domain.status = 'registered';
                                 domain.creation.time = Date.now();
                                 domain.creation.user = req.user;
