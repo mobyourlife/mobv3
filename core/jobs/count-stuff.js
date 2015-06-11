@@ -21,7 +21,7 @@ var nextRun = moment().unix();
 
 /* add page info to the queue */
 var syncCount = function(pageid) {
-    Video.find({ _ref: pageid }, function (err, records) {
+    Video.find({ ref: pageid }, function (err, records) {
         var count = records.length;
         Fanpage.update({ _id: pageid }, { video_count: count, 'jobs.count_stuff': Date.now() }, function(err) {
             if (err) {
