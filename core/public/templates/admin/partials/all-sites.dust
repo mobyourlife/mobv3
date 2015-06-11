@@ -25,7 +25,7 @@
     <div class="well" ng-repeat="s in data.sites | filter:search">
         <div class="media">
             <div class="media-left">
-                <img class="media-object site-picture" ng-src="##s.facebook.picture##" alt="##s.facebook.name##" />
+                <img class="media-object" style="max-width:50px;max-height:50px" ng-src="##s.facebook.picture##" alt="##s.facebook.name##" />
             </div>
             <div class="media-body">
                 <p>
