@@ -342,3 +342,8 @@ a.disabled {
     pointer-events: none;
     color: gray;
 }
+
+. site-picture {
+    max-width: 50px;
+    max-height: 50px;
+}
