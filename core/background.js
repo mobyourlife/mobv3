@@ -21,6 +21,7 @@ jobs.push(require('./jobs/feeds-pictures'));
 jobs.push(require('./jobs/sync-albums'));
 jobs.push(require('./jobs/sync-photos'));
 jobs.push(require('./jobs/sync-videos'));
+jobs.push(require('./jobs/count-stuff'));
 
 /* background loop */
 var execute = function() {
