@@ -141,6 +141,10 @@ var fanpageSchema = mongoose.Schema({
         sync_feeds: Date,
         sync_albums: Date,
         sync_videos: Date
+    },
+    custom: {
+        display_name: String,
+        about_page: String
     }
 });
 

@@ -231,6 +231,19 @@ if (process.argv.length >= 3) {
                 });
             }
             break;
+            
+        case 'custom-fields':
+            Fanpage.find({}, function (err, rows) {
+                if (err) {
+                    throw err;
+                }
+                
+                for (var i = 0; i < rows.length; i++) {
+                    Fanpage.update({ _id: rows[i]._id }, { 'custom.display_name': rows[i].facebook.name }, function (err) {
+                    });
+                }
+            });
+            break;
         
         /* send email marketing */
         case 'emailmkt':

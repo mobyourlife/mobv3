@@ -71,6 +71,22 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
             location.href = '/account/logout';
         }
     });
+    
+    $scope.save = function() {
+        $http.post('/api/customise-site', {
+                _csrf: $scope.csrf,
+                pageid: $routeParams.pageid,
+                data: $scope.data.custom
+            }).success(function(data) {
+                $location.path('/');
+            }).error(function(data, status) {
+                if (status == 401) {
+                    location.href = '/account/logout';
+                } else {
+                    alert('Erro ' + status + ' ao tentar salvar as personalizações! Por favor tente novamente!');
+                }
+            });
+    }
 });
 
 /* website creation wizard */

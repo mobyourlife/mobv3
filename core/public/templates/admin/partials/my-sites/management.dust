@@ -6,14 +6,42 @@
     </ul>
     <form class="form-horizontal">
         <fieldset>
+            <legend>Dados do site</legend>
+            
             <div class="row">
-                <label class="col-md-2 col-xs-4">Nome do site:</label>
-                <span class="col-md-10 col-xs-8" ng-bind="data.facebook.name"></span>
+                <label class="col-xs-4">Nome do site:</label>
+                <span class="col-xs-8" ng-bind="data.facebook.name"></span>
             </div>
             
             <div class="row">
-                <label class="col-md-2 col-xs-4">Endereço:</label>
-                <span class="col-md-10 col-xs-8"><a ng-href="http://##data.url##" target="_blank" ng-bind="data.url"></a></span>
+                <label class="col-xs-4">Endereço:</label>
+                <span class="col-xs-8"><a ng-href="http://##data.url##" target="_blank" ng-bind="data.url"></a></span>
+            </div>
+        </fieldset>
+    </form>
+    <p>&nbsp;</p>
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Personalização</legend>
+            
+            <div class="form-group">
+                <label class="col-xs-4">Nome de exibição:</label>
+                <span class="col-xs-8"><input type="text" ng-model="data.custom.display_name" class="form-control"/></span>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-4">Título da página institucional:</label>
+                <span class="col-xs-8"><input type="text" ng-model="data.custom.about_page" class="form-control"/></span>
+            </div>
+            
+            <div class="form-group">
+                <div class="pull-right">
+                    <input type="hidden" name="_csrf" value="{_csrf}" ng-init="csrf='{_csrf}'">
+                    <button type="button" class="btn btn-success btn-lg" ng-click="save();"><i class="fa fa-save fa-fw"></i> Salvar</button>
+                    <i class="fa fa-fw"></i>
+                    <a class="btn btn-default btn-lg" href="/admin/#/">Cancelar</a>
+                    <i class="fa fa-fw"></i>
+                </div>
             </div>
         </fieldset>
     </form>

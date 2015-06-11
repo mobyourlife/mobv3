@@ -23,6 +23,94 @@ var themes = require('../../lib/old-themes');
 var RTU = require('../../lib/realtime');
 
 module.exports = function (router) {
+    
+    /* [retro ok] */
+    var validateSubdomain = function(uri, res, callbackTop, callbackSubdomain) {
+        /* TODO: localizar para o idioma do site */
+        moment.locale('pt-br');
+        
+        var parsed = uri ? new URL(uri) : null;
+        var hostname = parsed ? parsed.hostname : null;
+        var subdomain = hostname ? hostname.split('.')[0] : null;
+
+        if (!hostname || hostname == 'www.mobyourlife.com.br') {
+            callbackTop();
+        } else {
+            Domain.findOne({ '_id': hostname }, function(err, found) {
+                if (found) {
+                    Fanpage.findOne({'_id': found.ref}, function(err, found) {
+                        if (found) {
+                            var fanpage = found;
+
+                            if (fanpage.billing.expiration <= Date.now()) {
+                                res.render('expired', { fanpage: fanpage });
+                                return;
+                            }
+
+                            TextPage.find({ ref: fanpage._id }, function(err, found) {
+                                if (err)
+                                    throw err;
+
+                                Album.find({ ref: fanpage._id, special: 'page' }, function(err, albums) {
+
+                                    var menu = Array();
+                                    menu.push({ path: 'inicio', text: 'Início' });
+                                    menu.push({ path: 'sobre', text: 'Sobre' });
+
+                                    for (var i = 0; i < found.length; i++) {
+                                        menu.push({ path: found[i].path, text: found[i].title });
+                                    }
+
+                                    for (i = 0; i < albums.length; i++) {
+                                        menu.push({ path: albums[i].path, text: albums[i].name });
+                                    }
+
+                                    menu.push({ path: 'fotos', text: 'Fotos' });
+
+                                    if (fanpage.video_count && fanpage.video_count > 0) {
+                                        menu.push({ path: 'videos', text: 'Vídeos' });
+                                    }
+
+                                    menu.push({ path: 'contato', text: 'Contato' });
+
+                                    if(!fanpage.theme) {
+                                        fanpage.theme = {
+                                            name: 'bootstrap',
+                                            colour: 'white'
+                                        };
+                                    }
+
+                                    callbackSubdomain(fanpage, menu);
+                                });
+                            });
+                        } else {
+                            res.redirect('http://www.mobyourlife.com.br');
+                        }
+                    });
+                } else {
+                    res.redirect('http://www.mobyourlife.com.br');
+                }
+            });
+        }
+    }
+    
+    /* [retro ok] */
+    var enableCors = function(req, res, next) {
+        if (req.headers.origin) {
+            validateSubdomain(req.headers.origin, res, function() {
+                next();
+            }, function(fanpage, menu) {
+                req.fanpage = fanpage;
+                req.menu = menu;
+                res.header('Access-Control-Allow-Origin', req.headers.origin);
+                res.header('Access-Control-Allow-Credentials', true);
+                res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+                next();
+            });
+        } else {
+            next();
+        }
+    }
 
     /* api method to list all user created sites */
     router.get('/my-sites', function (req, res) {
@@ -279,6 +367,25 @@ module.exports = function (router) {
         }
     });
     
+    router.post('/customise-site', function (req, res) {
+        if (req.isAuthenticated()) {
+            Fanpage.update({ _id: req.body.pageid }, {
+                'custom.display_name': req.body.data.display_name,
+                'custom.about_page': req.body.data.about_page
+            }, function (err) {
+                if (err) {
+                    throw err;
+                    res.status(500).send();
+                    return;
+                }
+                
+                res.send();
+            });
+        } else {
+            res.status(401).send();
+        }
+    });
+    
     /* website creation wizard */
     router.get('/wizard/website-created/:pageid', function (req, res) {
         if (req.isAuthenticated()) {
@@ -471,94 +578,6 @@ module.exports = function (router) {
     });
     
     /* OLD API BEGINNING */
-    
-    /* [retro ok] */
-    var validateSubdomain = function(uri, res, callbackTop, callbackSubdomain) {
-        /* TODO: localizar para o idioma do site */
-        moment.locale('pt-br');
-        
-        var parsed = uri ? new URL(uri) : null;
-        var hostname = parsed ? parsed.hostname : null;
-        var subdomain = hostname ? hostname.split('.')[0] : null;
-
-        if (!hostname || hostname == 'www.mobyourlife.com.br') {
-            callbackTop();
-        } else {
-            Domain.findOne({ '_id': hostname }, function(err, found) {
-                if (found) {
-                    Fanpage.findOne({'_id': found.ref}, function(err, found) {
-                        if (found) {
-                            var fanpage = found;
-
-                            if (fanpage.billing.expiration <= Date.now()) {
-                                res.render('expired', { fanpage: fanpage });
-                                return;
-                            }
-
-                            TextPage.find({ ref: fanpage._id }, function(err, found) {
-                                if (err)
-                                    throw err;
-
-                                Album.find({ ref: fanpage._id, special: 'page' }, function(err, albums) {
-
-                                    var menu = Array();
-                                    menu.push({ path: 'inicio', text: 'Início' });
-                                    menu.push({ path: 'sobre', text: 'Sobre' });
-
-                                    for (var i = 0; i < found.length; i++) {
-                                        menu.push({ path: found[i].path, text: found[i].title });
-                                    }
-
-                                    for (i = 0; i < albums.length; i++) {
-                                        menu.push({ path: albums[i].path, text: albums[i].name });
-                                    }
-
-                                    menu.push({ path: 'fotos', text: 'Fotos' });
-
-                                    if (fanpage.video_count && fanpage.video_count > 0) {
-                                        menu.push({ path: 'videos', text: 'Vídeos' });
-                                    }
-
-                                    menu.push({ path: 'contato', text: 'Contato' });
-
-                                    if(!fanpage.theme) {
-                                        fanpage.theme = {
-                                            name: 'bootstrap',
-                                            colour: 'white'
-                                        };
-                                    }
-
-                                    callbackSubdomain(fanpage, menu);
-                                });
-                            });
-                        } else {
-                            res.redirect('http://www.mobyourlife.com.br');
-                        }
-                    });
-                } else {
-                    res.redirect('http://www.mobyourlife.com.br');
-                }
-            });
-        }
-    }
-    
-    /* [retro ok] */
-    var enableCors = function(req, res, next) {
-        if (req.headers.origin) {
-            validateSubdomain(req.headers.origin, res, function() {
-                next();
-            }, function(fanpage, menu) {
-                req.fanpage = fanpage;
-                req.menu = menu;
-                res.header('Access-Control-Allow-Origin', req.headers.origin);
-                res.header('Access-Control-Allow-Credentials', true);
-                res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-                next();
-            });
-        } else {
-            next();
-        }
-    }
     
     // [should be retro ok] enviar foto de capa
     router.post('/upload-cover', enableCors, function(req, res) {
