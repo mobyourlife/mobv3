@@ -38,6 +38,16 @@
                                 <span>{@pre type="content" key="all-sites.view-site"/}</span>
                             </a>
                         </li>
+                            <li ng-show="s.wizard && s.wizard.finished">
+                                &middot;
+                            </li>
+                            <li ng-show="s.wizard && s.wizard.finished">
+                                <a ng-href="/admin/#/##s._id##/management">
+                                    <i class="fa fa-cog fa-fw"></i>
+                                    <span>&nbsp;</span>
+                                    <span>{@pre type="content" key="my-sites.manage"/}</span>
+                                </a>
+                            </li>
                     </ul>
                 </p>
             </div>
