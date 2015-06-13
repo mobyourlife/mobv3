@@ -22,7 +22,7 @@
                                     </object>
                                 </video>
                             {/embedIframe}
-                        <div class="embed-responsive embed-responsive-16by9">
+                        </div>
                     {:else}
                         <a href="{link}" target="_blank">
                             <img src="{imageLink}" class="validate-image" onerror="imageFailed('{id}');">
