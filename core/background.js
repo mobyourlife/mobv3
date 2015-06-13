@@ -22,6 +22,7 @@ jobs.push(require('./jobs/sync-albums'));
 jobs.push(require('./jobs/sync-photos'));
 jobs.push(require('./jobs/sync-videos'));
 jobs.push(require('./jobs/count-stuff'));
+jobs.push(require('./jobs/welcome-email'));
 
 /* background loop */
 var execute = function() {

@@ -331,16 +331,6 @@ module.exports = function (router) {
                                     }
 
                                     res.status(200).send({ url: domain._id });
-                                    
-                                    // TODO: replace for a job
-                                    // send welcome email
-                                    setTimeout(function() {
-                                        if (req.user.facebook.email) {
-                                            email.montarEmail('/var/www/mob/email/bem-vindo.html', newFanpage._id, function(html, user_email) {
-                                                email.enviarEmail('Mob Your Life', 'nao-responder@mobyourlife.com.br', 'Bem-vindo ao Mob Your Life', html, user_email);
-                                            });
-                                        }
-                                    }, (60 * 1000));
                                 });
                             });
                         });

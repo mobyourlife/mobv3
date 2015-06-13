@@ -147,7 +147,8 @@ var fanpageSchema = mongoose.Schema({
         sync_feeds: Date,
         sync_albums: Date,
         sync_videos: Date,
-        count_stuff: Date
+        count_stuff: Date,
+        welcome_email: Date
     },
     custom: {
         display_name: String,

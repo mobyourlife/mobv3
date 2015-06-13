@@ -26,6 +26,7 @@ module.exports = function() {
                                 html = html.replace('#{user.facebook.name}', user.facebook.name);
                                 html = html.replace('#{fanpage._id}', fanpage._id);
                                 html = html.replace('#{fanpage.facebook.name}', fanpage.facebook.name);
+                                html = html.replace('#{fanpage.url}', fanpage.url);
                                 
                                 callback(html, user.facebook.email);
                             });
