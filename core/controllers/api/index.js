@@ -361,7 +361,9 @@ module.exports = function (router) {
         if (req.isAuthenticated()) {
             Fanpage.update({ _id: req.body.pageid }, {
                 'custom.display_name': req.body.data.display_name,
-                'custom.about_page': req.body.data.about_page
+                'custom.about_page': req.body.data.about_page,
+                'theme.name': 'default',
+                'theme.colour': req.body.colour
             }, function (err) {
                 if (err) {
                     throw err;

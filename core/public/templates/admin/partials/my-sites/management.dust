@@ -34,6 +34,16 @@
                 <span class="col-xs-8"><input type="text" ng-model="data.custom.about_page" class="form-control"/></span>
             </div>
             
+            
+            <div class="form-group">
+                <label class="col-sm-4">Cor predominante:</label>
+                <span class="col-sm-8">
+                    <ul class="palette">
+                        <li ng-repeat="c in colours" class="##c##" ng-class="{ 'active': activeColour == c }" ng-click="pickColour(c)"><span class="fa fa-check fa-2x fa-fw"></span></li>
+                    </ul>
+                </span>
+            </div>
+            
             <div class="form-group">
                 <div class="pull-right">
                     <input type="hidden" name="_csrf" value="{_csrf}" ng-init="csrf='{_csrf}'">

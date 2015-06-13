@@ -58,9 +58,18 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
     $rootScope.fanpageId = null;
     $rootScope.fanpageName = null;
     
+    $scope.colours = ['white', 'silver', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'violet', 'purple'];
+    $scope.activeColour = 'white';
+    
+    /* select a colour */
+    $scope.pickColour = function(value) {
+        $scope.activeColour = value;
+    }
+    
     $http.get('/api/manage-site/' + $routeParams.pageid).success(function(data) {
         if (data.wizard && data.wizard.finished && data.wizard.finished === true) {
             $scope.data = data;
+            $scope.activeColour = data.theme.colour;
             $rootScope.fanpageId = $scope.data._id;
             $rootScope.fanpageName = $scope.data.facebook.name;
         } else {
@@ -76,7 +85,8 @@ app.controller('ManagementController', function($scope, $http, $routeParams, $ro
         $http.post('/api/customise-site', {
                 _csrf: $scope.csrf,
                 pageid: $routeParams.pageid,
-                data: $scope.data.custom
+                data: $scope.data.custom,
+                colour: $scope.activeColour
             }).success(function(data) {
                 $location.path('/');
             }).error(function(data, status) {
