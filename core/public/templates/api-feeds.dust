@@ -9,15 +9,14 @@
             {#hasHeader}
                 <div class="timeline-heading">
                     {#isVideo}
-                        {#embedIframe}
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="{videoLink}"></iframe>
-                            </div>
-                        {:else}
-                            <video class="embed-responsive-item">
-                                <source src="{videoLink}" type="video/mp4">
-                            </video>
-                        {/embedIframe}
+                        <video controls poster="video.jpg">
+                            <source src="{videoLink}" type="video/mp4">
+                            <object type="application/x-shockwave-flash" data="StrobeMediaPlayback.swf">
+                                <param name="movie" value="/flash/StrobeMediaPlayback.swf">
+                                <param name="flashvars" value="src={videoLink}">
+                                <p>O seu navegador não é capaz de reproduzir vídeo! <a href="{videoLink}">Clique aqui</a> para baixar este vídeo.</p>
+                            </object>
+                        </video>
                     {:else}
                         <a href="{link}" target="_blank">
                             <img src="{imageLink}" class="validate-image" onerror="imageFailed('{id}');">
