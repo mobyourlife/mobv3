@@ -68,7 +68,7 @@
                 <div class="row admin-top-menu">
                     <ul class="list-inline">
                         <li>
-                            <img class="img-circle user-picture" src="{user.facebook.picture}" alt="{user.facebook.name}">
+                            <img class="img-circle user-picture" src="{user.facebook.picture}" alt="">
                             <span>{user.facebook.name}</span>
                         </li>
                         <li class="pull-right">
