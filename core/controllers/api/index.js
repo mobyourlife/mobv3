@@ -721,6 +721,7 @@ module.exports = function (router) {
                     link = link.replace('youtube.com/watch?v=', 'youtube.com/embed/');
                     link = link.replace('facebook.com/video.php?v=', 'facebook.com/video/embed?video_id=');
                     found[i].videoLink = link;
+                    found[i].embedIframe = (link.indexOf('youtube') != -1 || link.indexOf('facebook') != -1);
                 } else {
                     if (found[i].cdn) {
                         found[i].imageLink = found[i].cdn;

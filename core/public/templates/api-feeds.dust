@@ -9,9 +9,15 @@
             {#hasHeader}
                 <div class="timeline-heading">
                     {#isVideo}
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="{videoLink}"></iframe>
-                        </div>
+                        {#embedIframe}
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="{videoLink}"></iframe>
+                            </div>
+                        {:else}
+                            <video class="embed-responsive-item">
+                                <source src="{videoLink}" type="video/mp4">
+                            </video>
+                        {/embedIframe}
                     {:else}
                         <a href="{link}" target="_blank">
                             <img src="{imageLink}" class="validate-image" onerror="imageFailed('{id}');">
