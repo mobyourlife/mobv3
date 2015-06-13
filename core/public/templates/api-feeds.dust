@@ -2,7 +2,7 @@
     <li class="feed {timelineInverted}" data-imgid="{id}" data-imgtime="{unix}">
         <div class="timeline-badge primary hidden-xs">
             <a>
-                <i class="glyphicon glyphicon-record" rel="tooltip" title="{fromNow} via Facebook"></i>
+                <i class="fa fa-circle-o" rel="tooltip" title="{fromNow} via Facebook"></i>
             </a>
         </div>
         <div class="timeline-panel">
