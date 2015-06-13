@@ -708,7 +708,16 @@ module.exports = function (router) {
                 found[i].imageLink = null;
                 
                 if (found[i].isVideo) {
-                    found[i].videoLink = found[i].source;
+                    if (found[i].link.indexOf('youtube') != -1) {
+                        var link = found[i].link;
+                        link = link.replace('m.youtube.com/watch?v=', 'youtube.com/embed/');
+                        link = link.replace('youtube.com/watch?v=', 'youtube.com/embed/');
+                        found[i].videoLink = link;
+                        found[i].embedIframe = true;
+                    } else {
+                        found[i].videoLink = found[i].source;
+                        found[i].embedIframe = false;
+                    }
                 } else {
                     if (found[i].cdn) {
                         found[i].imageLink = found[i].cdn;
