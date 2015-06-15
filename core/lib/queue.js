@@ -88,9 +88,11 @@ module.exports = {
             FB.api('', 'post', { batch: poll }, function(res) {
                 if (!res || res.error) {
                     console.log('-------- FATAL: BATCH FACEBOOK ERROR ----------');
+                    console.log(poll);
+                    console.log('-----');
                     console.log(res);
                     console.log('-----------------------------------------------');
-                    throw 'FATAL: BATCH FACEBOOK ERROR!';
+                    throw res.error;
                 }
 
                 /* parse each response and exec the corresponding callback */

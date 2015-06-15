@@ -13,7 +13,12 @@ var albumSchema = mongoose.Schema({
     path: String,
     time: Date,
     special: String,
-    latest_sync: Date
+    latest_sync: Date,
+    error: {
+        time: Date,
+        request: String,
+        info: String
+    }
 });
 
 // export user model

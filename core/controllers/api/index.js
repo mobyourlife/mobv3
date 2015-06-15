@@ -447,6 +447,29 @@ module.exports = function (router) {
         }
     });
     
+    /* api method to get all available stats */
+    router.get('/stats', function (req, res) {
+        if (req.isAuthenticated() && req.user && req.user.id != 0) {
+            var data = {
+                fanpage_errors: 0,
+                album_errors: 0
+            };
+            
+            Fanpage.find({ 'error': { $exists: true } }).count().exec(function(err, result) {
+                data.fanpage_errors = result;
+                
+                Album.find({ 'error': { $exists: true } }).count().exec(function(err, result) {
+                    data.album_errors = result;
+                    
+                    res.send(data);
+                });
+            });
+                
+        } else {
+            res.status(401).send();
+        }
+    });
+    
     /* api method to look for latest statistics about sites creation */
     router.get('/latest-stats', function (req, res) {
         if (req.isAuthenticated()) {

@@ -306,3 +306,14 @@ app.controller('SupportController', function($scope, $http, $validator) {
         });
     }
 });
+
+/* stats */
+app.controller('StatsController', function($scope, $http) {
+    $http.get('/api/stats').success(function(data) {
+        $scope.data = data;
+    }).error(function(data, status) {
+        if (status == 401) {
+            location.href = '/account/logout';
+        }
+    });
+});

@@ -1,0 +1,21 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="/admin/#/">Mob Your Life</a></li>
+        <li class="active">Estatísticas</li>
+    </ul>
+    
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="well well-bg well-users">
+                <h1>##data.fanpage_errors##</h1>
+                <h4>Fanpages inválidas</h4>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="well well-bg well-chart">
+                <h1>##data.album_errors##</h1>
+                <h4>Álbuns inválidos</h4>
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,6 +32,9 @@ app.config(function($routeProvider, $locationProvider, $interpolateProvider) {
         }).when('/all-sites', {
             templateUrl: '/admin/partials/all-sites',
             controller: 'AllSitesController'
+        }).when('/stats', {
+            templateUrl: '/admin/partials/stats',
+            controller: 'StatsController'
         }).when('/faq', {
             templateUrl: '/admin/partials/faq',
             controller: 'FaqController'

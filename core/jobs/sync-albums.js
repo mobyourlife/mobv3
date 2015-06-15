@@ -57,12 +57,14 @@ var syncPageAlbumsCallback = function(page, result) {
                 ref: page,
                 name: item.name,
                 type: item.type,
-                count: item.count,
+                count: item.count ? item.count : null,
                 path: helpers.formatAsPath(item.name) + '-' + item.id,
                 time: item.updated_time
             }, { upsert: true }, function(err) {
                 if (err) {
-                    throw 'Error updating album: ' + err;
+                    console.log('Error updating album ' + item.id + ':');
+                    console.log(err);
+                    throw 'Error updating album!';
                 }
             });
         }
