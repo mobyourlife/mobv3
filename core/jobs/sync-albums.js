@@ -31,7 +31,7 @@ var syncPageAlbums = function(page, args) {
     
     args += 'limit=25';
     
-    queue.add(page, url, args, syncPageAlbumsCallback, [ 'id', 'name', 'type', 'count', 'updated_time' ]);
+    queue.add(page, url, args, syncPageAlbumsCallback, [ 'id', 'name', 'type', 'count', 'updated_time' ], syncPageErrorCallback);
 }
 
 /* parse page info callback response */
@@ -73,6 +73,23 @@ var syncPageAlbumsCallback = function(page, result) {
         }
     }
 };
+
+/* parse error conditions */
+var syncPageErrorCallback = function(page, relative_url, error) {
+    var info = {
+        time: Date.now(),
+        request: relative_url,
+        error: JSON.stringify(error)
+    };
+    
+    Fanpage.update({ _id: page._id }, { error: info }, function(err) {
+        if (err) {
+            console.log('---------- ERROR: Failed to log error info! ----------------');
+            console.log(info);
+            console.log('-------');
+        }
+    });
+}
 
 /* start syncing page contents */
 var startSyncing = function (records, callback) {

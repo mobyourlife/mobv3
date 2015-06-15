@@ -153,6 +153,11 @@ var fanpageSchema = mongoose.Schema({
     custom: {
         display_name: String,
         about_page: String
+    },
+    error: {
+        time: Date,
+        request: String,
+        info: String
     }
 });
 

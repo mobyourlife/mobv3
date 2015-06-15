@@ -33,12 +33,13 @@ module.exports = {
     },
     
     /* add a new request to the queue */
-    add: function (page, request, args, callback, fields) {
+    add: function (page, request, args, callback, fields, errorCallback) {
         var newRequest = {
             page: page,
             request: request,
             args: args,
             callback: callback,
+            errorCallback: errorCallback,
             fields: fields
         };
         RequestsQueue.push(newRequest);
@@ -75,7 +76,8 @@ module.exports = {
                 method: 'get',
                 relative_url: url,
                 page: cur.page,
-                callback: cur.callback
+                callback: cur.callback,
+                errorCallback: cur.errorCallback
             });
             
             console.log('>> GET ' + url);
@@ -85,14 +87,26 @@ module.exports = {
         if (poll.length > 0) {
             FB.api('', 'post', { batch: poll }, function(res) {
                 if (!res || res.error) {
+                    console.log('-------- FATAL: BATCH FACEBOOK ERROR ----------');
                     console.log(res);
-                    throw 'Unknown Facebook error!';
+                    console.log('-----------------------------------------------');
+                    throw 'FATAL: BATCH FACEBOOK ERROR!';
                 }
 
                 /* parse each response and exec the corresponding callback */
                 for (j = 0; j < res.length; j += 1) {
                     obj = JSON.parse(res[j].body);
-                    poll[j].callback(poll[j].page, obj);
+                    if (!obj || obj.error) {
+                        if (poll[j].errorCallback) {
+                            poll[j].errorCallback(poll[j].page, poll[j].relative_url, obj.error);
+                        }
+                        console.log('----------');
+                        console.log('Error at request ' + poll[j].relative_url + ':');
+                        console.log(obj.error);
+                        console.log('----------');
+                    } else {
+                        poll[j].callback(poll[j].page, obj);
+                    }
                 }
             });
         }
