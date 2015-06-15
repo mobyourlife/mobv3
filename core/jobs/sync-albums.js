@@ -31,7 +31,7 @@ var syncPageAlbums = function(page, args) {
     
     args += 'limit=25';
     
-    queue.add(page, url, args, syncPageAlbumsCallback, [ 'id', 'name', 'updated_time' ]);
+    queue.add(page, url, args, syncPageAlbumsCallback, [ 'id', 'name', 'type', 'count', 'updated_time' ]);
 }
 
 /* parse page info callback response */
@@ -56,6 +56,8 @@ var syncPageAlbumsCallback = function(page, result) {
             Album.update({ _id: item.id }, {
                 ref: page,
                 name: item.name,
+                type: item.type,
+                count: item.count,
                 path: helpers.formatAsPath(item.name) + '-' + item.id,
                 time: item.updated_time
             }, { upsert: true }, function(err) {

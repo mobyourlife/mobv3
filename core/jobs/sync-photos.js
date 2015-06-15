@@ -113,7 +113,7 @@ var job = {
                 pages_list.push(pages[i]._id);
             }
             
-            Album.find({ 'ref': { $in: pages_list }, $or: [ { 'latest_sync': { $exists: false } }, { 'latest_sync': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] }, function (err, records) {
+            Album.find({ 'ref': { $in: pages_list }, 'count': { $gt: 0 }, $or: [ { 'latest_sync': { $exists: false } }, { 'latest_sync': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] }, function (err, records) {
                 if (err) {
                     console.log('Database error: ' + err);
                 } else {
