@@ -86,7 +86,10 @@ var startSyncing = function (records, callback) {
     
     for (i = 0; i < records.length; i += 1) {
         cur = records[i];
-        syncAlbumPhotos(cur);
+        
+        if (cur.time > cur.latest_sync) {
+            syncAlbumPhotos(cur);
+        }
     }
 };
 
