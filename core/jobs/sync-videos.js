@@ -32,7 +32,7 @@ var syncPageVideos = function(page, args) {
     
     args += 'type=video&limit=25';
     
-    queue.add(page, url, args, syncPageVideosCallback, [ 'id', 'updated_time', 'description', 'name' ]);
+    queue.add(page, url, args.replace('type=video&', ''), syncPageVideosCallback, [ 'id', 'updated_time', 'description', 'name' ]);
     queue.add(page, und, args, syncPageVideosCallback, [ 'id', 'updated_time', 'message', 'name', 'link' ]);
 }
 
