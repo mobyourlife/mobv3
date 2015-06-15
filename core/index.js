@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var compression = require('compression');
 var kraken = require('kraken-js');
 var passport = require('passport');
 var Facebook = require('facebook-node-sdk');
@@ -34,6 +35,7 @@ options = {
 /* setup kraken */
 app = module.exports = express();
 app.use(kraken(options));
+app.use(compression());
 
 /* setup passport */
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch', store: new MongoStore({ mongooseConnection: mongoose.connection })})); // session secret and store
