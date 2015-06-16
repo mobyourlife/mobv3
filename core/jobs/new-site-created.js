@@ -20,7 +20,7 @@ var nextRun = moment().unix();
 /* add page info to the queue */
 var syncPageInfo = function(page) {
     var url = page._id;
-    queue.add(page, url, null, syncPageInfoCallback, [ 'about', 'cover{source}', 'likes', 'link', 'name', 'picture{url}' ]);
+    queue.add(page, url, null, syncPageInfoCallback, [ 'about', 'cover{source}', 'likes', 'link', 'name', 'picture{url}' ], newSiteErrorCallback);
 }
 
 /* parse page info callback response */
@@ -39,6 +39,23 @@ var syncPageInfoCallback = function(page, row) {
         }
     });
 };
+
+/* parse error conditions */
+var newSiteErrorCallback = function(page, relative_url, error) {
+    var info = {
+        time: Date.now(),
+        request: relative_url,
+        error: JSON.stringify(error)
+    };
+    
+    Fanpage.update({ _id: page._id }, { error: info }, function(err) {
+        if (err) {
+            console.log('---------- ERROR: Failed to log error info! ----------------');
+            console.log(info);
+            console.log('-------');
+        }
+    });
+}
 
 /* start syncing page contents */
 var startSyncing = function (records, callback) {
@@ -72,7 +89,10 @@ var job = {
             throw 'No callback has been supplied for "checkConditions"!';
         }
 
-        Fanpage.find({ 'jobs.new_site_created': { $exists: false } }, function (err, records) {
+        Fanpage.find({ 'jobs.new_site_created': { $exists: false }, $or: [
+                        { 'error': { $exists: false } },
+                        { 'error.time': { $lt: new Date((new Date()) - (1000 * 60 * 30)) } }
+                    ] }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
             } else {

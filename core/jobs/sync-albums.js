@@ -31,7 +31,7 @@ var syncPageAlbums = function(page, args) {
     
     args += 'limit=25';
     
-    queue.add(page, url, args, syncPageAlbumsCallback, [ 'id', 'name', 'type', 'count', 'updated_time' ], syncPageErrorCallback);
+    queue.add(page, url, args, syncPageAlbumsCallback, [ 'id', 'name', 'type', 'count', 'updated_time' ], syncAlbumErrorCallback);
 }
 
 /* parse page info callback response */
@@ -77,14 +77,14 @@ var syncPageAlbumsCallback = function(page, result) {
 };
 
 /* parse error conditions */
-var syncPageErrorCallback = function(page, relative_url, error) {
+var syncAlbumErrorCallback = function(page, relative_url, error) {
     var info = {
         time: Date.now(),
         request: relative_url,
         error: JSON.stringify(error)
     };
     
-    Fanpage.update({ _id: page._id }, { error: info }, function(err) {
+    Album.update({ _id: page._id }, { error: info }, function(err) {
         if (err) {
             console.log('---------- ERROR: Failed to log error info! ----------------');
             console.log(info);
@@ -125,7 +125,7 @@ var job = {
             throw 'No callback has been supplied for "checkConditions"!';
         }
 
-        Fanpage.find({ $and: [ { 'billing.expiration': { $gt: new Date() } }, { 'jobs.new_site_created': { $exists: true, $ne: null }, $or: [ { 'jobs.sync_albums': { $exists: false } }, { 'jobs.sync_albums': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] } ] }, function (err, records) {
+        Fanpage.find({ $and: [ { 'billing.expiration': { $gt: new Date() } }, { 'error': { $exists: false } }, { 'jobs.new_site_created': { $exists: true, $ne: null }, $or: [ { 'jobs.sync_albums': { $exists: false } }, { 'jobs.sync_albums': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] } ] }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
             } else {

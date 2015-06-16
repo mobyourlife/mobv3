@@ -92,19 +92,24 @@ module.exports = {
                     console.log('-----');
                     console.log(res);
                     console.log('-----------------------------------------------');
-                    throw res.error;
+                    //throw res.error;
                 }
 
                 /* parse each response and exec the corresponding callback */
                 for (j = 0; j < res.length; j += 1) {
                     obj = JSON.parse(res[j].body);
                     if (!obj || obj.error) {
-                        if (poll[j].errorCallback) {
-                            poll[j].errorCallback(poll[j].page, poll[j].relative_url, obj.error);
-                        }
                         console.log('----------');
                         console.log('Error at request ' + poll[j].relative_url + ':');
                         console.log(obj.error);
+                        
+                        if (poll[j].errorCallback) {
+                            console.log('Calling error callback...');
+                            poll[j].errorCallback(poll[j].page, poll[j].relative_url, obj.error);
+                        } else {
+                            console.log('No error callback supplied!');
+                        }
+                        
                         console.log('----------');
                     } else {
                         poll[j].callback(poll[j].page, obj);

@@ -21,7 +21,7 @@ var nextRun = moment().unix();
 /* add page info to the queue */
 var syncPageInfo = function(page) {
     var url = page._id;
-    queue.add(page, url, null, syncPageInfoCallback, [ 'id', 'name', 'about', 'cover', 'description', 'picture', 'category', 'category_list', 'is_verified', 'link', 'website', 'emails', 'checkins', 'likes', 'talking_about_count', 'were_here_count', 'phone', 'location', 'parking', 'general_info', 'hours', 'band_members', 'booking_agent', 'press_contact', 'hometown', 'company_overview', 'founded', 'mission', 'directed_by', 'attire', 'general_manager', 'price_range', 'restaurant_services', 'restaurant_specialties', 'birthday', 'payment_options' ]);
+    queue.add(page, url, null, syncPageInfoCallback, [ 'id', 'name', 'about', 'cover', 'description', 'picture', 'category', 'category_list', 'is_verified', 'link', 'website', 'emails', 'checkins', 'likes', 'talking_about_count', 'were_here_count', 'phone', 'location', 'parking', 'general_info', 'hours', 'band_members', 'booking_agent', 'press_contact', 'hometown', 'company_overview', 'founded', 'mission', 'directed_by', 'attire', 'general_manager', 'price_range', 'restaurant_services', 'restaurant_specialties', 'birthday', 'payment_options' ], syncPageErrorCallback);
 }
 
 /* parse page info callback response */
@@ -137,6 +137,23 @@ var startSyncing = function (records, callback) {
     }
 };
 
+/* parse error conditions */
+var syncPageErrorCallback = function(page, relative_url, error) {
+    var info = {
+        time: Date.now(),
+        request: relative_url,
+        error: JSON.stringify(error)
+    };
+    
+    Fanpage.update({ _id: page._id }, { error: info }, function(err) {
+        if (err) {
+            console.log('---------- ERROR: Failed to log error info! ----------------');
+            console.log(info);
+            console.log('-------');
+        }
+    });
+}
+
 /* job interface */
 var job = {
     
@@ -154,7 +171,22 @@ var job = {
             throw 'No callback has been supplied for "checkConditions"!';
         }
 
-        Fanpage.find({ $and: [ { 'billing.expiration': { $gt: new Date() } }, { 'jobs.new_site_created': { $exists: true, $ne: null }, $or: [ { 'jobs.update_page_info': { $exists: false } }, { 'jobs.update_page_info': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } } ] } ] }, function (err, records) {
+        Fanpage.find({
+            $and: [
+                { 'billing.expiration': { $gt: new Date() } },
+                { 'jobs.new_site_created': { $exists: true, $ne: null },
+                   $or: [
+                     { 'jobs.update_page_info': { $exists: false } },
+                     { 'jobs.update_page_info': { $lt: new Date((new Date()) - (1000 * 60 * 10)) } }
+                   ]
+                },
+                { $or: [
+                        { 'error': { $exists: false } },
+                        { 'error.time': { $lt: new Date((new Date()) - (1000 * 60 * 30)) } }
+                    ]
+                }
+            ]
+        }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
             } else {
