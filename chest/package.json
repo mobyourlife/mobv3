@@ -1,29 +1,11 @@
 {
-  "name": "chestv3",
-  "version": "0.1.0",
-  "description": "Site dos usuarios do Mob Your Life.",
-  "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
+  "name": "chest",
+  "version": "2.5.0",
+  "description": "New front-end to serve for Mob Your Life customers.",
   "main": "index.js",
-  "repository": "git@bitbucket.org:fmobstudio/mobv3.git",
   "scripts": {
-    "test": "grunt test"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "engine-munger": "^0.2.0",
-    "express": "^4.3.0",
-    "kraken-devtools": "^1.0.0",
-    "kraken-js": "^1.0.1",
-    "node-sass": "^2.1.1"
-  },
-  "devDependencies": {
-    "mocha": "^1.18.0",
-    "supertest": "^0.9.0"
-  },
-  "generator-kraken": {
-    "version": "1.1.2",
-    "template": "dustjs",
-    "css": "sass",
-    "js": false,
-    "task": "grunt"
-  }
+  "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
+  "license": "Apache-2.0"
 }

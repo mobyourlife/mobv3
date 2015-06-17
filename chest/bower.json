@@ -1,0 +1,21 @@
+{
+  "name": "chest",
+  "version": "2.5.0",
+  "authors": [
+    "Filipe Oliveira <contato@fmoliveira.com.br>"
+  ],
+  "description": "New front-end to serve for Mob Your Life customers.",
+  "main": "index.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://www.mobyourlife.com.br",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
