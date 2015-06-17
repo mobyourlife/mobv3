@@ -23,6 +23,8 @@ jobs.push(require('./jobs/sync-photos'));
 jobs.push(require('./jobs/sync-videos'));
 jobs.push(require('./jobs/count-stuff'));
 jobs.push(require('./jobs/welcome-email'));
+jobs.push(require('./jobs/page-ratings'));
+jobs.push(require('./jobs/page-ratings-avg'));
 
 /* background loop */
 var execute = function() {

@@ -148,7 +148,9 @@ var fanpageSchema = mongoose.Schema({
         sync_albums: Date,
         sync_videos: Date,
         count_stuff: Date,
-        welcome_email: Date
+        welcome_email: Date,
+        page_ratings: Date,
+        page_ratings_avg: Date
     },
     custom: {
         display_name: String,
@@ -158,7 +160,12 @@ var fanpageSchema = mongoose.Schema({
         time: Date,
         request: String,
         info: String
-    }
+    },
+    ratings: [{
+        reviewer: String,
+        rating: Number
+    }],
+    ratings_average: Number
 });
 
 // export user model
