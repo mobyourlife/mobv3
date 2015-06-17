@@ -20,7 +20,7 @@ var email = require('../../lib/email')();
 var sync = require('../../lib/sync')();
 var pagamento = require('../../lib/pagamento');
 var themes = require('../../lib/old-themes');
-var RTU = require('../../lib/realtime');
+//var RTU = require('../../lib/realtime');
 
 module.exports = function (router) {
     
@@ -812,7 +812,7 @@ module.exports = function (router) {
         });
     });
     
-    /* [should be retro ok] atualizações em tempo real do Facebook */
+    /* [should be retro ok] atualizações em tempo real do Facebook * /
     router.get('/facebook/realtime', function(req, res) {
         console.log('Realtime updates verification request received.');
         if (req.query['hub.mode'] === 'subscribe') {
@@ -825,7 +825,7 @@ module.exports = function (router) {
         res.status(500).send();
     });
     
-    /* [should be retro ok] */
+    /* [should be retro ok] * /
     router.post('/facebook/realtime', function(req, res) {
         var update = new Update();
         update.time = Date.now();
@@ -838,6 +838,7 @@ module.exports = function (router) {
         });
         res.status(200).send();
     });
+    */
     
     router.get('/pagseguro/callback', function(req, res) {
         var visitor = ua('UA-52753958-4');
