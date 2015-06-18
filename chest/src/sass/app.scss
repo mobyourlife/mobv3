@@ -1,0 +1,22 @@
+@import "_variables";
+@import "bootstrap";
+
+body {
+    padding-top: 70px;
+    padding-bottom: 30px;
+}
+
+/* solves alignment issues with navbar */
+.navbar-brand {
+    padding-top: 0;
+    line-height: $navbar-height;
+
+    & > header {
+        padding-right: 0.5em;
+    }
+
+    & > header, svg, img {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}

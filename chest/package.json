@@ -1,11 +1,25 @@
 {
   "name": "chest",
   "version": "2.5.0",
+  "private": true,
   "description": "New front-end to serve for Mob Your Life customers.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "express": "^4.12.4",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-debug": "^2.0.1",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-livereload": "^3.8.0",
+    "gulp-nodemon": "^2.0.3",
+    "gulp-sass": "^2.0.1",
+    "gulp-uglify": "^1.2.0",
+    "require-dir": "^0.3.0"
+  }
 }
