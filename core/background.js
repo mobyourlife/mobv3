@@ -3,7 +3,7 @@
 
 /* debug */
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/MobYourLife');
+mongoose.connect('mongodb://54.94.142.253:27017/MobYourLife');
 
 /* system libs */
 var moment = require('moment');
@@ -52,8 +52,8 @@ var loop = function () {
         }
     }
     
-    setTimeout(execute, 5000);
-    setTimeout(loop, 30000);
+    setTimeout(execute, 30 * 1000);
+    setTimeout(loop, 300 * 1000);
 };
 
 var start = function () {

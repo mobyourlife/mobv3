@@ -73,7 +73,7 @@ var syncPageVideosCallback = function(page, result) {
         
         /* queue next page */
         if (result.paging && result.paging.next && result.paging.cursors && result.paging.cursors.after) {
-            syncPageVideos(page, 'after=' + result.paging.cursors.after);
+            //syncPageVideos(page, 'after=' + result.paging.cursors.after);
         }
     }
 };

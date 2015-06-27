@@ -70,7 +70,7 @@ var syncAlbumPhotosCallback = function(album, result) {
         
         /* queue next page */
         if (result.paging && result.paging.next && result.paging.cursors && result.paging.cursors.after) {
-            syncAlbumPhotos(album, 'after=' + result.paging.cursors.after);
+            //syncAlbumPhotos(album, 'after=' + result.paging.cursors.after);
         }
     }
 };

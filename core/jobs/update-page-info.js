@@ -52,7 +52,7 @@ var syncPageInfoCallback = function(page, row) {
         
         /* extra info */
         'facebook.info.general_info': row.general_info,
-        'facebook.info.hours': row.hours,
+        //'facebook.info.hours': row.hours,
         'facebook.info.impressum': row.impressum,
         
         /* films */

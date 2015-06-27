@@ -21,7 +21,7 @@ var nextRun = moment().unix();
 /* add page info to the queue */
 var sendEmail = function(page) {
     console.log('Sending welcome email to fanpage ' + page._id + ' - ' + page.facebook.name + '.');
-    email.montarEmail('/var/www/mob/email/bem-vindo.html', page._id, function(html, user_email) {
+    email.montarEmail('d:/Repos/fmobstudio/mob/email/bem-vindo.html', page._id, function(html, user_email) {
         email.enviarEmail('Mob Your Life', 'nao-responder@mobyourlife.com.br', 'Bem-vindo ao Mob Your Life', html, user_email, function() {
             emailSentCallback(page);
         }, function(err) {

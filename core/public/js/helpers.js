@@ -29,3 +29,30 @@ function readCookie(name) {
     }
     return 'pt-BR';
 }
+
+function registerNewsletter() {
+    var emailAddress = $('#email').val();
+    if (!emailAddress || emailAddress.length === 0) {
+        alert('Type your email address!');
+        return;
+    }
+    
+    var regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    var match = emailAddress.match(regex);
+    
+    if (!match) {
+        alert('Please type a valid email address!');
+        return;
+    }
+    
+    var csrf = $('#_csrf').val();
+    
+    $.ajax({
+        type: "POST",
+        url: '/api/register-newsletter',
+        data: { _csrf: csrf, emailAddress: match[0] },
+        success: function() {
+            alert('You should receive a confirmation email in a few moments to validate your email adress!\n\nThank you!');
+        }
+    });
+}

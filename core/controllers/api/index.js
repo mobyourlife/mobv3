@@ -15,6 +15,7 @@ var Album = require('../../models/album');
 var Photo = require('../../models/photo');
 var Video = require('../../models/video');
 var Update = require('../../models/update');
+var Email = require('../../models/email');
 
 var email = require('../../lib/email')();
 var sync = require('../../lib/sync')();
@@ -573,6 +574,19 @@ module.exports = function (router) {
                 res.status(200).send({ domains: ret });
             });
         }
+    });
+    
+    /* api to register in the newsletter */
+    router.post('/register-newsletter', function (req, res) {
+        Email.update({ email: req.body.emailAddress }, { email: req.body.emailAddress }, { upsert: true }, function(err, records) {
+            if (err) {
+                console.log(err);
+                res.status(500).send();
+                return;
+            }
+
+            res.status(200).send();
+        });
     });
     
     /* api method to call for payment */

@@ -3,6 +3,7 @@
 
 /* system libs */
 var FB = require('fb');
+var moment = require('moment');
 
 /* app libs */
 var auth = require('../config/auth');
@@ -80,7 +81,7 @@ module.exports = {
                 errorCallback: cur.errorCallback
             });
             
-            console.log('>> GET ' + url);
+            console.log('>> ' + moment().format('DD/MM/YYYY HH:mm:ss') + ' - GET ' + url);
         }
         
         /* post the batch request */

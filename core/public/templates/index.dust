@@ -170,9 +170,10 @@
                     <p class="lead">{@pre type="content" key="index.getting-started-3-text"/}</p>
                     <div>
                         <div class="input-group input-group-lg hidden-xs">
-                            <input type="text" name="email" placeholder='{@pre type="content" key="index.getting-started-3-input-placeholder"/}' class="form-control">
+                            <input type="hidden" id="_csrf" name="_csrf" value="{_csrf}">
+                            <input type="text" id="email" name="email" placeholder='{@pre type="content" key="index.getting-started-3-input-placeholder"/}' class="form-control">
                             <span class="input-group-btn">
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" onclick="registerNewsletter();">
                                     <span><i class="fa fa-envelope"></i></span>
                                     <span>&nbsp;</span>
                                     <span>{@pre type="content" key="index.getting-started-3-button-caption"/}</span>

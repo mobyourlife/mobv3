@@ -78,7 +78,7 @@ var syncPageFeedsCallback = function(page, result) {
         if (result.paging && result.paging.next) {
             var regex = /until=([0-9]+)/.exec(result.paging.next);
             if (regex && regex.length == 2) {
-                syncPageFeeds(page, 'until=' + regex[1]);
+                //syncPageFeeds(page, 'until=' + regex[1]);
             }
         }
     }

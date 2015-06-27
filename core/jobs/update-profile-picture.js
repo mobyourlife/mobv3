@@ -92,6 +92,8 @@ var job = {
             if (err) {
                 console.log('Database error: ' + err);
             } else {
+                //Album.find({ ref: 
+                
                 var status = (records && records.length !== 0);
                 callback(job, status, records);
             }
