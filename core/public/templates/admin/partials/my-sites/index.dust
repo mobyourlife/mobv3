@@ -4,7 +4,7 @@
         <li class="active">{@pre type="content" key="my-sites.my-sites"/}</li>
     </ul>
     
-    <div ng-hide="data.sites" class="text-center">
+    <div ng-if="loaded && !data.sites" class="text-center">
         <p><img src="/img/party.png" alt='{@pre type="content" key="my-sites.welcome-title"/}'></p>
         <h2>{@pre type="content" key="my-sites.welcome-title"/}</h2>
         <h4>{@pre type="content" key="my-sites.welcome-message-1"/}</h4>
@@ -18,7 +18,7 @@
         </p>
     </div>
     
-    <div ng-show="data.sites">
+    <div ng-if="loaded && data.sites">
         <div class="row">
             <div class="col-xs-12">
                 <ul class="list-inline">
