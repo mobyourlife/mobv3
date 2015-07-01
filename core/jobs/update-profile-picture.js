@@ -10,6 +10,7 @@ var helpers = require('../lib/helpers')();
 
 /* database models */
 var Fanpage = require('../models/fanpage');
+var Album = require('../models/album');
 
 /* constantes */
 var timeout = 1;
@@ -20,23 +21,36 @@ var nextRun = moment().unix();
 
 /* add page info to the queue */
 var syncProfilePicture = function(page) {
-    var url = page._id + '/picture';
-    queue.add(page, url, 'width=320&height=320&redirect=false' , syncProfilePictureCallback, [ 'url' ], profilePictureErrorCallback);
+    Album.findOne({ ref: page._id, type: 'profile' }, function (err, one) {
+        if (one) {
+            var url = one._id + '/photos';
+            var args = 'limit=1';
+            queue.add(page, url, 'limit=1', syncProfilePictureCallback, [ 'images{source}' ], profilePictureErrorCallback);
+        }
+    });
 }
 
 /* parse page info callback response */
 var syncProfilePictureCallback = function(page, row) {
-    Fanpage.update({ _id: page._id }, {
-        /* profile picture */
-        'facebook.picture': (row.data && row.data.url ? helpers.safeImage(row.data.url) : null),
+    if (row.data && row.data.length > 0) {
+        var images = row.data[0].images;
         
-        /* job status */
-        'jobs.update_profile_picture': Date.now()
-    }, function(err) {
-        if (err) {
-            throw 'Error updating output from sync profile picture: ' + err;
+        if (images && images.length > 0) {
+            var savepic = images[images.length - 1].source;
+
+            Fanpage.update({ _id: page._id }, {
+                /* profile picture */
+                'facebook.picture': savepic,
+
+                /* job status */
+                'jobs.update_profile_picture': Date.now()
+            }, function(err) {
+                if (err) {
+                    throw 'Error updating output from sync profile picture: ' + err;
+                }
+            });
         }
-    });
+    }
 };
 
 /* parse error conditions */
@@ -92,8 +106,6 @@ var job = {
             if (err) {
                 console.log('Database error: ' + err);
             } else {
-                //Album.find({ ref: 
-                
                 var status = (records && records.length !== 0);
                 callback(job, status, records);
             }

@@ -72,6 +72,11 @@ var job = {
 
         Fanpage.find({ 'billing.expiration': { $gt: new Date() }, 'error': { $exists: false }, 'jobs.new_site_created': { $exists: true, $ne: null } }, function (err, pages) {
             var pages_list = [];
+            
+            if (err || !pages) {
+                return;
+            }
+            
             for (var i = 0; i < pages.length; i++) {
                 pages_list.push(pages[i]._id);
             }
