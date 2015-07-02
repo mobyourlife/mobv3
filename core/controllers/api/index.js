@@ -699,19 +699,48 @@ module.exports = function (router) {
                         if (found) {
                             for (var i = 0; i < req.user.fanpages.length; i++) {
                                 if (req.user.fanpages[i].id == found._id) {
-                                    res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: true, csrf: res.locals._csrf });
+                                    res.send({
+                                        auth: true,
+                                        uid: req.user._id,
+                                        name: req.user.facebook.name,
+                                        email: req.user.facebook.email,
+                                        picture: req.user.facebook.picture,
+                                        isowner: true,
+                                        csrf: res.locals._csrf
+                                    });
                                     return;
                                 }
                             }
                             
                             /* não é o dono quem está acessando */
-                            res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: false });
+                            res.send({
+                                auth: true,
+                                uid: req.user._id,
+                                name: req.user.facebook.name,
+                                email: req.user.facebook.email,
+                                picture: req.user.facebook.picture,
+                                isowner: false
+                            });
                         } else {
-                            res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: false });
+                            res.send({
+                                auth: true,
+                                uid: req.user._id,
+                                name: req.user.facebook.name,
+                                email: req.user.facebook.email,
+                                picture: req.user.facebook.picture,
+                                isowner: false
+                            });
                         }
                     });
                 } else {
-                    res.send({ auth: true, uid: req.user._id, name: req.user.facebook.name, email: req.user.facebook.email, isowner: false });
+                    res.send({
+                        auth: true,
+                        uid: req.user._id,
+                        name: req.user.facebook.name,
+                        email: req.user.facebook.email,
+                        picture: req.user.facebook.picture,
+                        isowner: false
+                    });
                 }
             });
         } else {
