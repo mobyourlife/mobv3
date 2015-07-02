@@ -90,8 +90,7 @@ var job = {
         }
 
         Fanpage.find({ 'jobs.new_site_created': { $exists: false }, $or: [
-                        { 'error': { $exists: false } },
-                        { 'error.time': { $lt: new Date((new Date()) - (1000 * 60 * 30)) } }
+                        { 'error': { $exists: false } }
                     ] }, function (err, records) {
             if (err) {
                 console.log('Database error: ' + err);
