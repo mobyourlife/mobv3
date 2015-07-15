@@ -3,7 +3,7 @@
 
 /* debug */
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://54.94.142.253:27017/MobYourLife');
+mongoose.connect('mongodb://localhost:27017/MobYourLife');
 
 /* system libs */
 var moment = require('moment');
@@ -27,8 +27,14 @@ jobs.push(require('./jobs/count-stuff'));
 //jobs.push(require('./jobs/page-ratings-avg'));
 
 /* background loop */
+var disconnect = function () {
+    console.log('Disconnecting.');
+    mongoose.disconnect();
+};
+
 var execute = function() {
     queue.execute();
+    setTimeout(disconnect, 60 * 1000);
 };
 
 var loop = function () {
@@ -53,7 +59,7 @@ var loop = function () {
     }
     
     setTimeout(execute, 30 * 1000);
-    setTimeout(loop, 300 * 1000);
+    //setTimeout(loop, 300 * 1000);
 };
 
 var start = function () {
