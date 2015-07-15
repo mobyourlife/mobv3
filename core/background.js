@@ -3,7 +3,8 @@
 
 /* debug */
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/MobYourLife');
+var defaultdb = 'mongodb://localhost:27017/MobYourLife';
+mongoose.connect(process.env.MONGOLAB_CONNECTION || defaultdb);
 
 /* system libs */
 var moment = require('moment');
