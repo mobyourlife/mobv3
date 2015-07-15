@@ -1,6 +1,10 @@
 {
   "name": "mobv3",
   "version": "3.0.0",
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.5.x"
+  },
   "description": "Service to create and update websites through Facebook's platform.",
   "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
   "main": "index.js",
