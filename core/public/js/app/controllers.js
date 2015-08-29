@@ -17,8 +17,8 @@ app.config(function($validatorProvider) {
 /* my sites index */
 app.controller('MySitesController', function($scope, $http) {
     $http.get('/api/my-sites').success(function(data) {
+        $scope.loaded = true;
         if (data && data.sites && data.sites.length && data.sites.length != 0) {
-            $scope.loaded = true;
             $scope.data = data;
         }
     }).error(function(data, status) {
