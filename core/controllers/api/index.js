@@ -34,7 +34,7 @@ jobs.push(require('../../jobs/sync-feeds'));
 jobs.push(require('../../jobs/sync-albums'));
 
 var runJobs = function () {
-	for(i = 0; i < jobs.length; i += 1) {
+	for(var i = 0; i < jobs.length; i += 1) {
 		var cur = jobs[i];
 		
 		if (cur) {
