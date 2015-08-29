@@ -25,6 +25,30 @@ var themes = require('../../lib/old-themes');
 //var RTU = require('../../lib/realtime');
 var AdminPerms = require('../../lib/admin-perms');
 
+/* jobs to be run after new website creation */
+var jobs = [];
+jobs.push(require('./jobs/new-site-created'));
+jobs.push(require('./jobs/update-page-info'));
+jobs.push(require('./jobs/update-profile-picture'));
+jobs.push(require('./jobs/sync-feeds'));
+jobs.push(require('./jobs/sync-albums'));
+
+var runJobs = function () {
+	for(i = 0; i < jobs.length; i += 1) {
+		var cur = jobs[i];
+		
+		if (cur) {
+			console.log('Checking conditions for job "' + cur.jobName + '"...');
+			cur.checkConditions(function (job, status, model) {
+				console.log(status ? '  [OK] Running job "' + job.jobName + '"...' : '  [NOPE] Job "' + job.jobName + '" will not run.');
+				job.doWork(model, function() {
+					console.log('  [DONE] Finished job "' + job.jobName + '.');
+				});
+			});
+		}
+	}
+}
+
 module.exports = function (router) {
 	
 	/* [retro ok] */
@@ -290,6 +314,8 @@ module.exports = function (router) {
 										console.log(domain);
 										throw err;
 									}
+
+									runJobs();
 
 									res.status(200).send({ url: domain._id });
 								});
