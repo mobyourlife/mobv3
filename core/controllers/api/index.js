@@ -27,11 +27,11 @@ var AdminPerms = require('../../lib/admin-perms');
 
 /* jobs to be run after new website creation */
 var jobs = [];
-jobs.push(require('./jobs/new-site-created'));
-jobs.push(require('./jobs/update-page-info'));
-jobs.push(require('./jobs/update-profile-picture'));
-jobs.push(require('./jobs/sync-feeds'));
-jobs.push(require('./jobs/sync-albums'));
+jobs.push(require('../../jobs/new-site-created'));
+jobs.push(require('../../jobs/update-page-info'));
+jobs.push(require('../../jobs/update-profile-picture'));
+jobs.push(require('../../jobs/sync-feeds'));
+jobs.push(require('../../jobs/sync-albums'));
 
 var runJobs = function () {
 	for(i = 0; i < jobs.length; i += 1) {
