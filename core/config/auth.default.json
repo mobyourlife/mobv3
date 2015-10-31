@@ -1,0 +1,8 @@
+{
+    "facebook" : {
+        "clientID": "",
+        "clientSecret": "",
+        "callbackURL": "",
+        "realtimeURL": ""
+    }
+}
