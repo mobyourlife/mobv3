@@ -7,8 +7,8 @@
     },
     
     "database": {
-        "host": "localhost",
-        "database": "MobYourLife"
+        "host": "db",
+        "database": "mobyourlife"
     },
 
     "view engines": {
