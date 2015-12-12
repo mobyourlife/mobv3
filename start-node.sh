@@ -2,9 +2,9 @@
 
 docker rm -f mobv3
 
-#docker rmi -f mobv3
+docker rmi -f mobv3
 
-#docker build -t mobv3 .
+docker build -t mobv3 .
 
 docker run \
 	--name mobv3 \
