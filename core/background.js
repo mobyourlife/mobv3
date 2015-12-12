@@ -3,7 +3,7 @@
 
 /* debug */
 var mongoose = require('mongoose');
-var defaultdb = 'mongodb://localhost:27017/MobYourLife';
+var defaultdb = 'mongodb://db:27017/mobyourlife';
 mongoose.connect(process.env.MONGOLAB_CONNECTION || defaultdb);
 
 /* system libs */
